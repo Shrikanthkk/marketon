@@ -1,0 +1,314 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-mk-bg: var(--mk-bg);
+  --color-mk-white: var(--mk-white);
+  --color-mk-navy: var(--mk-navy);
+  --color-mk-orange: #E87B3A;
+  --color-mk-blue-soft: var(--mk-blue-soft);
+  --color-mk-heading: var(--mk-heading);
+  --color-mk-body: var(--mk-body);
+  --color-mk-muted: var(--mk-muted);
+  --color-mk-border: var(--mk-border);
+
+  --font-display: "DM Serif Display", serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+/* ==========================================================================
+   Light Mode (Default Theme — Exact Existing Styling)
+   ========================================================================== */
+:root {
+  --radius: 0.75rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.2 0.04 280);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.04 280);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.04 280);
+  --primary: oklch(0.65 0.16 45);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.3 0.06 260);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.97 0.005 270);
+  --muted-foreground: oklch(0.5 0.03 270);
+  --accent: oklch(0.96 0.02 35);
+  --accent-foreground: oklch(0.2 0.04 280);
+  --destructive: oklch(0.6 0.24 27);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.92 0.01 270);
+  --input: oklch(0.92 0.01 270);
+  --ring: oklch(0.65 0.16 45);
+
+  --mk-bg: #F4F4FB;
+  --mk-white: #FFFFFF;
+  --mk-navy: #1B2B4B;
+  --mk-heading: #111827;
+  --mk-body: #6B7280;
+  --mk-muted: #9CA3AF;
+  --mk-border: #E8E8F0;
+  --mk-blue-soft: #DDE7FF;
+  --mk-card-bg: #FFFFFF;
+  --mk-card-border: #E8E8F0;
+  --mk-nav-bg: rgba(255, 255, 255, 0.75);
+  --mk-nav-bg-scrolled: rgba(255, 255, 255, 0.95);
+  --mk-nav-border: #E8E8F0;
+  --mk-nav-text: #1B2B4B;
+}
+
+/* ==========================================================================
+   Galaxy Dark Mode (#010104 Deep Black SaaS Galaxy Theme)
+   ========================================================================== */
+.dark,
+[data-theme="galaxy"] {
+  --background: #010104;
+  --foreground: #FFFFFF;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-foreground: #FFFFFF;
+  --popover: #0C101B;
+  --popover-foreground: #FFFFFF;
+  --muted: rgba(255, 255, 255, 0.06);
+  --muted-foreground: #8F96A3;
+  --accent: rgba(232, 123, 58, 0.15);
+  --accent-foreground: #E87B3A;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #E87B3A;
+
+  --mk-bg: #010104;
+  --mk-white: transparent;
+  --mk-navy: #FFFFFF;
+  --mk-heading: #FFFFFF;
+  --mk-body: #B8BDC7;
+  --mk-muted: #8F96A3;
+  --mk-border: rgba(255, 255, 255, 0.08);
+  --mk-blue-soft: rgba(30, 41, 59, 0.5);
+  --mk-card-bg: rgba(255, 255, 255, 0.04);
+  --mk-card-border: rgba(255, 255, 255, 0.08);
+  --mk-nav-bg: rgba(5, 5, 8, 0.75);
+  --mk-nav-bg-scrolled: rgba(5, 5, 8, 0.9);
+  --mk-nav-border: rgba(255, 255, 255, 0.10);
+  --mk-nav-text: #FFFFFF;
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--mk-bg);
+    color: var(--mk-heading);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 400ms ease, color 400ms ease;
+  }
+}
+
+.dark body,
+[data-theme="galaxy"] body {
+  background-color: #010104 !important;
+}
+
+/* Smooth Theme Switching Transition */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 400ms ease, color 400ms ease, border-color 400ms ease, box-shadow 400ms ease, fill 400ms ease, stroke 400ms ease !important;
+}
+
+/* ===== MARKETON BASE & COMPONENTS ===== */
+.font-display { font-family: var(--font-display); }
+.font-sans { font-family: var(--font-sans); }
+
+@keyframes morphOrb {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: .3; filter: hue-rotate(0deg); }
+  50% { transform: scale(1.15) rotate(8deg); opacity: .5; filter: hue-rotate(15deg); }
+}
+.mk-orb {
+  background: radial-gradient(ellipse at center, rgba(255,160,80,0.55), rgba(232,123,58,0.25) 35%, transparent 70%);
+  animation: morphOrb 8s ease-in-out infinite;
+  filter: blur(20px);
+  will-change: transform, opacity;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.mk-marquee-track {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+  animation-play-state: var(--marquee-state, running);
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.mk-shimmer::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Button Styles & Dark Mode Adaptations */
+.mk-btn-navy {
+  background: #1B2B4B; color: #fff; border-radius: 999px;
+  padding: 14px 28px; font-weight: 600; font-size: 15px;
+  transition: transform 150ms ease, box-shadow 200ms ease, background 300ms ease;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.dark .mk-btn-navy,
+[data-theme="galaxy"] .mk-btn-navy {
+  background: #1E293B;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.mk-btn-navy:hover { transform: scale(1.02); box-shadow: 0 12px 28px -8px rgba(27,43,75,0.45); }
+.dark .mk-btn-navy:hover,
+[data-theme="galaxy"] .mk-btn-navy:hover {
+  background: #E87B3A;
+  border-color: #E87B3A;
+  box-shadow: 0 12px 28px -8px rgba(232, 123, 58, 0.5);
+}
+.mk-btn-navy:active { transform: scale(0.98); }
+
+.mk-btn-outline {
+  background: #fff; color: #1B2B4B; border: 1.5px solid #1B2B4B;
+  border-radius: 999px; padding: 12.5px 28px; font-weight: 600; font-size: 15px;
+  transition: transform 150ms ease, background 200ms, color 200ms, border-color 200ms;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.dark .mk-btn-outline,
+[data-theme="galaxy"] .mk-btn-outline {
+  background: rgba(255, 255, 255, 0.05);
+  color: #FFFFFF;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+.mk-btn-outline:hover { transform: scale(1.02); background: #1B2B4B; color: #fff; }
+.dark .mk-btn-outline:hover,
+[data-theme="galaxy"] .mk-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.mk-btn-outline:active { transform: scale(0.98); }
+
+/* Card Styles & Dark Mode Adaptations */
+.mk-card {
+  background: var(--mk-card-bg);
+  border: 1px solid var(--mk-card-border);
+  border-radius: 20px;
+}
+.dark .mk-card,
+[data-theme="galaxy"] .mk-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.mk-card-lg { border-radius: 28px; }
+
+/* In Galaxy Dark Mode: Ensure sections are transparent so galaxy background flows continuously */
+.dark section,
+[data-theme="galaxy"] section {
+  background-color: transparent !important;
+}
+
+/* In Galaxy Dark Mode: Adapt generic bg-white cards/containers without changing HTML */
+.dark .bg-white,
+[data-theme="galaxy"] .bg-white {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .text-mk-navy,
+[data-theme="galaxy"] .text-mk-navy {
+  color: #FFFFFF !important;
+}
+
+.dark .text-mk-heading,
+[data-theme="galaxy"] .text-mk-heading {
+  color: #FFFFFF !important;
+}
+
+.dark .text-mk-body,
+[data-theme="galaxy"] .text-mk-body {
+  color: #B8BDC7 !important;
+}
+
+.dark .text-mk-muted,
+[data-theme="galaxy"] .text-mk-muted {
+  color: #8F96A3 !important;
+}
+
+.dark .border-mk-border,
+[data-theme="galaxy"] .border-mk-border {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .border-mk-navy,
+[data-theme="galaxy"] .border-mk-navy {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark .bg-mk-navy,
+[data-theme="galaxy"] .bg-mk-navy {
+  background-color: #1E293B !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .bg-mk-bg,
+[data-theme="galaxy"] .bg-mk-bg {
+  background-color: transparent !important;
+}
+
+.dark .bg-mk-blue-soft,
+[data-theme="galaxy"] .bg-mk-blue-soft {
+  background-color: rgba(30, 41, 59, 0.5) !important;
+}
+
+.mk-no-scrollbar::-webkit-scrollbar { display: none; }
+.mk-no-scrollbar { scrollbar-width: none; }
+
+.mk-edge-fade {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
