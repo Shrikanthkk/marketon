@@ -91,9 +91,9 @@ export default function GalaxyBackground() {
             className="absolute inset-0"
             style={{
               background: `
-                radial-gradient(circle at 50% 42%, rgba(255, 120, 45, 0.08) 0%, rgba(15, 18, 35, 0.05) 30%, transparent 60%),
+                radial-gradient(circle at 50% 42%, rgba(147, 51, 234, 0.08) 0%, rgba(15, 18, 35, 0.05) 30%, transparent 60%),
                 radial-gradient(700px 500px at 80% 20%, rgba(82, 120, 255, 0.07), transparent 60%),
-                radial-gradient(600px 400px at 20% 80%, rgba(232, 123, 58, 0.05), transparent 60%)
+                radial-gradient(600px 400px at 20% 80%, rgba(147, 51, 234, 0.05), transparent 60%)
               `,
             }}
           />

@@ -109,7 +109,7 @@ export default function HeroShaderBackground({
         // depth orbs (warm + cool) parallaxed by light
         float warm = exp(-3.2 * length(p - light * 0.6));
         float cool = exp(-4.0 * length(p - vec2(-0.4, 0.25) + light*0.1));
-        vec3 warmCol = vec3(1.0, 0.55, 0.28);   // mk-orange
+        vec3 warmCol = vec3(0.65, 0.25, 0.95);   // mk-purple
         vec3 coolCol = vec3(0.47, 0.59, 1.0);   // soft indigo
 
         float cloudIntensity = mix(0.55, 0.35, u_dark);

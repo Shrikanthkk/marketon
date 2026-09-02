@@ -26,7 +26,7 @@ type Mod = {
 };
 
 const MODS: Mod[] = [
-  { key: "leads",     label: "Lead Intelligence", short: "LEADS",     icon: <Users className="w-5 h-5" />,       color: "#E87B3A" },
+  { key: "leads",     label: "Lead Intelligence", short: "LEADS",     icon: <Users className="w-5 h-5" />,       color: "#9333EA" },
   { key: "voice",     label: "Voice AI",          short: "VOICE",     icon: <PhoneCall className="w-5 h-5" />,   color: "#5278FF" },
   { key: "omni",      label: "Omnichannel",       short: "OMNI",      icon: <Zap className="w-5 h-5" />,         color: "#10B981" },
   { key: "workflow",  label: "Workflow Engine",   short: "FLOW",      icon: <GitBranch className="w-5 h-5" />,   color: "#8B5CF6" },
@@ -234,7 +234,7 @@ function Backdrop({ driftX, driftY, driftX2, driftY2 }: any) {
         style={{
           x: driftX2, y: driftY2,
           background:
-            "radial-gradient(600px 400px at 20% 80%, rgba(232,123,58,0.18), transparent 60%), radial-gradient(700px 500px at 80% 20%, rgba(82,120,255,0.22), transparent 60%)",
+            "radial-gradient(600px 400px at 20% 80%, rgba(147,51,234,0.18), transparent 60%), radial-gradient(700px 500px at 80% 20%, rgba(82,120,255,0.22), transparent 60%)",
         }}
       />
       {/* Floating particles */}
@@ -395,7 +395,7 @@ function AiCore() {
         className="absolute inset-0 rounded-full"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, rgba(232,123,58,0.55), rgba(82,120,255,0.35) 45%, transparent 70%)",
+            "radial-gradient(circle at 50% 50%, rgba(147,51,234,0.55), rgba(82,120,255,0.35) 45%, transparent 70%)",
           filter: "blur(18px)",
         }}
         animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
@@ -428,8 +428,8 @@ function AiCore() {
           style={{
             width: 120, height: 120,
             background:
-              "radial-gradient(circle at 35% 30%, #fff 0%, #FFD7B5 18%, #E87B3A 45%, #5A2BB0 80%)",
-            boxShadow: "0 0 80px rgba(232,123,58,0.55), inset 0 0 40px rgba(255,255,255,0.4)",
+              "radial-gradient(circle at 35% 30%, #fff 0%, #E9D5FF 18%, #9333EA 45%, #581C87 80%)",
+            boxShadow: "0 0 80px rgba(147,51,234,0.55), inset 0 0 40px rgba(255,255,255,0.4)",
           }}
           animate={{ scale: [1, 1.04, 1] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}

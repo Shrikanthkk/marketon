@@ -74,7 +74,7 @@ function TiltCard({ children, className = "" }: { children: ReactNode; className
           background: useTransform(
             [gx, gy] as any,
             ([gxv, gyv]: any) =>
-              `radial-gradient(280px circle at ${gxv} ${gyv}, rgba(232,123,58,0.12), transparent 70%)`
+              `radial-gradient(280px circle at ${gxv} ${gyv}, rgba(147,51,234,0.12), transparent 70%)`
           ),
         }}
       />
@@ -131,8 +131,8 @@ function Divider() {
       style={{ originX: 0.5 }}
     >
       <line x1="0" y1="7" x2="85" y2="7" stroke="#1B2B4B" strokeOpacity="0.25" strokeWidth="1" />
-      <circle cx="100" cy="7" r="3" fill="#E87B3A" />
-      <circle cx="100" cy="7" r="6" stroke="#E87B3A" strokeOpacity="0.3" />
+      <circle cx="100" cy="7" r="3" fill="#9333EA" />
+      <circle cx="100" cy="7" r="6" stroke="#9333EA" strokeOpacity="0.3" />
       <line x1="115" y1="7" x2="200" y2="7" stroke="#1B2B4B" strokeOpacity="0.25" strokeWidth="1" />
     </motion.svg>
   );
@@ -314,7 +314,7 @@ function HeroNeuralCanvas({ mouse }: { mouse: React.MutableRefObject<{ x: number
             const alpha = (1 - d2 / 14000) * 0.18;
             const hue = (a.hue + b.hue) / 2;
             ctx.strokeStyle = hue < 100
-              ? `rgba(232,123,58,${alpha})`
+              ? `rgba(147,51,234,${alpha})`
               : `rgba(120,150,255,${alpha})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath();
@@ -326,7 +326,7 @@ function HeroNeuralCanvas({ mouse }: { mouse: React.MutableRefObject<{ x: number
       }
       // dots
       for (const p of particles) {
-        const col = p.hue < 100 ? "232,123,58" : "120,150,255";
+        const col = p.hue < 100 ? "147,51,234" : "120,150,255";
         ctx.fillStyle = `rgba(${col},0.85)`;
         ctx.shadowBlur = 12;
         ctx.shadowColor = `rgba(${col},0.7)`;
@@ -355,9 +355,9 @@ function HeroSignalLine() {
             <stop offset="1" stopColor="#1B2B4B" stopOpacity="0" />
           </linearGradient>
           <linearGradient id="heroScan" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0" stopColor="#E87B3A" stopOpacity="0" />
-            <stop offset="0.5" stopColor="#E87B3A" stopOpacity="1" />
-            <stop offset="1" stopColor="#E87B3A" stopOpacity="0" />
+            <stop offset="0" stopColor="#9333EA" stopOpacity="0" />
+            <stop offset="0.5" stopColor="#9333EA" stopOpacity="1" />
+            <stop offset="1" stopColor="#9333EA" stopOpacity="0" />
           </linearGradient>
         </defs>
         <line x1="0" y1="11" x2="120" y2="11" stroke="url(#heroLineGrad)" strokeWidth="1" />
@@ -405,7 +405,7 @@ function HeroSignalLine() {
           transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
           style={{ width: 22, height: 22 }}
         >
-          <span className="absolute -top-[2px] left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mk-orange shadow-[0_0_6px_rgba(232,123,58,0.9)]" />
+          <span className="absolute -top-[2px] left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mk-orange shadow-[0_0_6px_rgba(147,51,234,0.9)]" />
         </motion.span>
         <motion.span
           className="block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-mk-orange/25"
@@ -418,8 +418,8 @@ function HeroSignalLine() {
           className="block w-[8px] h-[8px] rounded-full bg-mk-orange"
           animate={{
             boxShadow: [
-              "0 0 0 0 rgba(232,123,58,0.6), 0 0 10px rgba(232,123,58,0.9)",
-              "0 0 0 14px rgba(232,123,58,0), 0 0 20px rgba(232,123,58,0.5)",
+              "0 0 0 0 rgba(147,51,234,0.6), 0 0 10px rgba(147,51,234,0.9)",
+              "0 0 0 14px rgba(147,51,234,0), 0 0 20px rgba(147,51,234,0.5)",
             ],
             scale: [1, 1.15, 1],
           }}
@@ -444,8 +444,8 @@ function HeroMagneticButton({
   const gy = useMotionValue(50);
   const bgGlow = useTransform([gx, gy], ([cx, cy]) =>
     variant === "navy"
-      ? `radial-gradient(160px circle at ${cx}% ${cy}%, rgba(255,170,110,0.45), transparent 70%)`
-      : `radial-gradient(160px circle at ${cx}% ${cy}%, rgba(232,123,58,0.28), transparent 70%)`,
+      ? `radial-gradient(160px circle at ${cx}% ${cy}%, rgba(192,132,252,0.45), transparent 70%)`
+      : `radial-gradient(160px circle at ${cx}% ${cy}%, rgba(147,51,234,0.28), transparent 70%)`,
   );
   return (
     <motion.button
@@ -479,7 +479,7 @@ function HeroMagneticButton({
         style={{
           padding: 1,
           background:
-            "conic-gradient(from 0deg, rgba(232,123,58,0) 0deg, rgba(232,123,58,0.9) 90deg, rgba(232,123,58,0) 180deg, rgba(120,150,255,0.7) 270deg, rgba(232,123,58,0) 360deg)",
+            "conic-gradient(from 0deg, rgba(147,51,234,0) 0deg, rgba(147,51,234,0.9) 90deg, rgba(147,51,234,0) 180deg, rgba(120,150,255,0.7) 270deg, rgba(147,51,234,0) 360deg)",
           WebkitMask:
             "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
           WebkitMaskComposite: "xor",
@@ -496,7 +496,7 @@ function HeroMagneticButton({
           background:
             variant === "navy"
               ? "linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%)"
-              : "linear-gradient(110deg, transparent 30%, rgba(232,123,58,0.22) 50%, transparent 70%)",
+              : "linear-gradient(110deg, transparent 30%, rgba(147,51,234,0.22) 50%, transparent 70%)",
           transform: "translateX(-100%)",
           animation: "heroSweep 1.6s ease-in-out infinite",
         }}
@@ -568,7 +568,7 @@ function Hero() {
         @keyframes heroFog { 0%,100%{transform:translateX(-5%)} 50%{transform:translateX(5%)} }
         @keyframes heroStreak { 0%{transform:translateX(-30%) skewX(-20deg); opacity:0} 20%{opacity:.55} 100%{transform:translateX(130%) skewX(-20deg); opacity:0} }
         @keyframes heroBreathe { 0%,100%{opacity:.85} 50%{opacity:1} }
-        @keyframes heroLetterGlow { 0%,100%{text-shadow:0 0 0 rgba(232,123,58,0)} 50%{text-shadow:0 0 22px rgba(232,123,58,0.18)} }
+        @keyframes heroLetterGlow { 0%,100%{text-shadow:0 0 0 rgba(147,51,234,0)} 50%{text-shadow:0 0 22px rgba(147,51,234,0.18)} }
       `}</style>
 
       {/* ===== ADVANCED MULTI-LAYER BACKGROUND ===== */}
@@ -590,7 +590,7 @@ function Hero() {
               className="absolute inset-0 opacity-[0.35]"
               style={{
                 background:
-                  "conic-gradient(from 90deg at 50% 50%, rgba(255,170,110,0) 0deg, rgba(255,170,110,0.45) 60deg, rgba(120,150,255,0) 140deg, rgba(120,150,255,0.35) 220deg, rgba(255,170,110,0) 320deg, rgba(255,170,110,0) 360deg)",
+                  "conic-gradient(from 90deg at 50% 50%, rgba(192,132,252,0) 0deg, rgba(192,132,252,0.45) 60deg, rgba(120,150,255,0) 140deg, rgba(120,150,255,0.35) 220deg, rgba(192,132,252,0) 320deg, rgba(192,132,252,0) 360deg)",
                 filter: "blur(70px)",
                 animation: "heroAurora 60s linear infinite",
                 maskImage:
@@ -629,8 +629,8 @@ function Hero() {
             className="w-[760px] h-[380px] rounded-full"
             style={{
               background: isGalaxy
-                ? "radial-gradient(circle at 50% 45%, rgba(255,120,45,.08), rgba(15,18,35,.04) 30%, transparent 60%)"
-                : "radial-gradient(ellipse at center, rgba(255,170,110,0.6), rgba(232,123,58,0.2) 40%, transparent 70%)",
+                ? "radial-gradient(circle at 50% 45%, rgba(147,51,234,.08), rgba(15,18,35,.04) 30%, transparent 60%)"
+                : "radial-gradient(ellipse at center, rgba(192,132,252,0.6), rgba(147,51,234,0.2) 40%, transparent 70%)",
               filter: "blur(50px)",
               animation: "heroDrift1 14s ease-in-out infinite",
             }}
@@ -719,8 +719,8 @@ function Hero() {
         >
           <defs>
             <linearGradient id="heroBeam" x1="0" x2="1" y1="0" y2="0">
-              <stop offset="0" stopColor="#E87B3A" stopOpacity="0" />
-              <stop offset="0.5" stopColor="#E87B3A" stopOpacity="0.6" />
+              <stop offset="0" stopColor="#9333EA" stopOpacity="0" />
+              <stop offset="0.5" stopColor="#9333EA" stopOpacity="0.6" />
               <stop offset="1" stopColor="#7896FF" stopOpacity="0" />
             </linearGradient>
           </defs>
@@ -747,8 +747,8 @@ function Hero() {
           left: cursorX,
           top: cursorY,
           background: isGalaxy
-            ? "radial-gradient(circle, rgba(255,120,45,0.08), transparent 70%)"
-            : "radial-gradient(circle, rgba(255,170,110,0.28), rgba(255,170,110,0.08) 35%, transparent 70%)",
+            ? "radial-gradient(circle, rgba(147,51,234,0.12), transparent 70%)"
+            : "radial-gradient(circle, rgba(168,85,247,0.28), rgba(168,85,247,0.08) 35%, transparent 70%)",
           filter: "blur(20px)",
           mixBlendMode: "screen",
         }}
@@ -774,9 +774,9 @@ function Hero() {
           transition={{ delay: 0.35, duration: 0.6, ease: EASE_EXPO }}
           className={`relative inline-flex items-center gap-2 px-4 py-1.5 rounded-full ${
             isGalaxy
-              ? "bg-[#FFF4ED] text-mk-orange border border-orange-200/70"
-              : "bg-white/70 backdrop-blur-md border border-orange-200/70 text-mk-orange"
-          } text-[13px] font-semibold shadow-[0_8px_30px_-8px_rgba(232,123,58,0.3)]`}
+              ? "bg-[#FAF5FF] text-mk-orange border border-purple-200/70"
+              : "bg-white/70 backdrop-blur-md border border-purple-200/70 text-mk-orange"
+          } text-[13px] font-semibold shadow-[0_8px_30px_-8px_rgba(147,51,234,0.3)]`}
         >
           <motion.span
             animate={{ rotate: 360 }}
@@ -791,7 +791,7 @@ function Hero() {
             className="absolute -inset-px rounded-full pointer-events-none"
             style={{
               background:
-                "conic-gradient(from 0deg, rgba(232,123,58,0), rgba(232,123,58,0.6), rgba(232,123,58,0))",
+                "conic-gradient(from 0deg, rgba(147,51,234,0), rgba(147,51,234,0.6), rgba(147,51,234,0))",
               WebkitMask:
                 "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
               WebkitMaskComposite: "xor",
@@ -902,7 +902,7 @@ function Hero() {
           >
             <motion.span
               className="absolute inset-0 rounded-full"
-              animate={{ boxShadow: ["0 0 0 0 rgba(232,123,58,0.4)", "0 0 0 14px rgba(232,123,58,0)"] }}
+              animate={{ boxShadow: ["0 0 0 0 rgba(147,51,234,0.4)", "0 0 0 14px rgba(147,51,234,0)"] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
             <ChevronDown />
@@ -1084,9 +1084,9 @@ function LeadScoringTab() {
     <>
       <motion.div
         animate={{ y: [0, -4, 0], boxShadow: [
-          "0 10px 30px -20px rgba(232,123,58,0.25)",
-          "0 20px 50px -20px rgba(232,123,58,0.45)",
-          "0 10px 30px -20px rgba(232,123,58,0.25)",
+          "0 10px 30px -20px rgba(147,51,234,0.25)",
+          "0 20px 50px -20px rgba(147,51,234,0.45)",
+          "0 10px 30px -20px rgba(147,51,234,0.25)",
         ] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         className="relative bg-mk-bg rounded-2xl p-6 flex flex-col gap-4 overflow-hidden"
@@ -1096,7 +1096,7 @@ function LeadScoringTab() {
           aria-hidden
           className="absolute inset-0 rounded-2xl pointer-events-none"
           style={{
-            background: "conic-gradient(from 0deg, rgba(232,123,58,0.0), rgba(232,123,58,0.35), rgba(232,123,58,0.0) 40%)",
+            background: "conic-gradient(from 0deg, rgba(147,51,234,0.0), rgba(147,51,234,0.35), rgba(147,51,234,0.0) 40%)",
             WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
             maskComposite: "exclude",
@@ -1187,7 +1187,7 @@ function LeadScoringTab() {
           {Array.from({ length: 5 }).map((_, i) => (
             <motion.span
               key={i}
-              animate={{ scale: [1, 1.18, 1], filter: ["drop-shadow(0 0 0 rgba(232,123,58,0))", "drop-shadow(0 0 6px rgba(232,123,58,0.7))", "drop-shadow(0 0 0 rgba(232,123,58,0))"] }}
+              animate={{ scale: [1, 1.18, 1], filter: ["drop-shadow(0 0 0 rgba(147,51,234,0))", "drop-shadow(0 0 6px rgba(147,51,234,0.7))", "drop-shadow(0 0 0 rgba(147,51,234,0))"] }}
               transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
             >
               <Star size={16} className="fill-mk-orange text-mk-orange" />
@@ -1205,19 +1205,19 @@ function LeadScoringTab() {
         <div className="relative">
           <div className="flex justify-between text-xs font-semibold text-mk-navy mb-1.5">
             <span>AI Score</span>
-            <span style={{ textShadow: "0 0 12px rgba(232,123,58,0.5)" }}>{score}/100</span>
+            <span style={{ textShadow: "0 0 12px rgba(147,51,234,0.5)" }}>{score}/100</span>
           </div>
           <div className="relative h-2 bg-white rounded-full overflow-hidden">
             <motion.div
               animate={{ width: `${lead.score}%` }}
               transition={{ duration: 1.1, ease: EASE_EXPO }}
               className="h-full relative overflow-hidden rounded-full"
-              style={{ background: "linear-gradient(90deg, #e87b3a, #fbbf24, #e87b3a)", backgroundSize: "200% 100%" }}
+              style={{ background: "linear-gradient(90deg, #9333ea, #c084fc, #9333ea)", backgroundSize: "200% 100%" }}
             >
               <motion.span
                 aria-hidden
                 className="absolute inset-0"
-                style={{ background: "linear-gradient(90deg, #e87b3a, #fbbf24, #e87b3a)", backgroundSize: "200% 100%" }}
+                style={{ background: "linear-gradient(90deg, #9333ea, #c084fc, #9333ea)", backgroundSize: "200% 100%" }}
                 animate={{ backgroundPosition: ["0% 0%", "200% 0%"] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               />
@@ -1234,7 +1234,7 @@ function LeadScoringTab() {
               className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-mk-orange"
               animate={{ left: `${lead.score}%`, scale: [1, 1.5, 1], opacity: [0.9, 0.4, 0.9] }}
               transition={{ left: { duration: 1.1, ease: EASE_EXPO }, scale: { duration: 1.6, repeat: Infinity }, opacity: { duration: 1.6, repeat: Infinity } }}
-              style={{ boxShadow: "0 0 16px rgba(232,123,58,0.9)" }}
+              style={{ boxShadow: "0 0 16px rgba(147,51,234,0.9)" }}
             />
           </div>
         </div>
@@ -1267,9 +1267,9 @@ function LeadScoringTab() {
             return (
               <motion.div
                 key={l.n}
-                whileHover={{ x: 4, scale: 1.015, boxShadow: "0 12px 30px -18px rgba(232,123,58,0.45)" }}
+                whileHover={{ x: 4, scale: 1.015, boxShadow: "0 12px 30px -18px rgba(147,51,234,0.45)" }}
                 animate={isActive
-                  ? { y: 0, boxShadow: ["0 0 0 0 rgba(232,123,58,0.0)", "0 0 0 6px rgba(232,123,58,0.18)", "0 0 0 0 rgba(232,123,58,0.0)"] }
+                  ? { y: 0, boxShadow: ["0 0 0 0 rgba(147,51,234,0.0)", "0 0 0 6px rgba(147,51,234,0.18)", "0 0 0 0 rgba(147,51,234,0.0)"] }
                   : { y: [0, -2, 0] }}
                 transition={isActive
                   ? { boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" } }
@@ -1678,7 +1678,7 @@ function LiveAdDashboard() {
           {bars.map((h, i) => (
             <motion.span
               key={i}
-              className="flex-1 rounded-sm bg-gradient-to-t from-mk-orange to-amber-300"
+              className="flex-1 rounded-sm bg-gradient-to-t from-mk-orange to-fuchsia-300"
               animate={{ height: [`${h}%`, `${Math.min(95, h + 28)}%`, `${h}%`] }}
               transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.07 }}
             />
@@ -2432,9 +2432,9 @@ function VoiceAgentTab() {
     <>
       <motion.div
         animate={{ boxShadow: [
-          "0 10px 30px -20px rgba(232,123,58,0.2)",
-          "0 18px 50px -20px rgba(232,123,58,0.45)",
-          "0 10px 30px -20px rgba(232,123,58,0.2)",
+          "0 10px 30px -20px rgba(147,51,234,0.2)",
+          "0 18px 50px -20px rgba(147,51,234,0.45)",
+          "0 10px 30px -20px rgba(147,51,234,0.2)",
         ]}}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         className="relative bg-mk-bg rounded-2xl p-6 flex flex-col gap-4 overflow-hidden"
@@ -2443,7 +2443,7 @@ function VoiceAgentTab() {
         <motion.span
           aria-hidden
           className="absolute -inset-1 pointer-events-none rounded-3xl"
-          style={{ background: "radial-gradient(60% 40% at 50% 0%, rgba(232,123,58,0.18), transparent 70%)" }}
+          style={{ background: "radial-gradient(60% 40% at 50% 0%, rgba(147,51,234,0.18), transparent 70%)" }}
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -2524,7 +2524,7 @@ function VoiceAgentTab() {
               className="flex flex-col gap-2"
             >
               <motion.p
-                animate={speaker === "ai" ? { textShadow: "0 0 14px rgba(232,123,58,0.45)" } : { textShadow: "0 0 0 rgba(0,0,0,0)" }}
+                animate={speaker === "ai" ? { textShadow: "0 0 14px rgba(147,51,234,0.45)" } : { textShadow: "0 0 0 rgba(0,0,0,0)" }}
                 transition={{ duration: 0.4 }}
               >
                 <b className="text-mk-orange">AI:</b> {convo.ai.replace("{bot}", activeAgent.n)}
@@ -2536,7 +2536,7 @@ function VoiceAgentTab() {
                 <b className="text-mk-navy">Lead:</b> {convo.lead}
               </motion.p>
               <motion.p
-                animate={speaker === "ai" ? { textShadow: "0 0 14px rgba(232,123,58,0.45)" } : { textShadow: "0 0 0 rgba(0,0,0,0)" }}
+                animate={speaker === "ai" ? { textShadow: "0 0 14px rgba(147,51,234,0.45)" } : { textShadow: "0 0 0 rgba(0,0,0,0)" }}
                 transition={{ duration: 0.4 }}
               >
                 <b className="text-mk-orange">AI:</b> {convo.close}
@@ -2555,14 +2555,14 @@ function VoiceAgentTab() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -24, scale: 0.96 }}
               transition={{ duration: 0.55, ease: EASE_EXPO, delay: i * 0.08 }}
-              whileHover={{ y: -3, boxShadow: "0 14px 30px -18px rgba(232,123,58,0.45)" }}
+              whileHover={{ y: -3, boxShadow: "0 14px 30px -18px rgba(147,51,234,0.45)" }}
               className={`relative flex items-center justify-between p-4 rounded-xl border bg-white overflow-hidden ${i === 0 ? "border-mk-orange/60" : "border-mk-border"}`}
             >
               {i === 0 && (
                 <motion.span
                   aria-hidden
                   className="absolute inset-0 pointer-events-none"
-                  style={{ background: "linear-gradient(110deg, transparent 0%, rgba(232,123,58,0.10) 50%, transparent 100%)" }}
+                  style={{ background: "linear-gradient(110deg, transparent 0%, rgba(147,51,234,0.10) 50%, transparent 100%)" }}
                   animate={{ x: ["-100%", "100%"] }}
                   transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
                 />
@@ -2611,7 +2611,7 @@ function MkWaveform({ speaker = "ai" }: { speaker?: "ai" | "lead" }) {
     return () => cancelAnimationFrame(raf);
   }, [speaker]);
   const color = speaker === "ai" ? "bg-mk-orange" : "bg-emerald-500";
-  const glow = speaker === "ai" ? "rgba(232,123,58,0.5)" : "rgba(16,185,129,0.5)";
+  const glow = speaker === "ai" ? "rgba(147,51,234,0.5)" : "rgba(16,185,129,0.5)";
   return (
     <div className="relative flex items-center justify-center gap-1.5 h-16">
       <motion.span
@@ -2638,18 +2638,18 @@ function WorkflowTab() {
   const modules = [
     { s: "Ingest",   sub: "lead.capture",     Icon: Users,        accent: "#6366F1", glow: "rgba(99,102,241,0.55)" },
     { s: "Enrich",   sub: "ai.personalize",   Icon: Mail,         accent: "#0EA5E9", glow: "rgba(14,165,233,0.55)" },
-    { s: "Qualify",  sub: "ai.score.engine",  Icon: Brain,        accent: "#E87B3A", glow: "rgba(232,123,58,0.7)"  },
+    { s: "Qualify",  sub: "ai.score.engine",  Icon: Brain,        accent: "#9333EA", glow: "rgba(147,51,234,0.7)"  },
     { s: "Schedule", sub: "calendar.sync",    Icon: CalendarIcon, accent: "#A855F7", glow: "rgba(168,85,247,0.55)" },
     { s: "Convert",  sub: "crm.revenue",      Icon: Trophy,       accent: "#10B981", glow: "rgba(16,185,129,0.55)" },
   ];
 
   const logTemplates = [
     { icon: Users,        text: "lead.new · #LD-{n} captured from instagram.dm", c: "#6366F1" },
-    { icon: Brain,        text: "ai.score · #LD-{n} → 87 (hot)", c: "#E87B3A" },
+    { icon: Brain,        text: "ai.score · #LD-{n} → 87 (hot)", c: "#9333EA" },
     { icon: Mail,         text: "msg.sent · welcome.seq:v3 → 312 inboxes", c: "#0EA5E9" },
     { icon: CalendarIcon, text: "appt.booked · #LD-{n} → tue 14:30", c: "#A855F7" },
     { icon: Database,     text: "crm.sync · 48 records → hubspot ✓", c: "#10B981" },
-    { icon: PhoneCall,    text: "ai.call · #LD-{n} answered · 2m 14s", c: "#E87B3A" },
+    { icon: PhoneCall,    text: "ai.call · #LD-{n} answered · 2m 14s", c: "#9333EA" },
     { icon: Zap,          text: "trigger · retarget.cohort:warm fired", c: "#F43F5E" },
     { icon: Sparkles,     text: "ai.decide · branch:nurture → mid-funnel", c: "#0EA5E9" },
     { icon: Trophy,       text: "deal.won · #LD-{n} · $4,820 mrr +", c: "#10B981" },
@@ -2790,7 +2790,7 @@ function WorkflowTab() {
                 <linearGradient id="wfBeam" x1="0" x2="1">
                   <stop offset="0%" stopColor="#6366F1" stopOpacity="0.0" />
                   <stop offset="20%" stopColor="#6366F1" stopOpacity="0.7" />
-                  <stop offset="55%" stopColor="#E87B3A" stopOpacity="0.9" />
+                  <stop offset="55%" stopColor="#9333EA" stopOpacity="0.9" />
                   <stop offset="85%" stopColor="#10B981" stopOpacity="0.7" />
                   <stop offset="100%" stopColor="#10B981" stopOpacity="0.0" />
                 </linearGradient>
@@ -2911,7 +2911,7 @@ function WorkflowTab() {
       {/* ============== RIGHT — LIVE KPI STACK (dark, immersive) ============== */}
       <div className="flex flex-col gap-3">
         {[
-          { l: "Active Workflows", v: "12",                         icon: Workflow, c: "#E87B3A" },
+          { l: "Active Workflows", v: "12",                         icon: Workflow, c: "#9333EA" },
           { l: "Leads Automated",  v: leadsProcessed.toLocaleString(), icon: Zap,      c: "#34D399" },
           { l: "AI Decisions / min", v: aiDecisions.toLocaleString(), icon: Brain,    c: "#818CF8" },
           { l: "Conversion Rate",  v: `${(34.2 + Math.sin(tick / 4) * 0.6).toFixed(1)}%`, icon: TrendingUp, c: "#FB7185" },
@@ -3101,7 +3101,7 @@ function AnalyticsTab() {
                     className={`relative w-[70%] rounded-t-lg bg-gradient-to-t ${b.color} overflow-hidden ring-1 ring-white/40`}
                     style={{
                       boxShadow: isHover
-                        ? "0 0 24px rgba(232,123,58,0.55), 0 0 0 1px rgba(255,255,255,0.5)"
+                        ? "0 0 24px rgba(147,51,234,0.55), 0 0 0 1px rgba(255,255,255,0.5)"
                         : "0 6px 20px -8px rgba(27,43,75,0.4)",
                     }}
                   >
@@ -3132,13 +3132,13 @@ function AnalyticsTab() {
           <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-full overflow-visible">
             <defs>
               <linearGradient id="aLineFill" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="#E87B3A" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#E87B3A" stopOpacity="0" />
+                <stop offset="0%" stopColor="#9333EA" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#9333EA" stopOpacity="0" />
               </linearGradient>
               <linearGradient id="aLineStroke" x1="0" x2="1" y1="0" y2="0">
-                <stop offset="0%" stopColor="#F59E0B" />
-                <stop offset="50%" stopColor="#E87B3A" />
-                <stop offset="100%" stopColor="#EF4444" />
+                <stop offset="0%" stopColor="#C084FC" />
+                <stop offset="50%" stopColor="#9333EA" />
+                <stop offset="100%" stopColor="#6366F1" />
               </linearGradient>
               <filter id="aGlow" x="-30%" y="-30%" width="160%" height="160%">
                 <feGaussianBlur stdDeviation="3" result="blur" />
@@ -3193,12 +3193,12 @@ function AnalyticsTab() {
               const active = hoverPt === i;
               return (
                 <g key={i} onMouseEnter={() => setHoverPt(i)} onMouseLeave={() => setHoverPt(null)}>
-                  {active && <circle cx={x} cy={y} r={10} fill="#E87B3A" opacity={0.2} />}
+                  {active && <circle cx={x} cy={y} r={10} fill="#9333EA" opacity={0.2} />}
                   <motion.circle
                     cx={x} cy={y}
                     r={active ? 5 : 3}
                     fill="#fff"
-                    stroke="#E87B3A"
+                    stroke="#9333EA"
                     strokeWidth={2}
                     animate={{ r: active ? 5 : [3, 4, 3] }}
                     transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.1 }}
@@ -3211,7 +3211,7 @@ function AnalyticsTab() {
             {/* moving live dot */}
             <motion.circle
               r={4}
-              fill="#E87B3A"
+              fill="#9333EA"
               animate={{
                 cx: line.map((_, i) => px(i)),
                 cy: line.map((p) => py(p.v)),
@@ -3313,7 +3313,7 @@ function Architecture() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(900px 500px at 20% 10%, rgba(232,123,58,0.10), transparent 60%), radial-gradient(900px 600px at 85% 90%, rgba(82,120,255,0.14), transparent 60%), radial-gradient(700px 500px at 50% 50%, rgba(99,144,255,0.06), transparent 70%)",
+              "radial-gradient(900px 500px at 20% 10%, rgba(147,51,234,0.10), transparent 60%), radial-gradient(900px 600px at 85% 90%, rgba(82,120,255,0.14), transparent 60%), radial-gradient(700px 500px at 50% 50%, rgba(99,144,255,0.06), transparent 70%)",
           }}
         />
         <div
@@ -3412,7 +3412,7 @@ function CommandParticles() {
           if (d2 < 11000) {
             const al = (1 - d2 / 11000) * 0.14;
             ctx.strokeStyle = a.w
-              ? `rgba(232,123,58,${al})`
+              ? `rgba(147,51,234,${al})`
               : `rgba(120,150,255,${al})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
@@ -3420,9 +3420,9 @@ function CommandParticles() {
         }
       }
       for (const p of particles) {
-        ctx.fillStyle = p.w ? "rgba(232,123,58,0.75)" : "rgba(120,150,255,0.75)";
+        ctx.fillStyle = p.w ? "rgba(147,51,234,0.75)" : "rgba(120,150,255,0.75)";
         ctx.shadowBlur = 8;
-        ctx.shadowColor = p.w ? "rgba(232,123,58,0.6)" : "rgba(120,150,255,0.6)";
+        ctx.shadowColor = p.w ? "rgba(147,51,234,0.6)" : "rgba(120,150,255,0.6)";
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
       }
       ctx.shadowBlur = 0;
@@ -3442,7 +3442,7 @@ function HighlightWord({ children }: { children: ReactNode }) {
       <motion.span
         aria-hidden
         className="absolute left-0 right-0 -bottom-0.5 h-[2px] rounded-full"
-        style={{ background: "linear-gradient(90deg,#E87B3A,#5278FF)" }}
+        style={{ background: "linear-gradient(90deg,#9333EA,#5278FF)" }}
         initial={{ scaleX: 0, transformOrigin: "left" }}
         animate={{ scaleX: [0, 1, 1, 0], transformOrigin: ["left", "left", "right", "right"] }}
         transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
@@ -3457,7 +3457,7 @@ function StoryFlow() {
     { n: "01", icon: <Users size={14} />, label: "Leads Enter",      sub: "WhatsApp · IG · Web · Calls", c: "#22D3A5" },
     { n: "02", icon: <Brain size={14} />, label: "AI Qualifies",     sub: "Intent · Budget · Score",      c: "#D946EF" },
     { n: "03", icon: <Radio size={14} />, label: "Auto Replies",     sub: "Omnichannel · Voice agent",    c: "#5278FF" },
-    { n: "04", icon: <TrendingUp size={14} />, label: "Revenue Grows", sub: "Booked · Closed · Synced",   c: "#E87B3A" },
+    { n: "04", icon: <TrendingUp size={14} />, label: "Revenue Grows", sub: "Booked · Closed · Synced",   c: "#9333EA" },
   ];
   return (
     <div className="mt-10 relative">
@@ -3524,7 +3524,7 @@ function StoryFlow() {
 }
 
 /* ---- shared glass panel ---- */
-function GlassPanel({ children, className = "", glow = "rgba(232,123,58,0.18)" }: { children: ReactNode; className?: string; glow?: string }) {
+function GlassPanel({ children, className = "", glow = "rgba(147,51,234,0.18)" }: { children: ReactNode; className?: string; glow?: string }) {
   return (
     <motion.div
       whileHover={{ y: -3 }}
@@ -3756,7 +3756,7 @@ function AIQualification() {
             />
             <defs>
               <linearGradient id="qualGrad" x1="0" x2="1">
-                <stop offset="0" stopColor="#E87B3A" />
+                <stop offset="0" stopColor="#9333EA" />
                 <stop offset="1" stopColor="#D946EF" />
               </linearGradient>
             </defs>
@@ -3779,7 +3779,7 @@ function AIQualification() {
             animate={{ rotate: 360 }}
             transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           >
-            <span className="absolute top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-mk-orange shadow-[0_0_10px_rgba(232,123,58,0.9)]" />
+            <span className="absolute top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-mk-orange shadow-[0_0_10px_rgba(147,51,234,0.9)]" />
           </motion.div>
         </div>
 
@@ -3811,7 +3811,7 @@ function AIQualification() {
               <div className="h-1 rounded-full bg-mk-bg overflow-hidden">
                 <motion.div
                   className="h-full rounded-full"
-                  style={{ background: "linear-gradient(90deg,#E87B3A,#D946EF)" }}
+                  style={{ background: "linear-gradient(90deg,#9333EA,#D946EF)" }}
                   animate={{ width: `${it.v}%` }}
                   transition={{ duration: 0.8, ease: EASE_EXPO }}
                 />
@@ -3902,12 +3902,12 @@ function VoiceAgentLive() {
   }, []);
   const bars = 28;
   return (
-    <GlassPanel glow="rgba(232,123,58,0.25)">
+    <GlassPanel glow="rgba(147,51,234,0.25)">
       <PanelHeader title="AI Voice Agent" status={phase === "booking" ? "Booked" : "On call"} dotColor={phase === "booking" ? "bg-emerald-400" : "bg-mk-orange"} />
       <div className="p-4 flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <motion.div
-            animate={{ boxShadow: ["0 0 0 0 rgba(232,123,58,0.5)", "0 0 0 14px rgba(232,123,58,0)"] }}
+            animate={{ boxShadow: ["0 0 0 0 rgba(147,51,234,0.5)", "0 0 0 14px rgba(147,51,234,0)"] }}
             transition={{ duration: 1.6, repeat: Infinity }}
             className="w-10 h-10 rounded-full bg-gradient-to-br from-mk-orange to-rose-500 flex items-center justify-center text-mk-navy"
           >
@@ -4498,7 +4498,7 @@ function DeveloperApiInner() {
               <motion.div
                 aria-hidden
                 className="absolute inset-x-0 h-px pointer-events-none"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(232,123,58,0.6), transparent)" }}
+                style={{ background: "linear-gradient(90deg, transparent, rgba(147,51,234,0.6), transparent)" }}
                 animate={{ y: [0, 600, 0] }}
                 transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
               />
@@ -4574,7 +4574,7 @@ function DeveloperApiInner() {
                         <motion.span
                           layoutId="dev-tab"
                           transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                          className="absolute bottom-0 left-1 right-1 h-0.5 bg-mk-orange shadow-[0_0_10px_rgba(232,123,58,0.7)]"
+                          className="absolute bottom-0 left-1 right-1 h-0.5 bg-mk-orange shadow-[0_0_10px_rgba(147,51,234,0.7)]"
                         />
                       )}
                     </button>
@@ -4729,7 +4729,7 @@ function DeveloperApiInner() {
 type ModKey = "scoring" | "voice" | "omni" | "workflow";
 
 const MOD_LIST2: { key: ModKey; label: string; icon: ReactNode; accent: string; tag: string }[] = [
-  { key: "scoring",  label: "AI Lead Scoring",   icon: <Brain className="w-4 h-4" />,     accent: "#E87B3A", tag: "Scoring engine" },
+  { key: "scoring",  label: "AI Lead Scoring",   icon: <Brain className="w-4 h-4" />,     accent: "#9333EA", tag: "Scoring engine" },
   { key: "voice",    label: "AI Voice Agent",    icon: <PhoneCall className="w-4 h-4" />, accent: "#5278FF", tag: "Live call" },
   { key: "omni",     label: "Omnichannel Engine",icon: <Zap className="w-4 h-4" />,       accent: "#10B981", tag: "Auto reply" },
   { key: "workflow", label: "Workflow Builder",  icon: <GitBranch className="w-4 h-4" />, accent: "#8B5CF6", tag: "Orchestrating" },
@@ -4743,7 +4743,7 @@ function InteractiveModulesShowcase() {
       {/* Module grid with shared-layout expansion */}
       <div className="relative">
         {/* ambient backdrop */}
-        <div aria-hidden className="pointer-events-none absolute -inset-6 rounded-3xl bg-[radial-gradient(circle_at_30%_20%,rgba(82,120,255,0.10),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(232,123,58,0.10),transparent_60%)]" />
+        <div aria-hidden className="pointer-events-none absolute -inset-6 rounded-3xl bg-[radial-gradient(circle_at_30%_20%,rgba(82,120,255,0.10),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(147,51,234,0.10),transparent_60%)]" />
         <div className="relative grid grid-cols-2 gap-3">
           {MOD_LIST2.map((m) => {
             const isActive = active === m.key;
@@ -5522,7 +5522,7 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
         style={{ x: tx2, y: ty2 }}
       >
         <div className="absolute inset-0 rounded-full" style={{
-          background: "radial-gradient(circle at 50% 50%, rgba(232,123,58,0.22), rgba(82,120,255,0.18) 45%, transparent 70%)",
+          background: "radial-gradient(circle at 50% 50%, rgba(147,51,234,0.22), rgba(82,120,255,0.18) 45%, transparent 70%)",
           filter: "blur(36px)",
         }} />
       </motion.div>
@@ -5591,15 +5591,15 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
         >
           <defs>
             <linearGradient id="ringTrail" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#E87B3A" stopOpacity="0" />
-              <stop offset="60%" stopColor="#E87B3A" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#FFB37A" stopOpacity="1" />
+              <stop offset="0%" stopColor="#9333EA" stopOpacity="0" />
+              <stop offset="60%" stopColor="#9333EA" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#C084FC" stopOpacity="1" />
             </linearGradient>
             <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="3.5" />
             </filter>
           </defs>
-          <circle cx="150" cy="150" r="120" fill="none" stroke="#E87B3A" strokeOpacity="0.3" strokeWidth="1.2" strokeDasharray="4 8" />
+          <circle cx="150" cy="150" r="120" fill="none" stroke="#9333EA" strokeOpacity="0.3" strokeWidth="1.2" strokeDasharray="4 8" />
           <motion.circle
             cx="150" cy="150" r="120" fill="none"
             stroke="url(#ringTrail)" strokeWidth="2.5" strokeLinecap="round"
@@ -5622,8 +5622,8 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
               key={i}
               className="absolute left-1/2 top-1/2 w-px h-2.5 origin-bottom"
               style={{
-                background: i % 9 === 0 ? "rgba(232,123,58,0.9)" : "rgba(27,43,75,0.22)",
-                boxShadow: i % 9 === 0 ? "0 0 6px rgba(232,123,58,0.7)" : undefined,
+                background: i % 9 === 0 ? "rgba(147,51,234,0.9)" : "rgba(27,43,75,0.22)",
+                boxShadow: i % 9 === 0 ? "0 0 6px rgba(147,51,234,0.7)" : undefined,
                 transform: `translate(-50%, -50%) rotate(${(i * 360) / 36}deg) translateY(-148px)`,
               }}
             />
@@ -5649,9 +5649,9 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
                   style={{
                     width: i % 2 === 0 ? 6 : 4,
                     height: i % 2 === 0 ? 6 : 4,
-                    background: i % 3 === 0 ? "#E87B3A" : i % 3 === 1 ? "#5278FF" : "#FFFFFF",
+                    background: i % 3 === 0 ? "#9333EA" : i % 3 === 1 ? "#5278FF" : "#FFFFFF",
                     boxShadow: i % 3 === 0
-                      ? `0 0 12px rgba(232,123,58,${glow}), 0 0 24px rgba(232,123,58,0.5)`
+                      ? `0 0 12px rgba(147,51,234,${glow}), 0 0 24px rgba(147,51,234,0.5)`
                       : i % 3 === 1
                       ? `0 0 12px rgba(82,120,255,${glow})`
                       : "0 0 10px rgba(255,255,255,0.95)",
@@ -5672,7 +5672,7 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
                 key={i}
                 aria-hidden
                 className="absolute inset-0 rounded-full border"
-                style={{ borderColor: i % 2 === 0 ? "rgba(232,123,58,0.5)" : "rgba(82,120,255,0.45)" }}
+                style={{ borderColor: i % 2 === 0 ? "rgba(147,51,234,0.5)" : "rgba(82,120,255,0.45)" }}
                 animate={{ scale: [1, 2.4], opacity: [0.6 * glow, 0] }}
                 transition={{ duration: 3.4, repeat: Infinity, ease: "easeOut", delay: i * 0.85 }}
               />
@@ -5683,7 +5683,7 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
               className="absolute -inset-8 rounded-full"
               style={{
                 background:
-                  "radial-gradient(circle, rgba(232,123,58,0.6) 0%, rgba(232,123,58,0.18) 45%, transparent 75%)",
+                  "radial-gradient(circle, rgba(147,51,234,0.6) 0%, rgba(147,51,234,0.18) 45%, transparent 75%)",
                 filter: "blur(14px)",
                 opacity: glow,
               }}
@@ -5695,9 +5695,9 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
               className="relative w-full h-full rounded-full"
               style={{
                 background:
-                  "radial-gradient(circle at 35% 30%, #FFE9D3 0%, #FFB07A 22%, #E87B3A 52%, #7A2E0C 100%)",
+                  "radial-gradient(circle at 35% 30%, #F3E8FF 0%, #D8B4FE 22%, #9333EA 52%, #581C87 100%)",
                 boxShadow:
-                  "0 16px 50px -10px rgba(232,123,58,0.8), inset 0 -12px 28px rgba(122,46,12,0.7), inset 0 12px 24px rgba(255,233,211,0.6)",
+                  "0 16px 50px -10px rgba(147,51,234,0.8), inset 0 -12px 28px rgba(88,28,135,0.7), inset 0 12px 24px rgba(243,232,255,0.6)",
               }}
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 2.2 / (0.6 + intensity * 0.4), repeat: Infinity, ease: "easeInOut" }}
@@ -5761,17 +5761,17 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
               style={{
                 background:
                   side === "left"
-                    ? "linear-gradient(90deg, transparent 0%, rgba(82,120,255,0.35) 30%, rgba(232,123,58,0.85) 100%)"
-                    : "linear-gradient(270deg, transparent 0%, rgba(82,120,255,0.35) 30%, rgba(232,123,58,0.85) 100%)",
+                    ? "linear-gradient(90deg, transparent 0%, rgba(82,120,255,0.35) 30%, rgba(147,51,234,0.85) 100%)"
+                    : "linear-gradient(270deg, transparent 0%, rgba(82,120,255,0.35) 30%, rgba(147,51,234,0.85) 100%)",
                 filter: "blur(0.5px)",
-                boxShadow: `0 0 14px rgba(232,123,58,${0.7 * glow})`,
+                boxShadow: `0 0 14px rgba(147,51,234,${0.7 * glow})`,
               }}
             />
             {Array.from({ length: 5 }).map((_, i) => (
               <motion.span
                 key={i}
                 className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full"
-                style={{ background: "#E87B3A", boxShadow: `0 0 10px rgba(232,123,58,${glow})` }}
+                style={{ background: "#9333EA", boxShadow: `0 0 10px rgba(147,51,234,${glow})` }}
                 animate={{
                   left: side === "left" ? ["0%", "100%"] : ["100%", "0%"],
                   opacity: [0, 1, 1, 0],
@@ -5797,8 +5797,8 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
             className="absolute rounded-full pointer-events-none"
             style={{
               top: `${top}%`, left: `${left}%`, width: size, height: size,
-              boxShadow: i % 3 === 0 ? "0 0 8px rgba(232,123,58,0.7)" : "0 0 6px rgba(82,120,255,0.6)",
-              background: i % 3 === 0 ? "rgba(232,123,58,0.9)" : "rgba(82,120,255,0.85)",
+              boxShadow: i % 3 === 0 ? "0 0 8px rgba(147,51,234,0.7)" : "0 0 6px rgba(82,120,255,0.6)",
+              background: i % 3 === 0 ? "rgba(147,51,234,0.9)" : "rgba(82,120,255,0.85)",
               filter: "blur(0.3px)",
             }}
             animate={{ y: [0, -14, 0], opacity: [0.15, 0.95, 0.15], scale: [0.8, 1.3, 0.8] }}
@@ -5826,7 +5826,7 @@ function MarketingFuture() {
     <section className="relative py-28 md:py-36 bg-mk-bg overflow-hidden">
       {/* ambient atmospheric backdrop */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-[20%] left-[10%] w-[60%] h-[60%] rounded-full blur-[160px] bg-[#E87B3A]/8" />
+        <div className="absolute -top-[20%] left-[10%] w-[60%] h-[60%] rounded-full blur-[160px] bg-[#9333EA]/8" />
         <div className="absolute -bottom-[25%] right-[5%] w-[60%] h-[60%] rounded-full blur-[160px] bg-[#5278FF]/10" />
         <div
           className="absolute inset-0 opacity-[0.4]"
@@ -5861,7 +5861,7 @@ function MarketingFuture() {
             className="relative mt-16 rounded-[28px] overflow-hidden"
             style={{
               background:
-                "radial-gradient(800px 500px at 28% 30%, rgba(232,123,58,0.10), transparent 60%), radial-gradient(700px 500px at 80% 70%, rgba(82,120,255,0.12), transparent 60%), linear-gradient(180deg, #ffffff, #FBFAF7)",
+                "radial-gradient(800px 500px at 28% 30%, rgba(147,51,234,0.10), transparent 60%), radial-gradient(700px 500px at 80% 70%, rgba(82,120,255,0.12), transparent 60%), linear-gradient(180deg, #ffffff, #FBFAF7)",
               border: "1px solid rgba(27,43,75,0.08)",
               boxShadow:
                 "0 30px 80px -40px rgba(27,43,75,0.25), inset 0 1px 0 rgba(255,255,255,0.9)",
@@ -5869,7 +5869,7 @@ function MarketingFuture() {
           >
             {/* top hairline */}
             <div className="absolute inset-x-0 top-0 h-px" style={{
-              background: "linear-gradient(90deg, transparent, rgba(232,123,58,0.5), rgba(82,120,255,0.5), transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(147,51,234,0.5), rgba(82,120,255,0.5), transparent)",
             }} />
 
             <div className="grid lg:grid-cols-[48%_52%] gap-8 lg:gap-12 items-center p-8 md:p-14">
@@ -5889,14 +5889,14 @@ function MarketingFuture() {
                     style={{
                       background:
                         hovered === i
-                          ? "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,247,238,0.85))"
+                          ? "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,245,255,0.85))"
                           : "linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.4))",
                       backdropFilter: "blur(8px)",
                       border: hovered === i
-                        ? "1px solid rgba(232,123,58,0.45)"
+                        ? "1px solid rgba(147,51,234,0.45)"
                         : "1px solid rgba(27,43,75,0.08)",
                       boxShadow: hovered === i
-                        ? "0 20px 50px -20px rgba(232,123,58,0.35), inset 0 1px 0 rgba(255,255,255,0.9)"
+                        ? "0 20px 50px -20px rgba(147,51,234,0.35), inset 0 1px 0 rgba(255,255,255,0.9)"
                         : "0 6px 20px -10px rgba(27,43,75,0.08), inset 0 1px 0 rgba(255,255,255,0.7)",
                     }}
                   >
@@ -5925,7 +5925,7 @@ function MarketingFuture() {
                           className="absolute inset-0 rounded-full"
                           style={{
                             background:
-                              "radial-gradient(circle, rgba(232,123,58,0.55), transparent 70%)",
+                              "radial-gradient(circle, rgba(147,51,234,0.55), transparent 70%)",
                             filter: "blur(8px)",
                           }}
                           animate={hovered === i
@@ -5937,9 +5937,9 @@ function MarketingFuture() {
                           className="relative w-11 h-11 rounded-full flex items-center justify-center font-mono text-white"
                           style={{
                             background:
-                              "radial-gradient(circle at 30% 30%, #FFC79A, #E87B3A 55%, #9D3F12)",
+                              "radial-gradient(circle at 30% 30%, #E9D5FF, #9333EA 55%, #581C87)",
                             boxShadow:
-                              "0 8px 22px -6px rgba(232,123,58,0.7), inset 0 -3px 8px rgba(122,46,12,0.6), inset 0 2px 4px rgba(255,255,255,0.6)",
+                              "0 8px 22px -6px rgba(147,51,234,0.7), inset 0 -3px 8px rgba(88,28,135,0.6), inset 0 2px 4px rgba(255,255,255,0.6)",
                           }}
                         >
                           <span className="text-[15px] font-bold tracking-tight">{String(i + 1).padStart(2, "0")}</span>
@@ -5951,7 +5951,7 @@ function MarketingFuture() {
                             className="absolute left-1/2 top-full -translate-x-1/2 mt-1 w-px h-4"
                             style={{
                               background:
-                                "linear-gradient(180deg, rgba(232,123,58,0.5), transparent)",
+                                "linear-gradient(180deg, rgba(147,51,234,0.5), transparent)",
                             }}
                           />
                         )}
@@ -5973,7 +5973,7 @@ function MarketingFuture() {
                           className="block mt-3 h-px origin-left"
                           style={{
                             background:
-                              "linear-gradient(90deg, rgba(232,123,58,0.8), rgba(82,120,255,0.6), transparent)",
+                              "linear-gradient(90deg, rgba(147,51,234,0.8), rgba(82,120,255,0.6), transparent)",
                           }}
                           initial={{ scaleX: 0 }}
                           animate={{ scaleX: hovered === i ? 1 : 0.25 }}
@@ -5988,7 +5988,7 @@ function MarketingFuture() {
 
             {/* bottom hairline */}
             <div className="absolute inset-x-0 bottom-0 h-px" style={{
-              background: "linear-gradient(90deg, transparent, rgba(82,120,255,0.4), rgba(232,123,58,0.4), transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(82,120,255,0.4), rgba(147,51,234,0.4), transparent)",
             }} />
           </div>
         </Reveal>
@@ -6007,7 +6007,7 @@ function FullStackCards() {
       {/* Ambient mesh backdrop */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-[10%] -left-[10%] w-[55%] h-[55%] rounded-full blur-[140px] bg-[#5278FF]/15" />
-        <div className="absolute -bottom-[15%] -right-[10%] w-[55%] h-[55%] rounded-full blur-[140px] bg-[#E87B3A]/15" />
+        <div className="absolute -bottom-[15%] -right-[10%] w-[55%] h-[55%] rounded-full blur-[140px] bg-[#9333EA]/15" />
         <div
           className="absolute inset-0 opacity-[0.18]"
           style={{
@@ -6073,7 +6073,7 @@ function FloatingTrio() {
         transition={{ duration: 0.9, ease: EASE_EXPO, delay: 0.1 }}
         whileHover={{ y: -4 }}
         className="absolute top-[36%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-y-1/2 w-[360px] md:w-[420px] rounded-[40px] p-8 border border-mk-border bg-white z-40 flex flex-col items-center text-center"
-        style={{ boxShadow: "0 48px 120px -32px rgba(232,123,58,0.35), 0 0 0 1px rgba(255,255,255,0.7) inset" }}
+        style={{ boxShadow: "0 48px 120px -32px rgba(147,51,234,0.35), 0 0 0 1px rgba(255,255,255,0.7) inset" }}
       >
         <NeuralCore />
         <h3 className="text-mk-navy text-[22px] md:text-[26px] font-bold mb-3 leading-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
@@ -6086,10 +6086,10 @@ function FloatingTrio() {
           {["AI Brain", "Decision Engine", "Voice AI", "Content Studio"].map((l, i) => (
             <motion.div
               key={l}
-              whileHover={{ y: -2, backgroundColor: "rgba(232,123,58,0.08)" }}
-              className="px-3 py-2.5 bg-mk-bg rounded-2xl text-[11px] font-bold text-[#E87B3A] border border-orange-100 flex items-center justify-center gap-1.5 cursor-pointer"
+              whileHover={{ y: -2, backgroundColor: "rgba(147,51,234,0.08)" }}
+              className="px-3 py-2.5 bg-mk-bg rounded-2xl text-[11px] font-bold text-[#9333EA] border border-purple-100 flex items-center justify-center gap-1.5 cursor-pointer"
             >
-              <span className="w-1 h-1 rounded-full bg-[#E87B3A] animate-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
+              <span className="w-1 h-1 rounded-full bg-[#9333EA] animate-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
               {l}
             </motion.div>
           ))}
@@ -6149,8 +6149,8 @@ function FloatHover({ children, delay = 0 }: { children: ReactNode; delay?: numb
 function LiveLeadStream() {
   const allLeads = [
     { id: 4291, color: "#5278FF", initials: "RV", channel: "WhatsApp", score: 98 },
-    { id: 4292, color: "#E87B3A", initials: "AS", channel: "Instagram", score: 92 },
-    { id: 4293, color: "#9333EA", initials: "PK", channel: "Website", score: 95 },
+    { id: 4292, color: "#9333EA", initials: "AS", channel: "Instagram", score: 92 },
+    { id: 4293, color: "#C084FC", initials: "PK", channel: "Website", score: 95 },
     { id: 4294, color: "#10B981", initials: "MN", channel: "Email", score: 88 },
     { id: 4295, color: "#F59E0B", initials: "LJ", channel: "Voice", score: 91 },
   ];
@@ -6159,7 +6159,7 @@ function LiveLeadStream() {
   useEffect(() => {
     const id = setInterval(() => {
       const channels = ["WhatsApp", "Instagram", "Website", "Email", "Voice"];
-      const colors = ["#5278FF", "#E87B3A", "#9333EA", "#10B981", "#F59E0B"];
+      const colors = ["#5278FF", "#9333EA", "#C084FC", "#10B981", "#F59E0B"];
       const idx = Math.floor(Math.random() * channels.length);
       const initials = String.fromCharCode(65 + Math.floor(Math.random() * 26)) + String.fromCharCode(65 + Math.floor(Math.random() * 26));
       const newLead = {
@@ -6212,25 +6212,25 @@ function NeuralCore() {
     <div className="relative w-44 h-44 mb-6 flex items-center justify-center">
       {/* Outer dashed ring */}
       <motion.div
-        className="absolute inset-0 rounded-full border-[1.5px] border-dashed border-[#E87B3A]/30"
+        className="absolute inset-0 rounded-full border-[1.5px] border-dashed border-[#9333EA]/30"
         animate={{ rotate: 360 }}
         transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
       />
       {/* Mid ring */}
       <motion.div
-        className="absolute inset-4 rounded-full border-[1.5px] border-dashed border-[#E87B3A]/45"
+        className="absolute inset-4 rounded-full border-[1.5px] border-dashed border-[#9333EA]/45"
         animate={{ rotate: -360 }}
         transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
       />
       {/* Inner static ring */}
-      <div className="absolute inset-8 rounded-full border-[1.5px] border-[#E87B3A]/15" />
+      <div className="absolute inset-8 rounded-full border-[1.5px] border-[#9333EA]/15" />
 
       {/* Core orb */}
       <motion.div
         className="relative w-20 h-20 rounded-full flex items-center justify-center text-white z-10"
         style={{
-          background: "radial-gradient(circle at 30% 30%, #ff9560, #E87B3A 60%, #c25a1a)",
-          boxShadow: "0 0 50px rgba(232,123,58,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+          background: "radial-gradient(circle at 30% 30%, #C084FC, #9333EA 60%, #581C87)",
+          boxShadow: "0 0 50px rgba(147,51,234,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
         }}
         animate={{ scale: [1, 1.06, 1] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
@@ -6240,15 +6240,15 @@ function NeuralCore() {
         <motion.span
           aria-hidden
           className="absolute inset-0 rounded-full"
-          animate={{ boxShadow: ["0 0 0 0 rgba(232,123,58,0.45)", "0 0 0 22px rgba(232,123,58,0)"] }}
+          animate={{ boxShadow: ["0 0 0 0 rgba(147,51,234,0.45)", "0 0 0 22px rgba(147,51,234,0)"] }}
           transition={{ duration: 2, repeat: Infinity }}
         />
       </motion.div>
 
       {/* Orbiting particles */}
-      <Orbit color="#E87B3A" duration={8} radius={86} size={10} />
+      <Orbit color="#9333EA" duration={8} radius={86} size={10} />
       <Orbit color="#5278FF" duration={11} radius={76} size={7} reverse offset={120} />
-      <Orbit color="#9333EA" duration={14} radius={92} size={6} offset={240} />
+      <Orbit color="#C084FC" duration={14} radius={92} size={6} offset={240} />
     </div>
   );
 }
@@ -6302,7 +6302,7 @@ function InfraGrid() {
       />
       {/* Active nodes */}
       {[
-        { top: "22%", left: "18%", c: "#E87B3A", d: 0 },
+        { top: "22%", left: "18%", c: "#9333EA", d: 0 },
         { top: "55%", left: "42%", c: "#5278FF", d: 0.6 },
         { top: "30%", left: "70%", c: "#10B981", d: 1.2 },
         { top: "68%", left: "82%", c: "#5278FF", d: 1.8 },
@@ -6324,7 +6324,7 @@ function InfraGrid() {
       />
       <motion.div
         className="absolute top-1/4 left-0 w-full h-px"
-        style={{ background: "linear-gradient(90deg, transparent, #E87B3A, transparent)" }}
+        style={{ background: "linear-gradient(90deg, transparent, #9333EA, transparent)" }}
         animate={{ x: ["100%", "-100%"] }}
         transition={{ duration: 4, repeat: Infinity, ease: "linear", delay: 0.5 }}
       />
