@@ -944,11 +944,11 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
               delay: (i % 7) * 0.35,
             }}
             whileHover={{ scale: 1.12, y: -6 }}
-            className="text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent bg-gradient-to-r from-[#7C3AED] via-[#9333EA] to-[#C084FC] hover:drop-shadow-[0_0_14px_rgba(147,51,234,0.55)] transition-all duration-300"
+            className="text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent bg-gradient-to-r from-[#A855F7] via-[#C084FC] to-[#D8B4FE] hover:drop-shadow-[0_0_16px_rgba(192,132,252,0.65)] transition-all duration-300"
             style={{
               fontFamily: '"Space Grotesk", "Inter Tight", "Inter", system-ui, sans-serif',
               letterSpacing: "-0.02em",
-              textShadow: "0 1px 0 rgba(255,255,255,0.6), 0 0 22px rgba(147,51,234,0.25)",
+              textShadow: "0 1px 0 rgba(255,255,255,0.6), 0 0 22px rgba(192,132,252,0.35)",
             }}
           >
             {it}

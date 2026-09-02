@@ -32,8 +32,8 @@
   --color-mk-bg: var(--mk-bg);
   --color-mk-white: var(--mk-white);
   --color-mk-navy: var(--mk-navy);
-  --color-mk-orange: #9333EA;
-  --color-mk-purple: #9333EA;
+  --color-mk-orange: #A855F7;
+  --color-mk-purple: #A855F7;
   --color-mk-blue-soft: var(--mk-blue-soft);
   --color-mk-heading: var(--mk-heading);
   --color-mk-body: var(--mk-body);
@@ -55,19 +55,19 @@
   --card-foreground: oklch(0.2 0.04 280);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2 0.04 280);
-  --primary: #9333EA;
+  --primary: #A855F7;
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.3 0.06 260);
   --secondary-foreground: oklch(1 0 0);
   --muted: oklch(0.97 0.005 270);
   --muted-foreground: oklch(0.5 0.03 270);
   --accent: #FAF5FF;
-  --accent-foreground: #9333EA;
+  --accent-foreground: #A855F7;
   --destructive: oklch(0.6 0.24 27);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.92 0.01 270);
   --input: oklch(0.92 0.01 270);
-  --ring: #9333EA;
+  --ring: #A855F7;
 
   --mk-bg: #F4F4FB;
   --mk-white: #FFFFFF;
@@ -98,11 +98,11 @@
   --popover-foreground: #FFFFFF;
   --muted: rgba(255, 255, 255, 0.06);
   --muted-foreground: #8F96A3;
-  --accent: rgba(147, 51, 234, 0.15);
+  --accent: rgba(168, 85, 247, 0.15);
   --accent-foreground: #C084FC;
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.1);
-  --ring: #9333EA;
+  --ring: #C084FC;
 
   --mk-bg: #010104;
   --mk-white: transparent;
@@ -196,9 +196,9 @@ html.theme-transition *::after {
 .mk-btn-navy:hover { transform: scale(1.02); box-shadow: 0 12px 28px -8px rgba(27,43,75,0.45); }
 .dark .mk-btn-navy:hover,
 [data-theme="galaxy"] .mk-btn-navy:hover {
-  background: #9333EA;
-  border-color: #9333EA;
-  box-shadow: 0 12px 28px -8px rgba(147, 51, 234, 0.5);
+  background: #A855F7;
+  border-color: #A855F7;
+  box-shadow: 0 12px 28px -8px rgba(168, 85, 247, 0.5);
 }
 .mk-btn-navy:active { transform: scale(0.98); }
 
