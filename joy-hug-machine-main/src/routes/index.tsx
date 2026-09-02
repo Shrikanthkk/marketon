@@ -74,7 +74,7 @@ function TiltCard({ children, className = "" }: { children: ReactNode; className
           background: useTransform(
             [gx, gy] as any,
             ([gxv, gyv]: any) =>
-              `radial-gradient(280px circle at ${gxv} ${gyv}, rgba(147,51,234,0.12), transparent 70%)`
+              `radial-gradient(280px circle at ${gxv} ${gyv}, rgba(168,85,247,0.16), rgba(34,211,238,0.08) 45%, transparent 70%)`
           ),
         }}
       />
@@ -446,8 +446,8 @@ function HeroMagneticButton({
   const gy = useMotionValue(50);
   const bgGlow = useTransform([gx, gy], ([cx, cy]) =>
     variant === "navy"
-      ? `radial-gradient(160px circle at ${cx}% ${cy}%, rgba(192,132,252,0.45), transparent 70%)`
-      : `radial-gradient(160px circle at ${cx}% ${cy}%, rgba(147,51,234,0.28), transparent 70%)`,
+      ? `radial-gradient(160px circle at ${cx}% ${cy}%, rgba(192,132,252,0.5), rgba(34,211,238,0.2) 45%, transparent 70%)`
+      : `radial-gradient(160px circle at ${cx}% ${cy}%, rgba(168,85,247,0.32), rgba(34,211,238,0.15) 50%, transparent 70%)`,
   );
   return (
     <motion.button
@@ -766,8 +766,8 @@ function Hero() {
           left: cursorX,
           top: cursorY,
           background: isGalaxy
-            ? "radial-gradient(circle, rgba(147,51,234,0.12), transparent 70%)"
-            : "radial-gradient(circle, rgba(168,85,247,0.28), rgba(168,85,247,0.08) 35%, transparent 70%)",
+            ? "radial-gradient(circle, rgba(168,85,247,0.14), transparent 70%)"
+            : "radial-gradient(circle, rgba(192,132,252,0.30), rgba(34,211,238,0.14) 40%, transparent 70%)",
           filter: "blur(20px)",
           mixBlendMode: "screen",
         }}
@@ -2462,7 +2462,7 @@ function VoiceAgentTab() {
         <motion.span
           aria-hidden
           className="absolute -inset-1 pointer-events-none rounded-3xl"
-          style={{ background: "radial-gradient(60% 40% at 50% 0%, rgba(147,51,234,0.18), transparent 70%)" }}
+          style={{ background: "radial-gradient(60% 40% at 50% 0%, rgba(168,85,247,0.2), rgba(34,211,238,0.12) 40%, transparent 70%)" }}
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -3332,7 +3332,7 @@ function Architecture() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(900px 500px at 20% 10%, rgba(147,51,234,0.10), transparent 60%), radial-gradient(900px 600px at 85% 90%, rgba(82,120,255,0.14), transparent 60%), radial-gradient(700px 500px at 50% 50%, rgba(99,144,255,0.06), transparent 70%)",
+              "radial-gradient(900px 500px at 20% 10%, rgba(168,85,247,0.14), transparent 60%), radial-gradient(900px 600px at 85% 90%, rgba(34,211,238,0.12), transparent 60%), radial-gradient(700px 500px at 50% 50%, rgba(217,70,239,0.06), transparent 70%)",
           }}
         />
         <div
@@ -4762,7 +4762,7 @@ function InteractiveModulesShowcase() {
       {/* Module grid with shared-layout expansion */}
       <div className="relative">
         {/* ambient backdrop */}
-        <div aria-hidden className="pointer-events-none absolute -inset-6 rounded-3xl bg-[radial-gradient(circle_at_30%_20%,rgba(82,120,255,0.10),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(147,51,234,0.10),transparent_60%)]" />
+        <div aria-hidden className="pointer-events-none absolute -inset-6 rounded-3xl bg-[radial-gradient(circle_at_30%_20%,rgba(34,211,238,0.12),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(168,85,247,0.15),transparent_60%)]" />
         <div className="relative grid grid-cols-2 gap-3">
           {MOD_LIST2.map((m) => {
             const isActive = active === m.key;
@@ -5541,7 +5541,7 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
         style={{ x: tx2, y: ty2 }}
       >
         <div className="absolute inset-0 rounded-full" style={{
-          background: "radial-gradient(circle at 50% 50%, rgba(147,51,234,0.22), rgba(82,120,255,0.18) 45%, transparent 70%)",
+          background: "radial-gradient(circle at 50% 50%, rgba(168,85,247,0.25), rgba(34,211,238,0.20) 45%, transparent 70%)",
           filter: "blur(36px)",
         }} />
       </motion.div>
@@ -5702,7 +5702,7 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
               className="absolute -inset-8 rounded-full"
               style={{
                 background:
-                  "radial-gradient(circle, rgba(147,51,234,0.6) 0%, rgba(147,51,234,0.18) 45%, transparent 75%)",
+                  "radial-gradient(circle, rgba(168,85,247,0.55) 0%, rgba(34,211,238,0.22) 45%, transparent 75%)",
                 filter: "blur(14px)",
                 opacity: glow,
               }}
@@ -5714,9 +5714,9 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
               className="relative w-full h-full rounded-full"
               style={{
                 background:
-                  "radial-gradient(circle at 35% 30%, #F3E8FF 0%, #D8B4FE 22%, #9333EA 52%, #581C87 100%)",
+                  "radial-gradient(circle at 35% 30%, #F5F3FF 0%, #E9D5FF 20%, #C084FC 45%, #7C3AED 80%, #4C1D95 100%)",
                 boxShadow:
-                  "0 16px 50px -10px rgba(147,51,234,0.8), inset 0 -12px 28px rgba(88,28,135,0.7), inset 0 12px 24px rgba(243,232,255,0.6)",
+                  "0 16px 50px -10px rgba(168,85,247,0.75), 0 0 30px rgba(34,211,238,0.35), inset 0 -12px 28px rgba(76,29,149,0.7), inset 0 12px 24px rgba(245,243,255,0.7)",
               }}
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 2.2 / (0.6 + intensity * 0.4), repeat: Infinity, ease: "easeInOut" }}
@@ -5880,7 +5880,7 @@ function MarketingFuture() {
             className="relative mt-16 rounded-[28px] overflow-hidden"
             style={{
               background:
-                "radial-gradient(800px 500px at 28% 30%, rgba(147,51,234,0.10), transparent 60%), radial-gradient(700px 500px at 80% 70%, rgba(82,120,255,0.12), transparent 60%), linear-gradient(180deg, #ffffff, #FBFAF7)",
+                "radial-gradient(800px 500px at 28% 30%, rgba(168,85,247,0.14), transparent 60%), radial-gradient(700px 500px at 80% 70%, rgba(34,211,238,0.12), transparent 60%), linear-gradient(180deg, #ffffff, #FAF5FF)",
               border: "1px solid rgba(27,43,75,0.08)",
               boxShadow:
                 "0 30px 80px -40px rgba(27,43,75,0.25), inset 0 1px 0 rgba(255,255,255,0.9)",
@@ -5888,7 +5888,7 @@ function MarketingFuture() {
           >
             {/* top hairline */}
             <div className="absolute inset-x-0 top-0 h-px" style={{
-              background: "linear-gradient(90deg, transparent, rgba(147,51,234,0.5), rgba(82,120,255,0.5), transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(168,85,247,0.5), rgba(34,211,238,0.5), transparent)",
             }} />
 
             <div className="grid lg:grid-cols-[48%_52%] gap-8 lg:gap-12 items-center p-8 md:p-14">
@@ -6248,8 +6248,8 @@ function NeuralCore() {
       <motion.div
         className="relative w-20 h-20 rounded-full flex items-center justify-center text-white z-10"
         style={{
-          background: "radial-gradient(circle at 30% 30%, #C084FC, #9333EA 60%, #581C87)",
-          boxShadow: "0 0 50px rgba(147,51,234,0.55), inset 0 1px 0 rgba(255,255,255,0.4)",
+          background: "radial-gradient(circle at 30% 30%, #E9D5FF 0%, #C084FC 35%, #7C3AED 75%, #4C1D95 100%)",
+          boxShadow: "0 0 50px rgba(168,85,247,0.6), 0 0 25px rgba(34,211,238,0.35), inset 0 1px 0 rgba(255,255,255,0.4)",
         }}
         animate={{ scale: [1, 1.06, 1] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}

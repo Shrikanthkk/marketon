@@ -234,7 +234,7 @@ function Backdrop({ driftX, driftY, driftX2, driftY2 }: any) {
         style={{
           x: driftX2, y: driftY2,
           background:
-            "radial-gradient(600px 400px at 20% 80%, rgba(147,51,234,0.18), transparent 60%), radial-gradient(700px 500px at 80% 20%, rgba(82,120,255,0.22), transparent 60%)",
+            "radial-gradient(600px 400px at 20% 80%, rgba(168,85,247,0.22), transparent 60%), radial-gradient(700px 500px at 80% 20%, rgba(34,211,238,0.22), transparent 60%)",
         }}
       />
       {/* Floating particles */}
@@ -395,7 +395,7 @@ function AiCore() {
         className="absolute inset-0 rounded-full"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, rgba(147,51,234,0.55), rgba(82,120,255,0.35) 45%, transparent 70%)",
+            "radial-gradient(circle at 50% 50%, rgba(168,85,247,0.55), rgba(34,211,238,0.35) 45%, transparent 70%)",
           filter: "blur(18px)",
         }}
         animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
@@ -428,8 +428,8 @@ function AiCore() {
           style={{
             width: 120, height: 120,
             background:
-              "radial-gradient(circle at 35% 30%, #fff 0%, #E9D5FF 18%, #9333EA 45%, #581C87 80%)",
-            boxShadow: "0 0 80px rgba(147,51,234,0.55), inset 0 0 40px rgba(255,255,255,0.4)",
+              "radial-gradient(circle at 35% 30%, #fff 0%, #E9D5FF 18%, #C084FC 45%, #7C3AED 75%, #4C1D95 100%)",
+            boxShadow: "0 0 80px rgba(168,85,247,0.55), 0 0 40px rgba(34,211,238,0.35), inset 0 0 40px rgba(255,255,255,0.4)",
           }}
           animate={{ scale: [1, 1.04, 1] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
