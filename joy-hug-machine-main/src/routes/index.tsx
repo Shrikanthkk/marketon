@@ -675,7 +675,7 @@ function Hero() {
                 style={{
                   left: `${15 + i * 28}%`,
                   background:
-                    "linear-gradient(90deg, transparent, rgba(255,200,150,0.25), transparent)",
+                    "linear-gradient(90deg, transparent, rgba(192,132,252,0.25), transparent)",
                   filter: "blur(20px)",
                   animation: `heroStreak ${9 + i * 2}s ease-in-out ${i * 2.4}s infinite`,
                 }}
@@ -810,8 +810,8 @@ function Hero() {
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[160%] pointer-events-none -z-10"
             style={{
               background: isGalaxy
-                ? "radial-gradient(circle at 50% 45%, rgba(255,120,45,.08), rgba(15,18,35,.04) 30%, transparent 60%)"
-                : "radial-gradient(ellipse at center, rgba(255,180,120,0.45), transparent 60%)",
+                ? "radial-gradient(circle at 50% 45%, rgba(147,51,234,.08), rgba(15,18,35,.04) 30%, transparent 60%)"
+                : "radial-gradient(ellipse at center, rgba(192,132,252,0.45), transparent 60%)",
               filter: "blur(40px)",
             }}
             initial={{ opacity: 0, scale: 0.85 }}
@@ -824,7 +824,7 @@ function Hero() {
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(110deg, transparent 30%, rgba(255,200,150,0.35) 50%, transparent 70%)",
+                "linear-gradient(110deg, transparent 30%, rgba(216,180,254,0.35) 50%, transparent 70%)",
               backgroundSize: "200% 100%",
               mixBlendMode: "soft-light",
               animation: "heroSweep 6s ease-in-out infinite",
@@ -944,11 +944,11 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
               delay: (i % 7) * 0.35,
             }}
             whileHover={{ scale: 1.12, y: -6 }}
-            className="text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent bg-gradient-to-r from-[#ff6b00] via-[#ff7a18] to-[#ffa94d] hover:drop-shadow-[0_0_14px_rgba(255,122,24,0.45)] transition-all duration-300"
+            className="text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent bg-gradient-to-r from-[#7C3AED] via-[#9333EA] to-[#C084FC] hover:drop-shadow-[0_0_14px_rgba(147,51,234,0.55)] transition-all duration-300"
             style={{
               fontFamily: '"Space Grotesk", "Inter Tight", "Inter", system-ui, sans-serif',
               letterSpacing: "-0.02em",
-              textShadow: "0 1px 0 rgba(255,255,255,0.6), 0 0 22px rgba(255,122,24,0.18)",
+              textShadow: "0 1px 0 rgba(255,255,255,0.6), 0 0 22px rgba(147,51,234,0.25)",
             }}
           >
             {it}
@@ -1509,7 +1509,7 @@ const HOME_APPS: { key: ChannelKey; label: string; bg: string; emoji: string; ba
   { key: "Email",             label: "Mail",      bg: "from-sky-400 to-blue-600", emoji: "📧", badge: 12 },
   { key: "Telegram",          label: "Telegram",  bg: "from-sky-400 to-sky-600", emoji: "✈️" },
   { key: "Facebook Messenger",label: "Messenger", bg: "from-blue-500 to-indigo-600", emoji: "💭", badge: 2 },
-  { key: "AI Voice Calls",    label: "AI Voice",  bg: "from-mk-orange to-rose-500", emoji: "🎙️" },
+  { key: "AI Voice Calls",    label: "AI Voice",  bg: "from-mk-orange to-fuchsia-500", emoji: "🎙️" },
   { key: "Web Push",          label: "Push",      bg: "from-violet-500 to-fuchsia-500", emoji: "🔔", badge: 5 },
 ];
 
@@ -2160,7 +2160,7 @@ function LiveEmail() {
           {s.body.split("\n").map((line, i) => (
             <motion.p key={i} initial={{ opacity:0, y:6 }} animate={{ opacity:1, y:0 }} transition={{ delay: 0.2 + i*0.2 }}>{line}</motion.p>
           ))}
-          <motion.div initial={{ scale:0.9, opacity:0 }} animate={{ scale:1, opacity:1 }} transition={{ delay:0.7 }} className="rounded-lg bg-gradient-to-br from-mk-orange to-rose-500 text-white p-3 text-center my-2">
+          <motion.div initial={{ scale:0.9, opacity:0 }} animate={{ scale:1, opacity:1 }} transition={{ delay:0.7 }} className="rounded-lg bg-gradient-to-br from-mk-orange to-fuchsia-500 text-white p-3 text-center my-2">
             <p className="text-[10px] opacity-80">EXCLUSIVE</p>
             <p className="text-base font-bold">{s.code}</p>
           </motion.div>
@@ -2246,7 +2246,7 @@ function ChannelPreview({ channel }: { channel: ChannelKey }) {
             <Bell size={14} className="text-mk-navy" />
           </div>
           <div className="p-3 flex-1 flex flex-col gap-2">
-            <motion.div initial={{ scale:0.9, opacity:0 }} animate={{ scale:1, opacity:1 }} className="bg-gradient-to-br from-mk-orange to-rose-500 rounded-2xl p-3 text-white shadow-lg">
+            <motion.div initial={{ scale:0.9, opacity:0 }} animate={{ scale:1, opacity:1 }} className="bg-gradient-to-br from-mk-orange to-fuchsia-500 rounded-2xl p-3 text-white shadow-lg">
               <div className="flex items-center gap-2">
                 <Zap size={14} /><p className="text-[10px] uppercase tracking-wide font-bold">Pro Tip</p>
               </div>
@@ -2894,7 +2894,7 @@ function WorkflowTab() {
               <motion.div
                 animate={{ width: `${cpu}%` }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="h-full rounded-full bg-gradient-to-r from-mk-orange via-rose-400 to-mk-orange"
+                className="h-full rounded-full bg-gradient-to-r from-mk-orange via-fuchsia-400 to-mk-orange"
               />
             </div>
             <div className="flex items-center gap-1.5 text-[10px] font-mono text-white/55">
@@ -2985,7 +2985,7 @@ function AnalyticsTab() {
     { n: "Qualified", base: 12410, color: "from-sky-400 to-cyan-500" },
     { n: "Engaged", base: 8200, color: "from-violet-400 to-fuchsia-500" },
     { n: "Appts", base: 4520, color: "from-emerald-400 to-teal-500" },
-    { n: "Convert", base: 3245, color: "from-mk-orange to-rose-500" },
+    { n: "Convert", base: 3245, color: "from-mk-orange to-fuchsia-500" },
   ];
   const bars = baseBars.map((b, i) => ({
     ...b,
@@ -3909,7 +3909,7 @@ function VoiceAgentLive() {
           <motion.div
             animate={{ boxShadow: ["0 0 0 0 rgba(147,51,234,0.5)", "0 0 0 14px rgba(147,51,234,0)"] }}
             transition={{ duration: 1.6, repeat: Infinity }}
-            className="w-10 h-10 rounded-full bg-gradient-to-br from-mk-orange to-rose-500 flex items-center justify-center text-mk-navy"
+            className="w-10 h-10 rounded-full bg-gradient-to-br from-mk-orange to-fuchsia-500 flex items-center justify-center text-white"
           >
             <PhoneCall size={16} />
           </motion.div>
@@ -3936,7 +3936,7 @@ function VoiceAgentLive() {
           {Array.from({ length: bars }).map((_, i) => (
             <motion.span
               key={i}
-              className="flex-1 rounded-full bg-gradient-to-t from-mk-orange/40 via-mk-orange to-rose-400"
+              className="flex-1 rounded-full bg-gradient-to-t from-mk-orange/40 via-mk-orange to-fuchsia-400"
               animate={{
                 scaleY: phase === "booking"
                   ? [0.2, 0.25, 0.2]
@@ -5323,7 +5323,7 @@ function BusinessesCan() {
                 transition={{ duration: 0.7, delay: i * 0.12, ease: EASE_EXPO }}
                 className="inline-block mr-2"
               >
-                {i === 1 ? <span className="bg-gradient-to-r from-mk-orange to-rose-500 bg-clip-text text-transparent">{w}</span> : w}
+                {i === 1 ? <span className="bg-gradient-to-r from-mk-orange to-fuchsia-500 bg-clip-text text-transparent">{w}</span> : w}
               </motion.span>
             ))}
           </h2>
@@ -5717,7 +5717,7 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
                 className="absolute inset-3 rounded-full opacity-60 mix-blend-overlay"
                 style={{
                   background:
-                    "conic-gradient(from 180deg, transparent 0deg, rgba(255,180,120,0.9) 40deg, transparent 90deg, transparent 360deg)",
+                    "conic-gradient(from 180deg, transparent 0deg, rgba(192,132,252,0.9) 40deg, transparent 90deg, transparent 360deg)",
                 }}
                 animate={{ rotate: -360 }}
                 transition={{ duration: 4.6 * speedBoost, repeat: Infinity, ease: "linear" }}
