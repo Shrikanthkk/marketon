@@ -93,9 +93,9 @@ export default function HeroShaderBackground({
         );
         vec2 light = (lightUV - 0.5) * vec2(u_res.x/u_res.y, 1.0);
 
-        // base ivory gradient in Light mode, deep galaxy in Dark mode
-        vec3 lightTop    = vec3(1.000, 0.965, 0.933); // #FFF6EE
-        vec3 lightBottom = vec3(0.957, 0.957, 0.984); // #F4F4FB
+        // base celestial gradient in Light mode, deep galaxy in Dark mode
+        vec3 lightTop    = vec3(0.975, 0.965, 0.995); // celestial soft lavender-white
+        vec3 lightBottom = vec3(0.940, 0.975, 0.995); // celestial soft cyan-white
         vec3 baseTop     = mix(lightTop, vec3(0.051, 0.078, 0.188), u_dark); // #0d1430 in dark
         vec3 baseBottom  = mix(lightBottom, vec3(0.012, 0.020, 0.059), u_dark); // #03050f in dark
 
@@ -106,15 +106,21 @@ export default function HeroShaderBackground({
         q += vec2(u_time * 0.03, u_time * 0.015);
         float n = fbm(q + fbm(q * 1.8 + u_time * 0.04));
 
-        // depth orbs (warm + cool) parallaxed by light
+        // depth orbs matching reference image palette:
+        // cosmic violet & magenta clouds at top/sides, glowing cyan supernova core at bottom
         float warm = exp(-3.2 * length(p - light * 0.6));
-        float cool = exp(-4.0 * length(p - vec2(-0.4, 0.25) + light*0.1));
-        vec3 warmCol = vec3(0.65, 0.25, 0.95);   // mk-purple
-        vec3 coolCol = vec3(0.47, 0.59, 1.0);   // soft indigo
+        float cool = exp(-3.8 * length(p - vec2(-0.42, 0.22) + light*0.1));
+        float supernova = exp(-4.5 * length(p - vec2(0.0, -0.38))); // lower celestial cyan core
+
+        vec3 purpleCol  = vec3(0.64, 0.20, 0.94); // cosmic violet
+        vec3 magentaCol = vec3(0.86, 0.18, 0.65); // cosmic magenta flare
+        vec3 cyanCol    = vec3(0.08, 0.78, 0.96); // radiant electric cyan supernova
+        vec3 indigoCol  = vec3(0.22, 0.25, 0.68); // deep space sapphire
 
         float cloudIntensity = mix(0.55, 0.35, u_dark);
-        col += warmCol * warm * cloudIntensity * (0.7 + 0.5 * n);
-        col += coolCol * cool * (cloudIntensity * 0.6) * (0.6 + 0.6 * n);
+        col += mix(purpleCol, magentaCol, 0.45 * sin(u_time * 0.15) + 0.5) * warm * cloudIntensity * (0.7 + 0.5 * n);
+        col += indigoCol * cool * (cloudIntensity * 0.55) * (0.6 + 0.6 * n);
+        col += cyanCol * supernova * (cloudIntensity * 0.85) * (0.8 + 0.5 * n);
 
         // cheap god-rays: radial march from light, sampling fbm density
         float ray = 0.0;
@@ -128,7 +134,7 @@ export default function HeroShaderBackground({
           decay *= 0.86;
         }
         ray /= float(${RAY_STEPS});
-        col += warmCol * ray * mix(0.18, 0.12, u_dark);
+        col += mix(cyanCol, purpleCol, 0.5 + 0.5 * sin(u_time * 0.2)) * ray * mix(0.22, 0.14, u_dark);
 
         // depth fog: lift edges, sink corners
         float vign = smoothstep(1.15, 0.25, length(p));

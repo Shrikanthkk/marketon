@@ -256,7 +256,7 @@ function HeroNeuralCanvas({ mouse }: { mouse: React.MutableRefObject<{ x: number
     if (!ctx) return;
     let raf = 0;
     let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
-    type P = { x: number; y: number; vx: number; vy: number; r: number; hue: number };
+    type P = { x: number; y: number; vx: number; vy: number; r: number; color: string };
     let particles: P[] = [];
 
     const resize = () => {
@@ -266,15 +266,21 @@ function HeroNeuralCanvas({ mouse }: { mouse: React.MutableRefObject<{ x: number
       canvas.width = w * dpr; canvas.height = h * dpr;
       canvas.style.width = w + "px"; canvas.style.height = h + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(70, Math.floor((w * h) / 20000));
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-        r: 0.8 + Math.random() * 1.6,
-        hue: Math.random() < 0.5 ? 25 : 220,
-      }));
+      const count = Math.min(75, Math.floor((w * h) / 19000));
+      particles = Array.from({ length: count }, () => {
+        const rType = Math.random();
+        // Exact cosmic jewel star colors from reference image:
+        // 45% electric cyan, 35% cosmic violet, 20% nebular magenta
+        const starColor = rType < 0.45 ? "34,211,238" : rType < 0.8 ? "192,132,252" : "217,70,239";
+        return {
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          r: 0.8 + Math.random() * 1.8,
+          color: starColor,
+        };
+      });
     };
     resize();
     const ro = new ResizeObserver(resize);
@@ -312,10 +318,7 @@ function HeroNeuralCanvas({ mouse }: { mouse: React.MutableRefObject<{ x: number
           const d2 = dx * dx + dy * dy;
           if (d2 < 14000) {
             const alpha = (1 - d2 / 14000) * 0.18;
-            const hue = (a.hue + b.hue) / 2;
-            ctx.strokeStyle = hue < 100
-              ? `rgba(147,51,234,${alpha})`
-              : `rgba(120,150,255,${alpha})`;
+            ctx.strokeStyle = `rgba(${a.color},${alpha})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -326,10 +329,9 @@ function HeroNeuralCanvas({ mouse }: { mouse: React.MutableRefObject<{ x: number
       }
       // dots
       for (const p of particles) {
-        const col = p.hue < 100 ? "147,51,234" : "120,150,255";
-        ctx.fillStyle = `rgba(${col},0.85)`;
+        ctx.fillStyle = `rgba(${p.color},0.85)`;
         ctx.shadowBlur = 12;
-        ctx.shadowColor = `rgba(${col},0.7)`;
+        ctx.shadowColor = `rgba(${p.color},0.75)`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
@@ -587,10 +589,10 @@ function Hero() {
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%]"
           >
             <div
-              className="absolute inset-0 opacity-[0.35]"
+              className="absolute inset-0 opacity-[0.38]"
               style={{
                 background:
-                  "conic-gradient(from 90deg at 50% 50%, rgba(192,132,252,0) 0deg, rgba(192,132,252,0.45) 60deg, rgba(120,150,255,0) 140deg, rgba(120,150,255,0.35) 220deg, rgba(192,132,252,0) 320deg, rgba(192,132,252,0) 360deg)",
+                  "conic-gradient(from 90deg at 50% 50%, rgba(168,85,247,0) 0deg, rgba(168,85,247,0.45) 50deg, rgba(217,70,239,0.38) 100deg, rgba(34,211,238,0) 160deg, rgba(6,182,212,0.42) 220deg, rgba(99,102,241,0.28) 290deg, rgba(168,85,247,0) 360deg)",
                 filter: "blur(70px)",
                 animation: "heroAurora 60s linear infinite",
                 maskImage:
@@ -620,17 +622,17 @@ function Hero() {
           className="absolute inset-0"
         />
 
-        {/* drifting glow orbs */}
+        {/* drifting glow orbs matching reference cosmic palette */}
         <motion.div
           style={{ x: orb1X, y: orb1Y }}
-          className="absolute left-1/2 top-[35%] -translate-x-1/2 -translate-y-1/2"
+          className="absolute left-1/2 top-[32%] -translate-x-1/2 -translate-y-1/2"
         >
           <div
-            className="w-[760px] h-[380px] rounded-full"
+            className="w-[780px] h-[400px] rounded-full"
             style={{
               background: isGalaxy
                 ? "radial-gradient(circle at 50% 45%, rgba(147,51,234,.08), rgba(15,18,35,.04) 30%, transparent 60%)"
-                : "radial-gradient(ellipse at center, rgba(192,132,252,0.6), rgba(147,51,234,0.2) 40%, transparent 70%)",
+                : "radial-gradient(ellipse at center, rgba(192,132,252,0.55), rgba(217,70,239,0.3) 35%, rgba(124,58,237,0.12) 55%, transparent 70%)",
               filter: "blur(50px)",
               animation: "heroDrift1 14s ease-in-out infinite",
             }}
@@ -638,31 +640,48 @@ function Hero() {
         </motion.div>
         {!isGalaxy && (
           <>
+            {/* Lower-left cyan supernova burst */}
             <motion.div
               style={{ x: orb2X, y: orb2Y }}
-              className="absolute left-[15%] top-[60%]"
+              className="absolute left-[12%] top-[58%]"
             >
               <div
-                className="w-[460px] h-[460px] rounded-full"
+                className="w-[480px] h-[480px] rounded-full"
                 style={{
                   background:
-                    "radial-gradient(circle, rgba(120,150,255,0.4), transparent 65%)",
+                    "radial-gradient(circle, rgba(34,211,238,0.52), rgba(6,182,212,0.25) 45%, transparent 68%)",
                   filter: "blur(70px)",
                   animation: "heroDrift2 18s ease-in-out infinite",
                 }}
               />
             </motion.div>
+            {/* Upper-right magenta & deep space dust */}
             <motion.div
               style={{ x: orb3X, y: orb3Y }}
-              className="absolute right-[8%] top-[18%]"
+              className="absolute right-[8%] top-[16%]"
             >
               <div
-                className="w-[400px] h-[400px] rounded-full"
+                className="w-[420px] h-[420px] rounded-full"
                 style={{
                   background:
-                    "radial-gradient(circle, rgba(27,43,75,0.25), transparent 65%)",
+                    "radial-gradient(circle, rgba(217,70,239,0.38), rgba(49,46,129,0.22) 45%, transparent 68%)",
                   filter: "blur(80px)",
                   animation: "heroDrift3 22s ease-in-out infinite",
+                }}
+              />
+            </motion.div>
+            {/* Bottom-center radiant celestial cyan supernova core (from image) */}
+            <motion.div
+              style={{ x: orb1X, y: orb2Y }}
+              className="absolute left-1/2 bottom-[-8%] -translate-x-1/2 pointer-events-none"
+            >
+              <div
+                className="w-[620px] h-[360px] rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, rgba(103,232,249,0.62), rgba(6,182,212,0.32) 35%, rgba(14,165,233,0.1) 60%, transparent 75%)",
+                  filter: "blur(60px)",
+                  animation: "heroDrift2 16s ease-in-out infinite",
                 }}
               />
             </motion.div>

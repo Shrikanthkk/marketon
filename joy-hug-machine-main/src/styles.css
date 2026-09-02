@@ -154,7 +154,7 @@ html.theme-transition *::after {
   50% { transform: scale(1.15) rotate(8deg); opacity: .5; filter: hue-rotate(15deg); }
 }
 .mk-orb {
-  background: radial-gradient(ellipse at center, rgba(192,132,252,0.55), rgba(147,51,234,0.25) 35%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(192,132,252,0.55), rgba(217,70,239,0.3) 30%, rgba(34,211,238,0.2) 55%, transparent 70%);
   animation: morphOrb 8s ease-in-out infinite;
   filter: blur(20px);
   will-change: transform, opacity;

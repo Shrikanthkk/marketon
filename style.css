@@ -505,9 +505,9 @@ p {
 .hero {
   background-color: var(--bg-hero);
   background-image: 
-    radial-gradient(circle at 15% 30%, rgba(2, 132, 199, 0.15) 0%, transparent 45%),
-    radial-gradient(circle at 85% 20%, rgba(13, 148, 136, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 18% 25%, rgba(168, 85, 247, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 82% 20%, rgba(217, 70, 239, 0.14) 0%, transparent 40%),
+    radial-gradient(circle at 50% 85%, rgba(34, 211, 238, 0.18) 0%, transparent 55%);
   color: var(--text-white);
   padding-top: 5rem;
   padding-bottom: 6rem;
