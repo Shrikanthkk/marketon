@@ -4,8 +4,8 @@ import { useTheme } from "@/lib/theme";
 
 interface Star {
   id: number;
-  x: number; // percentage 0-100
-  y: number; // percentage 0-100
+  x: number;
+  y: number;
   size: 1 | 2 | 3 | 4;
   opacity: number;
   color: string;
@@ -16,43 +16,50 @@ interface Star {
 }
 
 export default function GalaxyBackground() {
-  const { isGalaxy } = useTheme();
+  const { isGalaxy, theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
 
-  // Deterministically generate a dense, premium galaxy starfield matching the reference target
   const stars: Star[] = useMemo(() => {
     const starList: Star[] = [];
-    const count = 260; // Dense, rich star field across full hero and viewport
+    const count = 260;
 
     for (let i = 0; i < count; i++) {
       const x = Math.random() * 100;
       const y = Math.random() * 100;
 
-      // Size distribution: 68% tiny (1px), 22% normal (2px), 7% medium (3px), 3% bright (4px)
       const randSize = Math.random();
       const size: 1 | 2 | 3 | 4 =
         randSize < 0.68 ? 1 : randSize < 0.9 ? 2 : randSize < 0.97 ? 3 : 4;
 
-      // Opacity levels: 0.25, 0.45, 0.7, 1.0
       const opacities = [0.25, 0.45, 0.7, 1.0];
       const opacity = opacities[Math.floor(Math.random() * opacities.length)];
 
-      // Color variation: Pure white, Soft white, Soft blue-white, Warm bright
       const randColor = Math.random();
       let color = "#FFFFFF";
-      if (randColor < 0.5) {
-        color = "#FFFFFF";
-      } else if (randColor < 0.82) {
-        color = "rgba(255, 255, 255, 0.85)"; // soft white
-      } else if (randColor < 0.95) {
-        color = "rgba(180, 215, 255, 0.95)"; // soft blue-white
+
+      if (isBrownGold) {
+        if (randColor < 0.5) {
+          color = "#FFD76A";
+        } else if (randColor < 0.82) {
+          color = "#FFF8E7";
+        } else if (randColor < 0.95) {
+          color = "#F2C94C";
+        } else {
+          color = "#D4AF37";
+        }
       } else {
-        color = "rgba(255, 245, 230, 0.95)"; // warm bright star
+        if (randColor < 0.5) {
+          color = "#FFFFFF";
+        } else if (randColor < 0.82) {
+          color = "rgba(255, 255, 255, 0.85)";
+        } else if (randColor < 0.95) {
+          color = "rgba(180, 215, 255, 0.95)";
+        } else {
+          color = "rgba(255, 245, 230, 0.95)";
+        }
       }
 
-      // Small number of stars have a glowing halo
       const hasGlow = size >= 3 && Math.random() < 0.45;
-
-      // Twinkle properties
       const twinkle = Math.random() < 0.6;
       const twinkleDuration = 2.2 + Math.random() * 4.2;
       const twinkleDelay = Math.random() * 5;
@@ -72,43 +79,54 @@ export default function GalaxyBackground() {
     }
 
     return starList;
-  }, []);
+  }, [isBrownGold]);
 
   return (
     <AnimatePresence>
       {isGalaxy && (
         <motion.div
+          key={isBrownGold ? "brown-gold-bg" : "dark-galaxy-bg"}
           aria-hidden="true"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.45, ease: "easeInOut" }}
           className="fixed inset-0 pointer-events-none z-[0] overflow-hidden"
-          style={{ backgroundColor: "#010104", willChange: "opacity" }}
+          style={{
+            backgroundColor: isBrownGold ? "#2B160D" : "#010104",
+            willChange: "opacity",
+          }}
         >
-          {/* 1. Subtle Radial Glow behind Hero heading — Keeping 95% deep black */}
+          {/* Subtle Radial Glow */}
           <div
             className="absolute inset-0"
             style={{
-              background: `
-                radial-gradient(circle at 50% 42%, rgba(147, 51, 234, 0.08) 0%, rgba(15, 18, 35, 0.05) 30%, transparent 60%),
-                radial-gradient(700px 500px at 80% 20%, rgba(82, 120, 255, 0.07), transparent 60%),
-                radial-gradient(600px 400px at 20% 80%, rgba(147, 51, 234, 0.05), transparent 60%)
-              `,
+              background: isBrownGold
+                ? `
+                  radial-gradient(circle at 50% 42%, rgba(212, 175, 55, 0.12) 0%, rgba(58, 33, 20, 0.3) 35%, transparent 65%),
+                  radial-gradient(700px 500px at 80% 20%, rgba(242, 201, 76, 0.08), transparent 60%),
+                  radial-gradient(600px 400px at 20% 80%, rgba(212, 175, 55, 0.06), transparent 60%)
+                `
+                : `
+                  radial-gradient(circle at 50% 42%, rgba(147, 51, 234, 0.08) 0%, rgba(15, 18, 35, 0.05) 30%, transparent 60%),
+                  radial-gradient(700px 500px at 80% 20%, rgba(82, 120, 255, 0.07), transparent 60%),
+                  radial-gradient(600px 400px at 20% 80%, rgba(147, 51, 234, 0.05), transparent 60%)
+                `,
             }}
           />
 
-          {/* 2. Very subtle grid overlay matching reference (opacity ~0.06) */}
+          {/* Grid overlay */}
           <div
             className="absolute inset-0 opacity-[0.06]"
             style={{
-              backgroundImage:
-                "linear-gradient(rgba(82, 120, 255, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(82, 120, 255, 0.4) 1px, transparent 1px)",
+              backgroundImage: isBrownGold
+                ? "linear-gradient(rgba(212, 175, 55, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.4) 1px, transparent 1px)"
+                : "linear-gradient(rgba(82, 120, 255, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(82, 120, 255, 0.4) 1px, transparent 1px)",
               backgroundSize: "56px 56px",
             }}
           />
 
-          {/* 3. Dense Galaxy Starfield */}
+          {/* Starfield */}
           <div className="absolute inset-0 w-full h-full">
             {stars.map((star) => (
               <span
@@ -122,7 +140,9 @@ export default function GalaxyBackground() {
                   backgroundColor: star.color,
                   opacity: star.opacity,
                   boxShadow: star.hasGlow
-                    ? "0 0 4px rgba(255, 255, 255, 0.8), 0 0 10px rgba(160, 190, 255, 0.5)"
+                    ? isBrownGold
+                      ? "0 0 4px rgba(255, 215, 106, 0.9), 0 0 10px rgba(212, 175, 55, 0.6)"
+                      : "0 0 4px rgba(255, 255, 255, 0.8), 0 0 10px rgba(160, 190, 255, 0.5)"
                     : star.size >= 3
                     ? `0 0 3px ${star.color}`
                     : "none",

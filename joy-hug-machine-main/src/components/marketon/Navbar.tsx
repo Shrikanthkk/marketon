@@ -67,7 +67,8 @@ function MagneticLink({
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { isGalaxy } = useTheme();
+  const { isGalaxy, theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
@@ -90,15 +91,27 @@ export default function Navbar() {
         animate={{
           paddingTop: scrolled ? 8 : 12,
           paddingBottom: scrolled ? 8 : 12,
-          backgroundColor: isGalaxy
+          backgroundColor: isBrownGold
+            ? scrolled
+              ? "rgba(43, 22, 13, 0.95)"
+              : "rgba(43, 22, 13, 0.85)"
+            : isGalaxy
             ? scrolled
               ? "rgba(5, 5, 8, 0.92)"
               : "rgba(5, 5, 8, 0.78)"
             : scrolled
             ? "rgba(255,255,255,0.95)"
             : "rgba(255,255,255,0.75)",
-          borderColor: isGalaxy ? "rgba(255,255,255,0.12)" : "var(--mk-border)",
-          boxShadow: isGalaxy
+          borderColor: isBrownGold
+            ? "rgba(212, 175, 55, 0.45)"
+            : isGalaxy
+            ? "rgba(255,255,255,0.12)"
+            : "var(--mk-border)",
+          boxShadow: isBrownGold
+            ? scrolled
+              ? "0 8px 32px rgba(43, 22, 13, 0.7), 0 0 15px rgba(212, 175, 55, 0.15)"
+              : "0 4px 24px rgba(43, 22, 13, 0.5)"
+            : isGalaxy
             ? scrolled
               ? "0 8px 32px rgba(0,0,0,0.6), 0 0 15px rgba(255,255,255,0.03)"
               : "0 4px 24px rgba(0,0,0,0.4)"
@@ -127,13 +140,13 @@ export default function Navbar() {
           <ThemeToggle />
           <button
             type="button"
-            className="px-4 py-2 rounded-full bg-mk-navy text-white text-[13px] font-semibold hover:scale-[1.03] transition"
+            className="px-4 py-2 rounded-full bg-mk-navy text-white text-[13px] font-semibold hover:scale-[1.03] transition cursor-pointer"
           >
             Log in
           </button>
           <button
             type="button"
-            className="px-4 py-2 rounded-full bg-white border border-mk-navy text-mk-navy text-[13px] font-semibold hover:bg-mk-navy hover:text-white transition"
+            className="px-4 py-2 rounded-full bg-white border border-mk-navy text-mk-navy text-[13px] font-semibold hover:bg-mk-navy hover:text-white transition cursor-pointer"
           >
             Contact Us
           </button>
@@ -160,7 +173,9 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             className={`md:hidden mt-2 rounded-2xl p-5 shadow-xl flex flex-col gap-4 ${
-              isGalaxy
+              isBrownGold
+                ? "bg-[#2b160d]/95 border border-[rgba(212,175,55,0.45)] text-[#fff8e7] backdrop-blur-2xl shadow-[0_12px_32px_rgba(43,22,13,0.8)]"
+                : isGalaxy
                 ? "bg-[#0a0d16]/95 border border-white/12 text-white backdrop-blur-2xl shadow-[0_12px_32px_rgba(0,0,0,0.7)]"
                 : "bg-white border border-mk-border"
             }`}

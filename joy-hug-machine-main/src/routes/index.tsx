@@ -456,7 +456,7 @@ function Hero() {
         mouse.current.active = true;
       }}
       onMouseLeave={() => { mouse.current.active = false; }}
-      className={`relative pt-40 pb-32 md:pt-48 md:pb-40 overflow-hidden ${isGalaxy ? "bg-[#010104]" : ""}`}
+      className={`relative pt-40 pb-32 md:pt-48 md:pb-40 overflow-hidden ${isGalaxy ? "bg-transparent" : ""}`}
     >
       <style>{`
         @keyframes heroSweep { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }

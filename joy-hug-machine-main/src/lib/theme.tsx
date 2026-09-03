@@ -1,10 +1,13 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-type Theme = "light" | "galaxy";
+export type Theme = "light" | "dark" | "brown-gold";
 
 interface ThemeContextType {
   theme: Theme;
-  isGalaxy: boolean;
+  isLight: boolean;
+  isDark: boolean;
+  isBrownGold: boolean;
+  isGalaxy: boolean; // true if dark or brown-gold for canvas backgrounds
   toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
 }
@@ -18,17 +21,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Read stored theme or system preference
     try {
       const stored = localStorage.getItem(THEME_STORAGE_KEY) || localStorage.getItem("theme");
-      if (stored === "galaxy" || stored === "dark") {
-        setThemeState("galaxy");
-        applyThemeClass("galaxy");
-      } else if (stored === "light") {
-        setThemeState("light");
-        applyThemeClass("light");
+      if (stored === "brown-gold") {
+        setThemeState("brown-gold");
+        applyThemeClass("brown-gold");
+      } else if (stored === "dark" || stored === "galaxy") {
+        setThemeState("dark");
+        applyThemeClass("dark");
       } else {
-        // Default is light as requested
         setThemeState("light");
         applyThemeClass("light");
       }
@@ -42,13 +43,18 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const applyThemeClass = (newTheme: Theme) => {
     const root = document.documentElement;
     root.classList.add("theme-transition");
-    
-    if (newTheme === "galaxy") {
+    root.classList.remove("dark", "galaxy", "brown-gold", "light");
+
+    if (newTheme === "brown-gold") {
+      root.classList.add("dark", "brown-gold");
+      root.setAttribute("data-theme", "brown-gold");
+      root.style.colorScheme = "dark";
+    } else if (newTheme === "dark") {
       root.classList.add("dark", "galaxy");
-      root.setAttribute("data-theme", "galaxy");
+      root.setAttribute("data-theme", "dark");
       root.style.colorScheme = "dark";
     } else {
-      root.classList.remove("dark", "galaxy");
+      root.classList.add("light");
       root.setAttribute("data-theme", "light");
       root.style.colorScheme = "light";
     }
@@ -70,15 +76,23 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   };
 
   const toggleTheme = () => {
-    const next = theme === "galaxy" ? "light" : "galaxy";
-    setTheme(next);
+    if (theme === "light") {
+      setTheme("dark");
+    } else if (theme === "dark") {
+      setTheme("brown-gold");
+    } else {
+      setTheme("light");
+    }
   };
 
   return (
     <ThemeContext.Provider
       value={{
         theme,
-        isGalaxy: theme === "galaxy",
+        isLight: theme === "light",
+        isDark: theme === "dark",
+        isBrownGold: theme === "brown-gold",
+        isGalaxy: theme === "dark" || theme === "brown-gold",
         toggleTheme,
         setTheme,
       }}
@@ -93,6 +107,9 @@ export function useTheme() {
   if (!context) {
     return {
       theme: "light" as Theme,
+      isLight: true,
+      isDark: false,
+      isBrownGold: false,
       isGalaxy: false,
       toggleTheme: () => {},
       setTheme: () => {},

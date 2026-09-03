@@ -1,40 +1,65 @@
-import React, { useId } from "react";
-import { useTheme } from "@/lib/theme";
+import { useId } from "react";
+import { useTheme, type Theme } from "@/lib/theme";
 
 interface ThemeToggleProps {
   className?: string;
-  checked?: boolean;
-  onChange?: () => void;
   id?: string;
   showLabel?: boolean;
 }
 
 export default function ThemeToggle({
   className = "",
-  checked,
-  onChange,
   id,
   showLabel = false,
 }: ThemeToggleProps) {
-  const { isGalaxy, toggleTheme } = useTheme();
+  const { theme, toggleTheme, setTheme } = useTheme();
   const generatedId = useId();
   const toggleId = id || `rocket-toggle-${generatedId.replace(/:/g, "")}`;
 
-  const isChecked = checked !== undefined ? checked : isGalaxy;
-  const handleToggle = onChange || toggleTheme;
+  const getThemeLabel = (t: Theme) => {
+    switch (t) {
+      case "light":
+        return "Light theme";
+      case "dark":
+        return "Dark theme";
+      case "brown-gold":
+        return "Brown and Gold theme";
+    }
+  };
+
+  const currentLabel = getThemeLabel(theme);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleTheme();
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      if (theme === "light") setTheme("dark");
+      else if (theme === "dark") setTheme("brown-gold");
+      else setTheme("light");
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      if (theme === "brown-gold") setTheme("dark");
+      else if (theme === "dark") setTheme("light");
+      else setTheme("brown-gold");
+    }
+  };
 
   return (
     <div className={`rocket-toggle-wrapper inline-flex items-center gap-2 ${className}`}>
-      <label htmlFor={toggleId} className="rocket-switch">
-        <input
-          id={toggleId}
-          type="checkbox"
-          checked={isChecked}
-          onChange={handleToggle}
-          aria-label="Toggle light and galaxy theme"
-        />
-
-        <span className="slider">
+      <div
+        id={toggleId}
+        role="button"
+        tabIndex={0}
+        onClick={toggleTheme}
+        onKeyDown={handleKeyDown}
+        className={`rocket-switch rocket-switch-3pos theme-${theme}`}
+        aria-label={`Current theme: ${currentLabel}. Click to cycle themes.`}
+        aria-pressed={theme !== "light"}
+        title={`${currentLabel} (Click to switch)`}
+      >
+        <span className={`slider slider-${theme}`}>
           <div className="fug">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +82,7 @@ export default function ThemeToggle({
                 xmlns="http://www.w3.org/2000/svg"
                 width={4}
                 height={4}
-                fill="#fff"
+                fill={theme === "brown-gold" ? "#ffd76a" : "#ffffff"}
                 className="star"
                 viewBox="0 0 16 16"
                 aria-hidden="true"
@@ -67,11 +92,11 @@ export default function ThemeToggle({
             ))}
           </div>
         </span>
-      </label>
+      </div>
 
       {showLabel && (
         <span className="text-xs font-semibold uppercase tracking-wider text-mk-muted">
-          {isChecked ? "Galaxy Mode" : "Light Mode"}
+          {currentLabel}
         </span>
       )}
 
@@ -85,139 +110,151 @@ export default function ThemeToggle({
           padding: 0;
         }
 
-        .rocket-switch {
+        .rocket-switch-3pos {
           font-size: 14px;
           position: relative;
           display: inline-block;
-          width: 3.5em;
+          width: 4.85em;
           height: 2em;
           flex-shrink: 0;
           margin: 0;
           cursor: pointer;
+          outline: none;
         }
 
-        .rocket-switch input {
-          position: absolute;
-          opacity: 0;
-          width: 0;
-          height: 0;
-          pointer-events: none;
+        .rocket-switch-3pos:focus-visible .slider {
+          outline: 2px solid #ffd76a;
+          outline-offset: 2px;
         }
 
-        .rocket-switch .slider {
+        .rocket-switch-3pos .slider {
           position: absolute;
           cursor: pointer;
           inset: 0;
-          background-color: rgb(199, 219, 215);
           transition:
             background-color 0.4s ease,
             border-color 0.4s ease,
             box-shadow 0.4s ease;
           border-radius: 30px;
-          box-shadow: 0 0.3rem 0.7rem rgba(0, 0, 0, 0.12);
-          border: 1px solid rgba(255, 255, 255, 0.9);
           overflow: hidden;
         }
 
-        .rocket-switch .slider .fug .nav {
+        /* 1. Light Theme Slider */
+        .rocket-switch-3pos .slider-light {
+          background-color: rgb(199, 219, 215);
+          border: 1px solid rgba(255, 255, 255, 0.9);
+          box-shadow: 0 0.3rem 0.7rem rgba(0, 0, 0, 0.12);
+        }
+
+        /* 2. Dark / Galaxy Theme Slider */
+        .rocket-switch-3pos .slider-dark {
+          background-color: #182c45;
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          box-shadow:
+            inset 0 0 8px rgba(74, 126, 184, 0.3),
+            0 0.3rem 0.7rem rgba(0, 0, 0, 0.3);
+        }
+
+        /* 3. Brown & Gold Theme Slider */
+        .rocket-switch-3pos .slider-brown-gold {
+          background-color: #3a2114;
+          border: 1px solid rgba(212, 175, 55, 0.65);
+          box-shadow:
+            inset 0 0 10px rgba(212, 175, 55, 0.25),
+            0 0.3rem 0.7rem rgba(43, 22, 13, 0.45);
+        }
+
+        /* Rocket Nav Icon Base */
+        .rocket-switch-3pos .slider .fug .nav {
           position: absolute;
           height: 1.35em;
           width: 1.4em;
           left: 0.28em;
           bottom: 0.3em;
-          transition: transform 0.4s ease;
+          transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), fill 0.3s ease, filter 0.3s ease;
           z-index: 10;
-          transform: rotate(45deg);
           fill: #ffffff;
           filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
         }
 
-        .rocket-switch input:checked + .slider {
-          background-color: #182c45;
-          border-color: rgba(255, 255, 255, 0.2);
-          box-shadow:
-            inset 0 0 8px rgba(74, 126, 184, 0.22),
-            0 0.3rem 0.7rem rgba(0, 0, 0, 0.25);
+        /* Position 1: Light */
+        .rocket-switch-3pos.theme-light .slider .fug .nav {
+          transform: translateX(0) rotate(45deg);
+          fill: #ffffff;
         }
 
-        .rocket-switch input:focus-visible + .slider {
-          outline: 2px solid rgba(100, 160, 255, 0.95);
-          outline-offset: 2px;
+        /* Position 2: Dark (Center) */
+        .rocket-switch-3pos.theme-dark .slider .fug .nav {
+          transform: translateX(1.35em) rotate(45deg);
+          fill: #ffffff;
+          filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.7));
+          animation: rocketFloatDark 4s linear infinite;
         }
 
-        .rocket-switch input:checked + .slider .fug .nav {
-          transform: translateX(1.3em) rotate(45deg);
-          animation: rocketFloat 4s linear infinite;
+        /* Position 3: Brown & Gold (Right) */
+        .rocket-switch-3pos.theme-brown-gold .slider .fug .nav {
+          transform: translateX(2.75em) rotate(45deg);
+          fill: #ffd76a;
+          filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.8));
+          animation: rocketFloatGold 4s linear infinite;
         }
 
-        @keyframes rocketFloat {
-          0% {
-            transform: translateX(1.3em) rotate(45deg);
-          }
-          10% {
-            transform: translateX(1.12em) rotate(45deg);
-          }
-          30% {
-            transform: translateX(1.22em) rotate(45deg);
-          }
-          50% {
-            transform: translateX(1.05em) rotate(45deg);
-          }
-          70% {
-            transform: translateX(1.22em) rotate(45deg);
-          }
-          80% {
-            transform: translateX(1.08em) rotate(45deg);
-          }
-          90% {
-            transform: translateX(1.2em) rotate(45deg);
-          }
-          100% {
-            transform: translateX(1.3em) rotate(45deg);
-          }
+        @keyframes rocketFloatDark {
+          0%, 100% { transform: translateX(1.35em) rotate(45deg); }
+          50% { transform: translateX(1.22em) rotate(45deg); }
         }
 
-        .rocket-switch .star {
+        @keyframes rocketFloatGold {
+          0%, 100% { transform: translateX(2.75em) rotate(45deg); }
+          50% { transform: translateX(2.62em) rotate(45deg); }
+        }
+
+        /* Stars */
+        .rocket-switch-3pos .star {
           opacity: 0;
-          transition: opacity 0.2s linear;
+          transition: opacity 0.3s ease;
           pointer-events: none;
         }
 
-        .rocket-switch input:checked + .slider .star {
+        .rocket-switch-3pos.theme-dark .slider .star {
           opacity: 1;
           animation: twinkleStar 2s linear infinite;
         }
 
-        .rocket-switch .star:nth-child(1) {
+        .rocket-switch-3pos.theme-brown-gold .slider .star {
+          opacity: 1;
+          animation: twinkleStar 2s linear infinite;
+        }
+
+        .rocket-switch-3pos .star:nth-child(1) {
           position: absolute;
           top: 5px;
           left: 9px;
         }
 
-        .rocket-switch .star:nth-child(2) {
+        .rocket-switch-3pos .star:nth-child(2) {
           position: absolute;
           top: 11px;
-          left: 15px;
+          left: 17px;
           animation-delay: 0.3s !important;
         }
 
-        .rocket-switch .star:nth-child(3) {
+        .rocket-switch-3pos .star:nth-child(3) {
           position: absolute;
           top: 15px;
           left: 7px;
           animation-delay: 0.65s !important;
         }
 
-        .rocket-switch .star:nth-child(4) {
+        .rocket-switch-3pos .star:nth-child(4) {
           position: absolute;
           top: 19px;
-          left: 18px;
+          left: 20px;
           animation-delay: 0.9s !important;
         }
 
         @keyframes twinkleStar {
-          0%,
-          100% {
+          0%, 100% {
             opacity: 1;
             transform: scale(1);
           }
@@ -228,9 +265,9 @@ export default function ThemeToggle({
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .rocket-switch input:checked + .slider .fug .nav,
-          .rocket-switch input:checked + .slider .star {
-            animation: none;
+          .rocket-switch-3pos .slider .fug .nav,
+          .rocket-switch-3pos .slider .star {
+            animation: none !important;
           }
         }
       `}</style>

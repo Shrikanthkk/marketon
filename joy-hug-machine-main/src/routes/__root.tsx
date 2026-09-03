@@ -115,12 +115,17 @@ function RootShell({ children }: { children: ReactNode }) {
               (function() {
                 try {
                   var saved = localStorage.getItem('marketon_theme') || localStorage.getItem('theme');
-                  if (saved === 'galaxy' || saved === 'dark') {
+                  document.documentElement.classList.remove('dark', 'galaxy', 'brown-gold', 'light');
+                  if (saved === 'brown-gold') {
+                    document.documentElement.classList.add('dark', 'brown-gold');
+                    document.documentElement.setAttribute('data-theme', 'brown-gold');
+                    document.documentElement.style.colorScheme = 'dark';
+                  } else if (saved === 'galaxy' || saved === 'dark') {
                     document.documentElement.classList.add('dark', 'galaxy');
-                    document.documentElement.setAttribute('data-theme', 'galaxy');
+                    document.documentElement.setAttribute('data-theme', 'dark');
                     document.documentElement.style.colorScheme = 'dark';
                   } else {
-                    document.documentElement.classList.remove('dark', 'galaxy');
+                    document.documentElement.classList.add('light');
                     document.documentElement.setAttribute('data-theme', 'light');
                     document.documentElement.style.colorScheme = 'light';
                   }
