@@ -2325,25 +2325,40 @@ input:checked + .slider:before {
    Galaxy Dark Mode (#010104 Deep Black SaaS Galaxy Theme)
    ========================================================================== */
 .dark,
+[data-theme="dark"],
 [data-theme="galaxy"] {
   --bg-body: #010104;
   --bg-surface: rgba(255, 255, 255, 0.04);
   --bg-surface-subtle: rgba(255, 255, 255, 0.02);
   --bg-surface-elevated: #0a0d16;
   --text-main: #ffffff;
-  --text-muted: #b8bdc7;
-  --text-light: #8f96a3;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-card: rgba(255, 255, 255, 0.08);
+  --text-muted: #d1d5db;
+  --text-light: #9ca3af;
+  --border-subtle: rgba(255, 255, 255, 0.10);
+  --border-card: rgba(255, 255, 255, 0.10);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.6);
   --shadow-lg: 0 12px 35px rgba(0, 0, 0, 0.7);
   --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.85);
 }
 
-.dark body {
+.dark body,
+[data-theme="dark"] body,
+[data-theme="galaxy"] body {
   background-color: #010104;
   color: #ffffff;
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6,
+[data-theme="galaxy"] h1, [data-theme="galaxy"] h2, [data-theme="galaxy"] h3, [data-theme="galaxy"] h4, [data-theme="galaxy"] h5, [data-theme="galaxy"] h6 {
+  color: #ffffff !important;
+}
+
+.dark p,
+[data-theme="dark"] p,
+[data-theme="galaxy"] p {
+  color: #d1d5db;
 }
 
 .dark .navbar {
