@@ -16,7 +16,7 @@ import {
   Instagram, Send, Bell, Calendar as CalendarIcon, Brain, Cpu, Radio,
   PhoneCall, Target, PenTool, Users, Server, TrendingUp, Shield,
   CheckCircle2, Zap, BarChart3, Rocket, GitBranch, Trophy, Database,
-  Sparkles, Workflow, Globe,
+  Sparkles, Workflow, Globe, Cloud,
   Twitter, Linkedin, Youtube, Play, Video, ChevronLeft, ChevronRight, Maximize2, Home, RotateCcw, Square, Terminal,
 } from "lucide-react";
 import { MessageSquare } from "lucide-react";
@@ -5451,7 +5451,7 @@ function NeuralCore() {
         animate={{ scale: [1, 1.06, 1] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Cpu size={28} />
+        <Cloud size={28} strokeWidth={2.2} />
         {/* shock pulse */}
         <motion.span
           aria-hidden
