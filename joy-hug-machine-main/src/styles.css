@@ -61,6 +61,11 @@
   --case-card-bg: #ffffff;
   --case-border: rgba(17, 24, 39, 0.15);
 
+  --section-heading: #111827;
+  --section-text: #4b5563;
+  --section-card-bg: #ffffff;
+  --section-border: rgba(17, 24, 39, 0.15);
+
   --background: #FFFFFF;
   --foreground: #111827;
   --card: #FFFFFF;
@@ -113,6 +118,11 @@
   --case-text: #cbd5e1;
   --case-card-bg: rgba(255, 255, 255, 0.04);
   --case-border: rgba(255, 255, 255, 0.18);
+
+  --section-heading: #ffffff;
+  --section-text: #cbd5e1;
+  --section-card-bg: rgba(255, 255, 255, 0.04);
+  --section-border: rgba(255, 255, 255, 0.18);
 
   --background: #010104;
   --foreground: #FFFFFF;

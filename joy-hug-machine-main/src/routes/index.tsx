@@ -5640,7 +5640,7 @@ function CaseStudies() {
           <Reveal>
             <h2
               className="font-display text-[32px] md:text-[48px] max-w-2xl leading-tight"
-              style={{ color: "var(--case-heading)" }}
+              style={{ color: "var(--section-heading)" }}
             >
               Trusted by businesses that want more conversions
             </h2>
@@ -5655,28 +5655,28 @@ function CaseStudies() {
               <div
                 className="p-6 rounded-2xl h-full flex flex-col gap-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 backdrop-blur-md"
                 style={{
-                  backgroundColor: "var(--case-card-bg)",
-                  border: "1px solid var(--case-border)",
+                  backgroundColor: "var(--section-card-bg)",
+                  border: "1px solid var(--section-border)",
                   boxShadow: isGalaxy ? "0 4px 20px rgba(0,0,0,0.4)" : "0 4px 20px rgba(0,0,0,0.04)",
                 }}
               >
                 <span className="text-xs font-bold text-mk-orange uppercase tracking-wider">{x.tag}</span>
                 <h3
                   className="font-display text-2xl font-bold leading-snug"
-                  style={{ color: "var(--case-heading)" }}
+                  style={{ color: "var(--section-heading)" }}
                 >
                   {x.h}
                 </h3>
                 <p
                   className="text-sm flex-1 leading-relaxed"
-                  style={{ color: "var(--case-text)" }}
+                  style={{ color: "var(--section-text)" }}
                 >
                   {x.d}
                 </p>
                 <a
                   href="/#case-studies"
                   className="font-semibold text-sm hover:text-mk-orange transition-colors flex items-center gap-1.5"
-                  style={{ color: "var(--case-heading)" }}
+                  style={{ color: "var(--section-heading)" }}
                 >
                   <span>Read case study</span>
                   <span>→</span>
@@ -5694,14 +5694,17 @@ function CaseStudies() {
 
 function Stats() {
   return (
-    <section className="py-24 md:py-32 bg-mk-bg">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-24 md:py-32 relative overflow-hidden transition-colors duration-300">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         <Reveal>
-          <h2 className="font-display text-[32px] md:text-[48px] text-mk-heading text-center mb-14">
+          <h2
+            className="font-display text-[32px] md:text-[48px] text-center mb-14 leading-tight"
+            style={{ color: "var(--section-heading)" }}
+          >
             Delivering results at scale
           </h2>
         </Reveal>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:divide-x divide-mk-border">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:divide-x" style={{ borderColor: "var(--section-border)" }}>
           {[
             { v: <><CountUp to={25630} />+</>, l: "Leads Captured" },
             { v: <><CountUp to={92} />%</>, l: "AI Confidence Score" },
@@ -5709,8 +5712,18 @@ function Stats() {
             { v: <><CountUp to={320} />%</>, l: "Average ROI" },
           ].map((s, i) => (
             <div key={i} className="text-center px-4">
-              <p className="font-display text-[40px] md:text-[56px] text-mk-navy leading-none">{s.v}</p>
-              <p className="text-mk-body mt-2 text-sm">{s.l}</p>
+              <p
+                className="font-display text-[40px] md:text-[56px] leading-none font-bold"
+                style={{ color: "var(--section-heading)" }}
+              >
+                {s.v}
+              </p>
+              <p
+                className="mt-2 text-sm font-medium"
+                style={{ color: "var(--section-text)" }}
+              >
+                {s.l}
+              </p>
             </div>
           ))}
         </div>
@@ -5722,31 +5735,65 @@ function Stats() {
 /* ----------------------------- Enterprise Grade ----------------------------- */
 
 function Enterprise() {
+  const { isGalaxy } = useTheme();
   const cols = [
-    { i: <Shield />, t: "Secure by default", items: ["SSL/TLS", "AES-256", "RBAC", "Audit logs"] },
-    { i: <Server />, t: "Deployment flexibility", items: ["Cloud", "Private cloud", "API-first", "Webhooks"] },
-    { i: <TrendingUp />, t: "Scalable operations", items: ["Multi-tenant", "Auto-scaling", "Backup", "99.9% uptime"] },
+    { i: <Shield className="text-mk-orange" size={24} />, t: "Secure by default", items: ["SSL/TLS", "AES-256", "RBAC", "Audit logs"] },
+    { i: <Server className="text-[#5278FF]" size={24} />, t: "Deployment flexibility", items: ["Cloud", "Private cloud", "API-first", "Webhooks"] },
+    { i: <TrendingUp className="text-emerald-400" size={24} />, t: "Scalable operations", items: ["Multi-tenant", "Auto-scaling", "Backup", "99.9% uptime"] },
   ];
   return (
-    <section className="py-24 md:py-32 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-24 md:py-32 relative overflow-hidden transition-colors duration-300">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         <Reveal>
-          <h2 className="font-display text-[32px] md:text-[48px] text-mk-heading text-center mb-4">
+          <h2
+            className="font-display text-[32px] md:text-[48px] text-center mb-4 leading-tight"
+            style={{ color: "var(--section-heading)" }}
+          >
             Enterprise-grade. Out of the box.
           </h2>
-          <p className="text-center text-mk-body max-w-2xl mx-auto mb-12">
+          <p
+            className="text-center max-w-2xl mx-auto mb-12 text-base leading-relaxed"
+            style={{ color: "var(--section-text)" }}
+          >
             Security, deployment, and scale — engineered from day one.
           </p>
         </Reveal>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {cols.map((c, i) => (
             <Reveal key={c.t} delay={i * 0.08}>
-              <div className="flex flex-col gap-3">
-                <div className="w-12 h-12 rounded-xl bg-mk-bg flex items-center justify-center text-mk-navy">{c.i}</div>
-                <h4 className="font-bold text-mk-navy text-xl">{c.t}</h4>
-                <ul className="space-y-1.5">
+              <div
+                className="p-7 rounded-2xl h-full flex flex-col gap-4 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                style={{
+                  backgroundColor: "var(--section-card-bg)",
+                  border: "1px solid var(--section-border)",
+                  boxShadow: isGalaxy ? "0 4px 20px rgba(0,0,0,0.4)" : "0 4px 20px rgba(0,0,0,0.04)",
+                }}
+              >
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center border"
+                  style={{
+                    backgroundColor: isGalaxy ? "rgba(255,255,255,0.05)" : "rgba(168,85,247,0.08)",
+                    borderColor: isGalaxy ? "rgba(255,255,255,0.1)" : "rgba(168,85,247,0.2)",
+                  }}
+                >
+                  {c.i}
+                </div>
+                <h4
+                  className="font-bold text-xl leading-snug"
+                  style={{ color: "var(--section-heading)" }}
+                >
+                  {c.t}
+                </h4>
+                <ul className="space-y-2 mt-1">
                   {c.items.map((it) => (
-                    <li key={it} className="flex items-center gap-2 text-mk-body text-sm"><CheckCircle2 size={14} className="text-mk-orange" />{it}</li>
+                    <li
+                      key={it}
+                      className="flex items-center gap-2.5 text-sm"
+                      style={{ color: "var(--section-text)" }}
+                    >
+                      <CheckCircle2 size={16} className="text-mk-orange flex-shrink-0" />
+                      <span>{it}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -5761,35 +5808,56 @@ function Enterprise() {
 /* ----------------------------- Roadmap ----------------------------- */
 
 function Roadmap() {
+  const { isGalaxy } = useTheme();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 80%", "end 30%"] });
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const weeks = [
-    { i: <CheckCircle2 />, t: "Week 1 — Foundation", d: "CRM setup, lead source integration, WhatsApp Business API, basic flows." },
-    { i: <Zap />, t: "Week 2 — AI Activation", d: "Lead scoring, AI decision engine, omnichannel setup, content AI." },
-    { i: <BarChart3 />, t: "Week 3 — Optimization", d: "Analytics, retargeting, voice AI, prediction models." },
-    { i: <Rocket />, t: "Week 4 — Scale", d: "Campaign optimization, team expansion, advanced reporting, ROI tracking." },
+    { i: <CheckCircle2 size={24} className="text-mk-orange" />, t: "Week 1 — Foundation", d: "CRM setup, lead source integration, WhatsApp Business API, basic flows." },
+    { i: <Zap size={24} className="text-[#5278FF]" />, t: "Week 2 — AI Activation", d: "Lead scoring, AI decision engine, omnichannel setup, content AI." },
+    { i: <BarChart3 size={24} className="text-emerald-400" />, t: "Week 3 — Optimization", d: "Analytics, retargeting, voice AI, prediction models." },
+    { i: <Rocket size={24} className="text-purple-400" />, t: "Week 4 — Scale", d: "Campaign optimization, team expansion, advanced reporting, ROI tracking." },
   ];
   return (
-    <section ref={ref} className="py-24 md:py-32 bg-mk-bg">
-      <div className="max-w-6xl mx-auto px-6">
+    <section ref={ref} className="py-24 md:py-32 relative overflow-hidden transition-colors duration-300">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         <Reveal>
-          <h2 className="font-display text-[32px] md:text-[48px] text-mk-heading text-center mb-16">
+          <h2
+            className="font-display text-[32px] md:text-[48px] text-center mb-16 leading-tight"
+            style={{ color: "var(--section-heading)" }}
+          >
             Go live in 4 weeks
           </h2>
         </Reveal>
         <div className="relative">
-          <div className="hidden md:block absolute left-0 right-0 top-9 h-0.5 bg-mk-border" />
+          <div className="hidden md:block absolute left-0 right-0 top-9 h-0.5" style={{ backgroundColor: "var(--section-border)" }} />
           <motion.div style={{ scaleX: scaleY }} className="hidden md:block absolute left-0 right-0 top-9 h-0.5 bg-mk-orange origin-left" />
-          <div className="grid md:grid-cols-4 gap-6 md:gap-4">
-            {weeks.map((w, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-4">
+            {weeks.map((w) => (
               <div key={w.t} className="flex md:flex-col gap-4 items-start md:items-center text-center">
-                <div className="relative z-10 w-[72px] h-[72px] flex-shrink-0 rounded-full bg-white border-2 border-mk-border flex items-center justify-center text-mk-navy">
+                <div
+                  className="relative z-10 w-[72px] h-[72px] flex-shrink-0 rounded-full flex items-center justify-center border-2 backdrop-blur-md"
+                  style={{
+                    backgroundColor: "var(--section-card-bg)",
+                    borderColor: "var(--section-border)",
+                    boxShadow: isGalaxy ? "0 4px 20px rgba(0,0,0,0.5)" : "0 4px 20px rgba(0,0,0,0.06)",
+                  }}
+                >
                   {w.i}
                 </div>
                 <div className="md:text-center text-left">
-                  <h4 className="font-bold text-mk-navy">{w.t}</h4>
-                  <p className="text-sm text-mk-body mt-2">{w.d}</p>
+                  <h4
+                    className="font-bold text-lg leading-snug"
+                    style={{ color: "var(--section-heading)" }}
+                  >
+                    {w.t}
+                  </h4>
+                  <p
+                    className="text-sm mt-2 leading-relaxed"
+                    style={{ color: "var(--section-text)" }}
+                  >
+                    {w.d}
+                  </p>
                 </div>
               </div>
             ))}
