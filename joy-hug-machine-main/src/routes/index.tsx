@@ -897,12 +897,16 @@ function IntegrationStrip() {
 const TABS = ["AI Lead Scoring", "Omnichannel", "Voice Agent", "Workflow Builder", "Analytics Dashboard"] as const;
 
 function PlatformTabs() {
+  const { isGalaxy } = useTheme();
   const [active, setActive] = useState<number>(0);
   return (
-    <section id="platform" className="py-24 md:py-32 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="platform" className="py-24 md:py-32 relative overflow-hidden transition-colors duration-300">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         <Reveal>
-          <h2 className="font-display text-[32px] md:text-[48px] text-mk-heading text-center mb-10">
+          <h2
+            className="font-display text-[32px] md:text-[48px] text-center mb-10 leading-tight font-bold"
+            style={{ color: "var(--section-heading)" }}
+          >
             The AI Platform Marketers Build On
           </h2>
         </Reveal>
@@ -911,9 +915,10 @@ function PlatformTabs() {
             <button
               key={t}
               onClick={() => setActive(i)}
-              className={`relative whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold transition ${
-                active === i ? "text-white" : "text-mk-body hover:bg-mk-bg"
-              }`}
+              className="relative whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold transition cursor-pointer"
+              style={{
+                color: active === i ? "#FFFFFF" : "var(--section-text)",
+              }}
             >
               {active === i && (
                 <motion.span
@@ -929,7 +934,7 @@ function PlatformTabs() {
                   transition={{ duration: 2, repeat: Infinity }}
                 />
               )}
-              <span className="relative">{t}</span>
+              <span className="relative z-10">{t}</span>
             </button>
           ))}
         </div>
