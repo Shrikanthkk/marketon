@@ -5029,6 +5029,7 @@ function AiEnergyCore({ intensity = 1 }: { intensity?: number }) {
 /* ---------------- Marketing Future (cinematic narrative) ---------------- */
 
 function MarketingFuture() {
+  const { isGalaxy } = useTheme();
   const points = [
     { t: "Intelligent by design", d: "Build, deploy, and run automated marketing systems with complete control.", hl: ["intelligent systems"] },
     { t: "AI decision engines",   d: "Marketon decides the best channel, time, message, follow-up, and next action.", hl: ["AI decision engines"] },
@@ -5076,11 +5077,13 @@ function MarketingFuture() {
           <div
             className="relative mt-16 rounded-[28px] overflow-hidden"
             style={{
-              background:
-                "radial-gradient(800px 500px at 28% 30%, rgba(168,85,247,0.14), transparent 60%), radial-gradient(700px 500px at 80% 70%, rgba(34,211,238,0.12), transparent 60%), linear-gradient(180deg, #ffffff, #FAF5FF)",
-              border: "1px solid rgba(27,43,75,0.08)",
-              boxShadow:
-                "0 30px 80px -40px rgba(27,43,75,0.25), inset 0 1px 0 rgba(255,255,255,0.9)",
+              background: isGalaxy
+                ? "radial-gradient(800px 500px at 28% 30%, rgba(168,85,247,0.18), transparent 60%), radial-gradient(700px 500px at 80% 70%, rgba(34,211,238,0.14), transparent 60%), rgba(255,255,255,0.03)"
+                : "radial-gradient(800px 500px at 28% 30%, rgba(168,85,247,0.10), transparent 60%), radial-gradient(700px 500px at 80% 70%, rgba(34,211,238,0.08), transparent 60%), #FFFFFF",
+              border: isGalaxy ? "1px solid rgba(255,255,255,0.10)" : "1px solid #E5E7EB",
+              boxShadow: isGalaxy
+                ? "0 30px 80px -40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1)"
+                : "0 30px 80px -40px rgba(27,43,75,0.12), inset 0 1px 0 rgba(255,255,255,0.9)",
             }}
           >
             {/* top hairline */}
@@ -5103,17 +5106,16 @@ function MarketingFuture() {
                     onHoverEnd={() => setHovered(null)}
                     className="group relative rounded-2xl p-5 md:p-6 transition-all cursor-default"
                     style={{
-                      background:
-                        hovered === i
-                          ? "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,245,255,0.85))"
-                          : "linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.4))",
+                      background: isGalaxy
+                        ? (hovered === i ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)")
+                        : (hovered === i ? "#F9FAFB" : "#FFFFFF"),
                       backdropFilter: "blur(8px)",
-                      border: hovered === i
-                        ? "1px solid rgba(147,51,234,0.45)"
-                        : "1px solid rgba(27,43,75,0.08)",
-                      boxShadow: hovered === i
-                        ? "0 20px 50px -20px rgba(147,51,234,0.35), inset 0 1px 0 rgba(255,255,255,0.9)"
-                        : "0 6px 20px -10px rgba(27,43,75,0.08), inset 0 1px 0 rgba(255,255,255,0.7)",
+                      border: isGalaxy
+                        ? (hovered === i ? "1px solid rgba(168,85,247,0.5)" : "1px solid rgba(255,255,255,0.08)")
+                        : (hovered === i ? "1px solid #A855F7" : "1px solid #E5E7EB"),
+                      boxShadow: isGalaxy
+                        ? (hovered === i ? "0 20px 50px -20px rgba(168,85,247,0.35)" : "0 4px 12px rgba(0,0,0,0.4)")
+                        : (hovered === i ? "0 12px 30px -10px rgba(168,85,247,0.2)" : "0 2px 8px rgba(0,0,0,0.04)"),
                     }}
                   >
                     {/* sweep highlight on hover */}
@@ -5175,12 +5177,20 @@ function MarketingFuture() {
 
                       <div className="flex-1 min-w-0">
                         <h4
-                          className="text-mk-navy text-[18px] md:text-[20px] font-bold tracking-tight"
-                          style={{ fontFamily: "'Space Grotesk', 'Plus Jakarta Sans', system-ui, sans-serif" }}
+                          className="text-[18px] md:text-[20px] font-bold tracking-tight"
+                          style={{
+                            fontFamily: "'Space Grotesk', 'Plus Jakarta Sans', system-ui, sans-serif",
+                            color: isGalaxy ? "#FFFFFF" : "#000000",
+                          }}
                         >
                           {p.t}
                         </h4>
-                        <p className="text-mk-body mt-1.5 text-[14.5px] leading-relaxed">
+                        <p
+                          className="mt-1.5 text-[14.5px] leading-relaxed"
+                          style={{
+                            color: isGalaxy ? "#D1D5DB" : "#111827",
+                          }}
+                        >
                           {p.d}
                         </p>
                         {/* underline sweep */}
