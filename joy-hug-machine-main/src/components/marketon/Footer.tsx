@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Twitter, Linkedin, Youtube, Instagram } from "lucide-react";
 
 const EASE_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -16,32 +15,32 @@ export default function Footer() {
       ],
     },
     {
-      t: "Developers",
+      t: "Solutions",
       links: [
-        { label: "Developer APIs & SDKs", href: "/developer" },
-        { label: "Interactive Playground", href: "/developer" },
-        { label: "REST API Reference", href: "/developer" },
-        { label: "Python & Node SDKs", href: "/developer" },
-        { label: "Changelog", href: "/developer" },
+        { label: "Real Estate", href: "/#case-studies" },
+        { label: "Education", href: "/#case-studies" },
+        { label: "Healthcare", href: "/#case-studies" },
+        { label: "E-Commerce", href: "/#case-studies" },
+        { label: "BFSI", href: "/#case-studies" },
       ],
     },
     {
       t: "Resources",
       links: [
-        { label: "All Tools & Features", href: "/resources" },
-        { label: "Blog", href: "/resources" },
-        { label: "Case Studies", href: "/#company" },
-        { label: "Help Center", href: "/resources" },
-        { label: "Community", href: "/resources" },
+        { label: "Resource Hub", href: "/resources" },
+        { label: "Documentation", href: "/developer" },
+        { label: "API Reference", href: "/developer" },
+        { label: "SDKs & Integrations", href: "/developer" },
+        { label: "Community", href: "/#platform" },
       ],
     },
     {
       t: "Company",
       links: [
         { label: "About", href: "/#company" },
+        { label: "Blog", href: "/resources" },
         { label: "Careers", href: "/#company" },
         { label: "Press", href: "/#company" },
-        { label: "Partners", href: "/#company" },
         { label: "Contact", href: "/#company" },
       ],
     },
@@ -54,18 +53,6 @@ export default function Footer() {
           <div>
             <p className="text-2xl font-extrabold text-mk-navy">marketon</p>
             <p className="text-sm text-mk-body mt-1">AI Marketing Automation Platform</p>
-          </div>
-          <div className="flex gap-3">
-            {[Twitter, Linkedin, Youtube, Instagram].map((Ic, i) => (
-              <a
-                key={i}
-                href="#"
-                className="w-10 h-10 rounded-full bg-mk-bg text-mk-body hover:text-mk-navy hover:bg-mk-border flex items-center justify-center transition"
-                aria-label="Social link"
-              >
-                <Ic size={16} />
-              </a>
-            ))}
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
