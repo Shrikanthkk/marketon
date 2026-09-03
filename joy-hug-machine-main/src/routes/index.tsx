@@ -24,6 +24,8 @@ import { FaWhatsapp, FaInstagram, FaTelegramPlane, FaFacebookMessenger } from "r
 import heroVideo from "@/assets/automation-hero.mp4.asset.json";
 import HeroShaderBackground from "@/components/marketon/HeroShaderBackground";
 import AIOperationsRoom from "@/components/marketon/AIOperationsRoom";
+import Navbar from "@/components/marketon/Navbar";
+import Footer from "@/components/marketon/Footer";
 import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip,
 } from "recharts";
@@ -138,111 +140,7 @@ function Divider() {
   );
 }
 
-/* ----------------------------- Navbar ----------------------------- */
 
-function MagneticLink({ label }: { label: string }) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const x = useSpring(0, { stiffness: 300, damping: 20 });
-  const y = useSpring(0, { stiffness: 300, damping: 20 });
-  return (
-    <motion.a
-      ref={ref}
-      href={`#${label.toLowerCase()}`}
-      style={{ x, y }}
-      onMouseMove={(e) => {
-        const r = ref.current!.getBoundingClientRect();
-        x.set((e.clientX - (r.left + r.width / 2)) * 0.25);
-        y.set((e.clientY - (r.top + r.height / 2)) * 0.25);
-      }}
-      onMouseLeave={() => { x.set(0); y.set(0); }}
-      className="text-[13px] font-semibold tracking-wider text-mk-body hover:text-mk-navy transition-colors uppercase"
-    >
-      {label}
-    </motion.a>
-  );
-}
-
-function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const { isGalaxy } = useTheme();
-
-  useEffect(() => {
-    const onS = () => setScrolled(window.scrollY > 30);
-    onS();
-    window.addEventListener("scroll", onS);
-    return () => window.removeEventListener("scroll", onS);
-  }, []);
-
-  const links = ["Platform", "Developers", "Resources", "Company"];
-
-  return (
-    <motion.header
-      initial={{ y: -30, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: EASE_EXPO }}
-      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[min(1100px,calc(100%-2rem))]"
-    >
-      <motion.div
-        animate={{
-          paddingTop: scrolled ? 8 : 12,
-          paddingBottom: scrolled ? 8 : 12,
-          backgroundColor: isGalaxy
-            ? (scrolled ? "rgba(5, 5, 8, 0.92)" : "rgba(5, 5, 8, 0.78)")
-            : (scrolled ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.75)"),
-          borderColor: isGalaxy ? "rgba(255,255,255,0.12)" : "var(--mk-border)",
-          boxShadow: isGalaxy
-            ? (scrolled ? "0 8px 32px rgba(0,0,0,0.6), 0 0 15px rgba(255,255,255,0.03)" : "0 4px 24px rgba(0,0,0,0.4)")
-            : (scrolled ? "0 8px 32px rgba(27,43,75,0.12)" : "0 4px 24px rgba(0,0,0,0.05)"),
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="flex items-center justify-between rounded-full border border-mk-border px-5 backdrop-blur-xl"
-      >
-        <a href="#top" className="text-[20px] font-extrabold text-mk-navy tracking-tight">marketon</a>
-        <nav className="hidden md:flex items-center gap-8">
-          {links.map((l) => <MagneticLink key={l} label={l} />)}
-        </nav>
-        <div className="hidden md:flex items-center gap-3">
-          <ThemeToggle />
-          <button className="px-4 py-2 rounded-full bg-mk-navy text-white text-[13px] font-semibold hover:scale-[1.03] transition">Log in</button>
-          <button className="px-4 py-2 rounded-full bg-white border border-mk-navy text-mk-navy text-[13px] font-semibold hover:bg-mk-navy hover:text-white transition">Contact Us</button>
-        </div>
-        <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
-          <button onClick={() => setOpen(!open)} className="p-2 text-mk-navy" aria-label="Menu">
-            <motion.div animate={{ rotate: open ? 90 : 0 }}>
-              {open ? <X size={22} /> : <Menu size={22} />}
-            </motion.div>
-          </button>
-        </div>
-      </motion.div>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className={`md:hidden mt-2 rounded-2xl p-5 shadow-xl flex flex-col gap-4 ${
-              isGalaxy
-                ? "bg-[#0a0d16]/95 border border-white/12 text-white backdrop-blur-2xl shadow-[0_12px_32px_rgba(0,0,0,0.7)]"
-                : "bg-white border border-mk-border"
-            }`}
-          >
-            {links.map((l) => (
-              <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setOpen(false)} className="text-mk-navy font-semibold uppercase text-sm tracking-wider">{l}</a>
-            ))}
-            <div className="flex items-center justify-between py-2 border-t border-b border-mk-border/50 my-1">
-              <span className="text-xs font-semibold uppercase tracking-wider text-mk-muted">Appearance Theme</span>
-              <ThemeToggle showLabel />
-            </div>
-            <button className="mk-btn-navy justify-center w-full">Log in</button>
-            <button className="mk-btn-outline justify-center w-full">Contact Us</button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
-  );
-}
 
 /* ----------------------------- Hero ----------------------------- */
 
@@ -6368,47 +6266,6 @@ function InfraGrid() {
   );
 }
 
-/* ----------------------------- Features Grid ----------------------------- */
-
-function FeaturesGrid() {
-  const f = [
-    { i: <Brain />, t: "AI Brain Engine", d: "Understands intent, sentiment, and behavior to personalize every touch." },
-    { i: <Cpu />, t: "AI Decision Engine", d: "Picks the best channel, time, and message for each lead automatically." },
-    { i: <Radio />, t: "Omnichannel Automation", d: "WhatsApp, SMS, Email, Voice, Social — one orchestration layer." },
-    { i: <PhoneCall />, t: "AI Voice Agent", d: "Natural conversations that qualify, schedule, and convert leads." },
-    { i: <Target />, t: "Retargeting Engine", d: "Win back drop-offs across every channel with smart audiences." },
-    { i: <PenTool />, t: "Content AI Studio", d: "Generate ads, emails, captions, and scripts in seconds." },
-    { i: <CalendarIcon />, t: "Appointment & Calendar", d: "Smart scheduling with reminders, sync, and reschedules." },
-    { i: <Bell />, t: "Reminder System", d: "Automated reminders that keep your customers on-track." },
-    { i: <Users />, t: "CRM & Team Management", d: "Roles, assignments, activity logs, and performance dashboards." },
-  ];
-  return (
-    <section id="resources" className="py-24 md:py-32 bg-mk-bg">
-      <div className="max-w-6xl mx-auto px-6">
-        <Reveal>
-          <h2 className="font-display text-[32px] md:text-[48px] text-mk-heading text-center mb-12">
-            Every tool you need to convert leads
-          </h2>
-        </Reveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {f.map((x, i) => (
-            <Reveal key={x.t} delay={(i % 3) * 0.05}>
-              <TiltCard className="group h-full">
-                <div className="h-full p-6 rounded-2xl border border-mk-border bg-white relative overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-mk-orange scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-                  <div className="w-10 h-10 rounded-lg bg-mk-navy text-white flex items-center justify-center mb-4">{x.i}</div>
-                  <h4 className="font-bold text-mk-navy text-[17px] mb-1.5">{x.t}</h4>
-                  <p className="text-sm text-mk-body">{x.d}</p>
-                </div>
-              </TiltCard>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ----------------------------- Case Studies ----------------------------- */
 
 function CaseStudies() {
@@ -6581,62 +6438,6 @@ function FinalCta() {
   );
 }
 
-/* ----------------------------- Footer ----------------------------- */
-
-function Footer() {
-  const cols = [
-    { t: "Platform", links: ["AI Lead Scoring", "Omnichannel", "Voice Agent", "Workflow Builder", "Analytics"] },
-    { t: "Developers", links: ["REST API", "Python SDK", "Playground", "Docs", "Changelog"] },
-    { t: "Resources", links: ["Blog", "Case Studies", "Help Center", "Community", "Webinars"] },
-    { t: "Company", links: ["About", "Careers", "Press", "Partners", "Contact"] },
-  ];
-  return (
-    <footer id="company" className="bg-white border-t border-mk-border">
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="flex flex-col md:flex-row md:justify-between gap-6 mb-12">
-          <div>
-            <p className="text-2xl font-extrabold text-mk-navy">marketon</p>
-            <p className="text-sm text-mk-body mt-1">AI Marketing Automation Platform</p>
-          </div>
-          <div className="flex gap-3">
-            {[Twitter, Linkedin, Youtube, Instagram].map((Ic, i) => (
-              <a key={i} className="w-10 h-10 rounded-full bg-mk-bg text-mk-body hover:text-mk-navy hover:bg-mk-border flex items-center justify-center transition"><Ic size={16} /></a>
-            ))}
-          </div>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-          {cols.map((c, i) => (
-            <motion.div
-              key={c.t}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.6, ease: EASE_EXPO }}
-            >
-              <p className="font-bold text-mk-navy mb-3 text-sm">{c.t}</p>
-              <ul className="space-y-2">
-                {c.links.map((l) => (
-                  <li key={l}><a className="text-sm text-mk-body hover:text-mk-orange transition">{l}</a></li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-        <motion.div
-          initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          style={{ originX: 0 }}
-          className="h-px bg-mk-border mb-6"
-        />
-        <div className="flex flex-col md:flex-row justify-between gap-3 text-xs text-mk-body">
-          <p>© 2026 MARKETON. All rights reserved.</p>
-          <p><a className="hover:text-mk-navy">Privacy Policy</a> · <a className="hover:text-mk-navy">Terms of Service</a></p>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 /* ----------------------------- Page ----------------------------- */
 
 function MarketonPage() {
@@ -6652,7 +6453,6 @@ function MarketonPage() {
         <BusinessesCan />
         <MarketingFuture />
         <FullStackCards />
-        <FeaturesGrid />
         <CaseStudies />
         <Stats />
         <Enterprise />
