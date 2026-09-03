@@ -48,7 +48,7 @@ export default function Footer() {
 
   return (
     <footer id="company" className="site-footer border-t transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      <div className="footer-content max-w-6xl mx-auto px-6 py-16">
         <div className="flex flex-col md:flex-row md:justify-between gap-6 mb-12">
           <div>
             <p className="footer-brand text-2xl font-extrabold">marketon</p>
@@ -59,10 +59,10 @@ export default function Footer() {
           {cols.map((c, i) => (
             <motion.div
               key={c.t}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.6, ease: EASE_EXPO }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ delay: i * 0.05, duration: 0.5, ease: EASE_EXPO }}
             >
               <h4 className="font-bold mb-3 text-sm">{c.t}</h4>
               <ul className="space-y-2">
@@ -83,10 +83,10 @@ export default function Footer() {
         <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.05 }}
           transition={{ duration: 0.8 }}
           style={{ originX: 0 }}
-          className="h-px bg-current opacity-15 mb-6"
+          className="footer-divider h-px border-t mb-6"
         />
         <div className="flex flex-col md:flex-row justify-between gap-3 text-xs">
           <p>© 2026 MARKETON. All rights reserved.</p>
