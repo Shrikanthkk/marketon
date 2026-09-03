@@ -21,8 +21,11 @@ function MagneticLink({
   const y = useSpring(0, { stiffness: 300, damping: 20 });
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
+  const isDeveloper = label === "Developer" || label === "Developers";
   const isResources = label === "Resources";
-  const targetHref = isResources
+  const targetHref = isDeveloper
+    ? "/developer"
+    : isResources
     ? "/resources"
     : pathname === "/"
     ? `#${label.toLowerCase()}`
@@ -74,7 +77,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onS);
   }, []);
 
-  const links = ["Platform", "Developers", "Resources", "Company"];
+  const links = ["Platform", "Developer", "Resources", "Company"];
 
   return (
     <motion.header
@@ -114,7 +117,9 @@ export default function Navbar() {
         </Link>
         <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
           {links.map((l) => {
-            const isActive = l === "Resources" && pathname === "/resources";
+            const isDeveloper = (l === "Developer" || l === "Developers") && pathname === "/developer";
+            const isResources = l === "Resources" && pathname === "/resources";
+            const isActive = isDeveloper || isResources;
             return <MagneticLink key={l} label={l} isActive={isActive} />;
           })}
         </nav>
@@ -161,13 +166,18 @@ export default function Navbar() {
             }`}
           >
             {links.map((l) => {
+              const isDeveloper = l === "Developer" || l === "Developers";
               const isResources = l === "Resources";
-              const targetHref = isResources
+              const targetHref = isDeveloper
+                ? "/developer"
+                : isResources
                 ? "/resources"
                 : pathname === "/"
                 ? `#${l.toLowerCase()}`
                 : `/#${l.toLowerCase()}`;
-              const isActive = isResources && pathname === "/resources";
+              const isActive =
+                (isDeveloper && pathname === "/developer") ||
+                (isResources && pathname === "/resources");
               return (
                 <a
                   key={l}
@@ -178,7 +188,9 @@ export default function Navbar() {
                   }`}
                 >
                   <span>{l}</span>
-                  {isActive && <span className="w-2 h-2 rounded-full bg-mk-orange shadow-[0_0_8px_rgba(168,85,247,0.8)]" />}
+                  {isActive && (
+                    <span className="w-2 h-2 rounded-full bg-mk-orange shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
+                  )}
                 </a>
               );
             })}

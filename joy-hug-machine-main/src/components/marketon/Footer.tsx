@@ -18,11 +18,11 @@ export default function Footer() {
     {
       t: "Developers",
       links: [
-        { label: "REST API", href: "/#developers" },
-        { label: "Python SDK", href: "/#developers" },
-        { label: "Playground", href: "/#developers" },
-        { label: "Docs", href: "/#developers" },
-        { label: "Changelog", href: "/#developers" },
+        { label: "Developer APIs & SDKs", href: "/developer" },
+        { label: "Interactive Playground", href: "/developer" },
+        { label: "REST API Reference", href: "/developer" },
+        { label: "Python & Node SDKs", href: "/developer" },
+        { label: "Changelog", href: "/developer" },
       ],
     },
     {
