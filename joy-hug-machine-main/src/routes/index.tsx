@@ -5361,7 +5361,7 @@ function FloatingTrio() {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.8, ease: EASE_EXPO }}
         whileHover={{ rotate: 0, y: -6 }}
-        className="absolute top-0 left-1/2 md:left-[2%] -translate-x-1/2 md:translate-x-0 w-[320px] md:w-[340px] rounded-3xl p-6 border border-mk-border bg-white/85 backdrop-blur-xl z-30"
+        className="left-automation-card absolute top-0 left-1/2 md:left-[2%] -translate-x-1/2 md:translate-x-0 w-[320px] md:w-[340px] rounded-3xl p-6 border border-gray-200/80 bg-[#f3f4f6] z-30"
         style={{
           boxShadow: isBrownGold
             ? "0 32px 80px -24px rgba(212,175,55,0.25), 0 0 0 1px rgba(212,175,55,0.3) inset"
@@ -5376,10 +5376,10 @@ function FloatingTrio() {
           >
             <Users size={18} />
           </div>
-          <h3 className="text-mk-navy text-[18px] font-bold leading-tight mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+          <h3 className="text-[#172033] text-[18px] font-bold leading-tight mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Population-scale<br />Lead Automation
           </h3>
-          <p className="text-mk-body text-[13px] leading-relaxed mb-4">
+          <p className="text-[#475569] text-[13px] leading-relaxed mb-4">
             Capture, qualify, and engage millions of leads with AI-driven personalization.
           </p>
           <LiveLeadStream />
@@ -5442,7 +5442,7 @@ function FloatingTrio() {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.8, ease: EASE_EXPO, delay: 0.2 }}
         whileHover={{ rotate: 0, y: -6 }}
-        className="absolute bottom-0 left-1/2 md:left-auto md:right-[2%] -translate-x-1/2 md:translate-x-0 w-[320px] md:w-[340px] rounded-3xl p-6 border border-mk-border bg-white/85 backdrop-blur-xl z-30"
+        className="right-infrastructure-card absolute bottom-0 left-1/2 md:left-auto md:right-[2%] -translate-x-1/2 md:translate-x-0 w-[320px] md:w-[340px] rounded-3xl p-6 border border-gray-200/80 bg-[#f3f4f6] z-30"
         style={{
           boxShadow: isBrownGold
             ? "0 32px 80px -24px rgba(212,175,55,0.22), 0 0 0 1px rgba(212,175,55,0.3) inset"
@@ -5451,16 +5451,16 @@ function FloatingTrio() {
       >
         <FloatHover delay={0.5}>
           <InfraGrid />
-          <h3 className="text-mk-navy text-[18px] font-bold leading-tight mt-5 mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+          <h3 className="text-[#172033] text-[18px] font-bold leading-tight mt-5 mb-3" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Infrastructure to<br />Convert Efficiently
           </h3>
-          <p className="text-mk-body text-[12px] leading-relaxed mb-4">
+          <p className="text-[#475569] text-[12px] leading-relaxed mb-4">
             Enterprise-grade infrastructure powering global, real-time automation.
           </p>
-          <div className="flex justify-between items-end pt-3 border-t border-mk-border">
+          <div className="flex justify-between items-end pt-3 border-t border-gray-200">
             <div>
-              <div className="text-[20px] font-bold text-mk-navy tabular-nums" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>25.6k+</div>
-              <div className="text-[9px] uppercase tracking-widest text-mk-muted font-bold">Leads/sec</div>
+              <div className="text-[20px] font-bold text-[#172033] tabular-nums" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>25.6k+</div>
+              <div className="text-[9px] uppercase tracking-widest text-[#64748b] font-bold">Leads/sec</div>
             </div>
             <div className="text-center">
               <div
@@ -5471,11 +5471,11 @@ function FloatingTrio() {
               >
                 &lt;100ms
               </div>
-              <div className="text-[9px] uppercase tracking-widest text-mk-muted font-bold">Latency</div>
+              <div className="text-[9px] uppercase tracking-widest text-[#64748b] font-bold">Latency</div>
             </div>
             <div className="text-right">
               <div className="text-[20px] font-bold text-emerald-500 tabular-nums" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>99.9%</div>
-              <div className="text-[9px] uppercase tracking-widest text-mk-muted font-bold">Uptime</div>
+              <div className="text-[9px] uppercase tracking-widest text-[#64748b] font-bold">Uptime</div>
             </div>
           </div>
         </FloatHover>
@@ -5534,7 +5534,7 @@ function LiveLeadStream() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.25 } }}
             transition={{ type: "spring", stiffness: 260, damping: 24 }}
-            className="flex items-center gap-2.5 bg-mk-bg p-1.5 pr-2.5 rounded-full border border-mk-border"
+            className="lead-pill flex items-center gap-2.5 bg-white p-1.5 pr-2.5 rounded-full border border-gray-200/80 shadow-sm"
           >
             <div
               className="w-7 h-7 rounded-full flex items-center justify-center text-[9px] text-white font-bold flex-shrink-0"
@@ -5543,8 +5543,8 @@ function LiveLeadStream() {
               {l.initials}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-[11px] font-bold text-mk-navy leading-none">Lead #{l.id.toLocaleString()}</div>
-              <div className="text-[9px] text-mk-muted mt-0.5">{l.channel}</div>
+              <div className="lead-name text-[11px] font-bold text-[#334155] leading-none">Lead #{l.id.toLocaleString()}</div>
+              <div className="channel-label text-[9px] text-[#64748b] mt-0.5">{l.channel}</div>
             </div>
             <span className="text-[9.5px] px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-bold whitespace-nowrap">
               {l.score}% AI

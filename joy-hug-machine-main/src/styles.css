@@ -1016,6 +1016,94 @@ a.bg-mk-navy,
   text-shadow: 0 0 12px rgba(212, 175, 55, 0.30) !important;
 }
 
+/* ==========================================================================
+   Left & Right Floating Trio Light Cards Text Contrast Override
+   ========================================================================== */
+.left-automation-card,
+.right-infrastructure-card {
+  background-color: #f3f4f6 !important;
+}
+
+.left-automation-card h2,
+.left-automation-card h3,
+.right-infrastructure-card h2,
+.right-infrastructure-card h3,
+[data-theme="dark"] .left-automation-card h3,
+[data-theme="dark"] .right-infrastructure-card h3,
+[data-theme="galaxy"] .left-automation-card h3,
+[data-theme="galaxy"] .right-infrastructure-card h3,
+[data-theme="brown-gold"] .left-automation-card h3,
+[data-theme="brown-gold"] .right-infrastructure-card h3,
+.dark .left-automation-card h3,
+.dark .right-infrastructure-card h3,
+.galaxy .left-automation-card h3,
+.galaxy .right-infrastructure-card h3,
+.brown-gold .left-automation-card h3,
+.brown-gold .right-infrastructure-card h3 {
+  color: #172033 !important;
+  -webkit-text-fill-color: #172033 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.left-automation-card p,
+.left-automation-card .lead-name,
+.right-infrastructure-card p,
+[data-theme="dark"] .left-automation-card p,
+[data-theme="dark"] .left-automation-card .lead-name,
+[data-theme="dark"] .right-infrastructure-card p,
+[data-theme="galaxy"] .left-automation-card p,
+[data-theme="galaxy"] .left-automation-card .lead-name,
+[data-theme="galaxy"] .right-infrastructure-card p,
+[data-theme="brown-gold"] .left-automation-card p,
+[data-theme="brown-gold"] .left-automation-card .lead-name,
+[data-theme="brown-gold"] .right-infrastructure-card p,
+.dark .left-automation-card p,
+.dark .left-automation-card .lead-name,
+.dark .right-infrastructure-card p,
+.galaxy .left-automation-card p,
+.galaxy .left-automation-card .lead-name,
+.galaxy .right-infrastructure-card p,
+.brown-gold .left-automation-card p,
+.brown-gold .left-automation-card .lead-name,
+.brown-gold .right-infrastructure-card p {
+  color: #475569 !important;
+  -webkit-text-fill-color: #475569 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.left-automation-card .lead-name,
+[data-theme="dark"] .left-automation-card .lead-name,
+[data-theme="galaxy"] .left-automation-card .lead-name,
+[data-theme="brown-gold"] .left-automation-card .lead-name,
+.dark .left-automation-card .lead-name,
+.galaxy .left-automation-card .lead-name,
+.brown-gold .left-automation-card .lead-name {
+  color: #334155 !important;
+  -webkit-text-fill-color: #334155 !important;
+}
+
+.left-automation-card .channel-label,
+[data-theme="dark"] .left-automation-card .channel-label,
+[data-theme="galaxy"] .left-automation-card .channel-label,
+[data-theme="brown-gold"] .left-automation-card .channel-label,
+.dark .left-automation-card .channel-label,
+.galaxy .left-automation-card .channel-label,
+.brown-gold .left-automation-card .channel-label {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+}
+
+.left-automation-card .lead-pill {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
 /* Scoped Site Footer Styles */
 /* Site Footer Layering & Scoped Theme Styles */
 .site-footer {
