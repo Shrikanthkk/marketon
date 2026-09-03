@@ -871,6 +871,9 @@ function Hero() {
 function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
+  const { theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
+
   return (
     <div
       onMouseEnter={() => setPaused(true)}
@@ -879,29 +882,35 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
     >
       <div
         ref={trackRef}
-        className="mk-marquee-track flex gap-20 w-max items-center"
+        className="mk-marquee-track flex gap-16 md:gap-24 w-max items-center"
         style={{
-          ["--marquee-duration" as any]: "55s",
+          ["--marquee-duration" as any]: "50s",
           ["--marquee-state" as any]: paused ? "paused" : "running",
           animationDirection: reverse ? "reverse" : "normal",
         }}
       >
-        {[...items, ...items].map((it, i) => (
+        {[...items, ...items, ...items].map((it, i) => (
           <motion.span
-            key={i}
-            animate={{ y: [0, -10, 0, 10, 0] }}
+            key={`${it}-${i}`}
+            animate={{ y: [0, -8, 0, 8, 0] }}
             transition={{
               duration: 6 + (i % 5),
               repeat: Infinity,
               ease: "easeInOut",
               delay: (i % 7) * 0.35,
             }}
-            whileHover={{ scale: 1.12, y: -6 }}
-            className="text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent bg-gradient-to-r from-[#A855F7] via-[#C084FC] to-[#D8B4FE] hover:drop-shadow-[0_0_16px_rgba(192,132,252,0.65)] transition-all duration-300"
+            whileHover={{ scale: 1.08, y: -4 }}
+            className={`text-[24px] sm:text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent ${
+              isBrownGold
+                ? "bg-gradient-to-r from-[#D4AF37] via-[#FCF6BA] to-[#C5A059] hover:drop-shadow-[0_0_16px_rgba(212,175,55,0.65)]"
+                : "bg-gradient-to-r from-[#A855F7] via-[#C084FC] to-[#D8B4FE] hover:drop-shadow-[0_0_16px_rgba(192,132,252,0.65)]"
+            } transition-all duration-300 select-none px-2`}
             style={{
               fontFamily: '"Space Grotesk", "Inter Tight", "Inter", system-ui, sans-serif',
               letterSpacing: "-0.02em",
-              textShadow: "0 1px 0 rgba(255,255,255,0.6), 0 0 22px rgba(192,132,252,0.35)",
+              textShadow: isBrownGold
+                ? "0 1px 0 rgba(255,255,255,0.4), 0 0 22px rgba(212,175,55,0.35)"
+                : "0 1px 0 rgba(255,255,255,0.6), 0 0 22px rgba(192,132,252,0.35)",
             }}
           >
             {it}
@@ -914,8 +923,23 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
 
 
 function IntegrationStrip() {
-  const r1 = ["Meta", "Google Ads", "WhatsApp Business", "Instagram", "Messenger", "Zoho", "HubSpot", "Salesforce"];
-  const r2 = ["Razorpay", "Freshworks", "Twilio", "SendGrid", "Google Calendar", "Zapier", "n8n", "Stripe"];
+  const r1 = [
+    "TOUCH STONE PROPERTIES",
+    "MEXTO VENTURES",
+    "IIFA",
+    "GOPRAYANA",
+    "Trivik",
+    "Regis and Savoy",
+    "Mysore Sandal",
+  ];
+  const r2 = [
+    "Basaveshwara",
+    "MVJ",
+    "PUTUL",
+    "Mist N Fog",
+    "NEWS MEDIA KIRAN",
+    "LN EXIME",
+  ];
   return (
     <section className="py-20 bg-mk-bg">
       <p className="text-center text-[11px] tracking-[0.18em] text-mk-muted font-semibold mb-8">
