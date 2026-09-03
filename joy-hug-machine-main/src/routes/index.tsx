@@ -942,8 +942,8 @@ function IntegrationStrip() {
     "LN EXIME",
   ];
   return (
-    <section className="py-20 bg-mk-bg">
-      <p className="text-center text-[11px] tracking-[0.18em] text-mk-muted font-semibold mb-8">
+    <section className="py-20 bg-mk-bg relative z-10">
+      <p className="businesses-heading text-center text-[11px] tracking-[0.18em] font-semibold mb-8 uppercase">
         BUSINESSES THAT RUN ON MARKETON
       </p>
       <div className="flex flex-col gap-6">

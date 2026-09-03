@@ -976,6 +976,46 @@ a.bg-mk-navy,
   stroke: #d4af37;
 }
 
+/* ==========================================================================
+   Businesses That Run on Marketon Heading Styles
+   ========================================================================== */
+.businesses-heading {
+  color: #64748b;
+  -webkit-text-fill-color: #64748b;
+  opacity: 1 !important;
+  visibility: visible !important;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+}
+
+[data-theme="light"] .businesses-heading,
+.light .businesses-heading {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+[data-theme="dark"] .businesses-heading,
+[data-theme="galaxy"] .businesses-heading,
+.dark .businesses-heading,
+.galaxy .businesses-heading {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="brown-gold"] .businesses-heading,
+.brown-gold .businesses-heading {
+  color: #f2c94c !important;
+  -webkit-text-fill-color: #f2c94c !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: 0 0 12px rgba(212, 175, 55, 0.30) !important;
+}
+
 /* Scoped Site Footer Styles */
 /* Site Footer Layering & Scoped Theme Styles */
 .site-footer {
