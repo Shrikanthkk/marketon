@@ -47,30 +47,30 @@ export default function Footer() {
   ];
 
   return (
-    <footer id="company" className="bg-white border-t border-mk-border">
+    <footer id="company" className="site-footer border-t transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="flex flex-col md:flex-row md:justify-between gap-6 mb-12">
           <div>
-            <p className="text-2xl font-extrabold text-mk-navy">marketon</p>
-            <p className="text-sm text-mk-body mt-1">AI Marketing Automation Platform</p>
+            <p className="footer-brand text-2xl font-extrabold">marketon</p>
+            <p className="text-sm mt-1">AI Marketing Automation Platform</p>
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {cols.map((c, i) => (
             <motion.div
               key={c.t}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.6, ease: EASE_EXPO }}
             >
-              <p className="font-bold text-mk-navy mb-3 text-sm">{c.t}</p>
+              <h4 className="font-bold mb-3 text-sm">{c.t}</h4>
               <ul className="space-y-2">
                 {c.links.map((l) => (
                   <li key={l.label}>
                     <a
                       href={l.href}
-                      className="text-sm text-mk-body hover:text-mk-orange transition cursor-pointer"
+                      className="text-sm transition-colors cursor-pointer inline-block"
                     >
                       {l.label}
                     </a>
@@ -86,13 +86,13 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           style={{ originX: 0 }}
-          className="h-px bg-mk-border mb-6"
+          className="h-px bg-current opacity-15 mb-6"
         />
-        <div className="flex flex-col md:flex-row justify-between gap-3 text-xs text-mk-body">
+        <div className="flex flex-col md:flex-row justify-between gap-3 text-xs">
           <p>© 2026 MARKETON. All rights reserved.</p>
           <p>
-            <a className="hover:text-mk-navy cursor-pointer">Privacy Policy</a> ·{" "}
-            <a className="hover:text-mk-navy cursor-pointer">Terms of Service</a>
+            <a className="cursor-pointer hover:underline">Privacy Policy</a> ·{" "}
+            <a className="cursor-pointer hover:underline">Terms of Service</a>
           </p>
         </div>
       </div>
