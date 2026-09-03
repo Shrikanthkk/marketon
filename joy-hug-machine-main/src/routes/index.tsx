@@ -147,6 +147,9 @@ function Divider() {
 /* Neural network canvas — particles that connect to each other and react to cursor */
 function HeroNeuralCanvas({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number; active: boolean }> }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -167,9 +170,14 @@ function HeroNeuralCanvas({ mouse }: { mouse: React.MutableRefObject<{ x: number
       const count = Math.min(75, Math.floor((w * h) / 19000));
       particles = Array.from({ length: count }, () => {
         const rType = Math.random();
-        // Exact cosmic jewel star colors from reference image:
-        // 45% electric cyan, 35% cosmic violet, 20% nebular magenta
-        const starColor = rType < 0.45 ? "34,211,238" : rType < 0.8 ? "192,132,252" : "217,70,239";
+        let starColor: string;
+        if (isBrownGold) {
+          // Warm luxury metallic and champagne gold nodes:
+          starColor = rType < 0.4 ? "212,175,55" : rType < 0.75 ? "229,193,88" : rType < 0.9 ? "245,224,154" : "255,249,238";
+        } else {
+          // Exact cosmic jewel star colors:
+          starColor = rType < 0.45 ? "34,211,238" : rType < 0.8 ? "192,132,252" : "217,70,239";
+        }
         return {
           x: Math.random() * w,
           y: Math.random() * h,
@@ -239,25 +247,31 @@ function HeroNeuralCanvas({ mouse }: { mouse: React.MutableRefObject<{ x: number
     };
     raf = requestAnimationFrame(tick);
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
-  }, [mouse]);
+  }, [mouse, isBrownGold]);
 
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />;
 }
 
 function HeroSignalLine() {
+  const { theme, isGalaxy } = useTheme();
+  const isBrownGold = theme === "brown-gold";
+  const lineColor = isBrownGold ? "#d4af37" : isGalaxy ? "#7c3aed" : "#1B2B4B";
+  const scanColor = isBrownGold ? "#e6ca65" : "#9333EA";
+  const pulseColor = isBrownGold ? "#d4af37" : "#1B2B4B";
+
   return (
     <div className="relative mx-auto" style={{ width: 280, height: 22 }}>
       <svg width="280" height="22" viewBox="0 0 280 22" fill="none" className="absolute inset-0">
         <defs>
           <linearGradient id="heroLineGrad" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0" stopColor="#1B2B4B" stopOpacity="0" />
-            <stop offset="0.5" stopColor="#1B2B4B" stopOpacity="0.45" />
-            <stop offset="1" stopColor="#1B2B4B" stopOpacity="0" />
+            <stop offset="0" stopColor={lineColor} stopOpacity="0" />
+            <stop offset="0.5" stopColor={lineColor} stopOpacity="0.45" />
+            <stop offset="1" stopColor={lineColor} stopOpacity="0" />
           </linearGradient>
           <linearGradient id="heroScan" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0" stopColor="#9333EA" stopOpacity="0" />
-            <stop offset="0.5" stopColor="#9333EA" stopOpacity="1" />
-            <stop offset="1" stopColor="#9333EA" stopOpacity="0" />
+            <stop offset="0" stopColor={scanColor} stopOpacity="0" />
+            <stop offset="0.5" stopColor={scanColor} stopOpacity="1" />
+            <stop offset="1" stopColor={scanColor} stopOpacity="0" />
           </linearGradient>
         </defs>
         <line x1="0" y1="11" x2="120" y2="11" stroke="url(#heroLineGrad)" strokeWidth="1" />
@@ -279,7 +293,7 @@ function HeroSignalLine() {
             cx={20 + i * 28}
             cy="11"
             r="1"
-            fill="#1B2B4B"
+            fill={pulseColor}
             animate={{ opacity: [0.15, 0.7, 0.15] }}
             transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.15 }}
           />
@@ -305,7 +319,14 @@ function HeroSignalLine() {
           transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
           style={{ width: 22, height: 22 }}
         >
-          <span className="absolute -top-[2px] left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mk-orange shadow-[0_0_6px_rgba(147,51,234,0.9)]" />
+          <span
+            className="absolute -top-[2px] left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mk-orange"
+            style={{
+              boxShadow: isBrownGold
+                ? "0 0 6px rgba(212,175,55,0.9)"
+                : "0 0 6px rgba(147,51,234,0.9)",
+            }}
+          />
         </motion.span>
         <motion.span
           className="block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-mk-orange/25"
@@ -317,10 +338,15 @@ function HeroSignalLine() {
         <motion.span
           className="block w-[8px] h-[8px] rounded-full bg-mk-orange"
           animate={{
-            boxShadow: [
-              "0 0 0 0 rgba(147,51,234,0.6), 0 0 10px rgba(147,51,234,0.9)",
-              "0 0 0 14px rgba(147,51,234,0), 0 0 20px rgba(147,51,234,0.5)",
-            ],
+            boxShadow: isBrownGold
+              ? [
+                  "0 0 0 0 rgba(212,175,55,0.6), 0 0 10px rgba(212,175,55,0.9)",
+                  "0 0 0 14px rgba(212,175,55,0), 0 0 20px rgba(212,175,55,0.5)",
+                ]
+              : [
+                  "0 0 0 0 rgba(147,51,234,0.6), 0 0 10px rgba(147,51,234,0.9)",
+                  "0 0 0 14px rgba(147,51,234,0), 0 0 20px rgba(147,51,234,0.5)",
+                ],
             scale: [1, 1.15, 1],
           }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
@@ -407,7 +433,8 @@ function HeroMagneticButton({
 
 function Hero() {
   const titleLines = ["Marketing for all,", "Automated."];
-  const { isGalaxy } = useTheme();
+  const { isGalaxy, theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
 
   const sectionRef = useRef<HTMLElement>(null);
   const mouse = useRef({ x: 0, y: 0, active: false });
@@ -690,25 +717,32 @@ function Hero() {
           animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
           transition={{ delay: 0.35, duration: 0.6, ease: EASE_EXPO }}
           className={`relative inline-flex items-center gap-2 px-4 py-1.5 rounded-full ${
-            isGalaxy
+            isBrownGold
+              ? "bg-[#3a2114]/85 backdrop-blur-md border border-[rgba(212,175,55,0.45)] text-[#e6ca65]"
+              : isGalaxy
               ? "bg-[#FAF5FF] text-mk-orange border border-purple-200/70"
               : "bg-white/70 backdrop-blur-md border border-purple-200/70 text-mk-orange"
-          } text-[13px] font-semibold shadow-[0_8px_30px_-8px_rgba(147,51,234,0.3)]`}
+          } text-[13px] font-semibold ${
+            isBrownGold
+              ? "shadow-[0_8px_30px_-8px_rgba(212,175,55,0.3)]"
+              : "shadow-[0_8px_30px_-8px_rgba(147,51,234,0.3)]"
+          }`}
         >
           <motion.span
             animate={{ rotate: 360 }}
             transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
             className="inline-flex"
           >
-            <Sparkles size={14} />
+            <Sparkles size={14} className={isBrownGold ? "text-[#d4af37]" : "text-mk-orange"} />
           </motion.span>
           AI Marketing Automation Platform
           <span
             aria-hidden
             className="absolute -inset-px rounded-full pointer-events-none"
             style={{
-              background:
-                "conic-gradient(from 0deg, rgba(147,51,234,0), rgba(147,51,234,0.6), rgba(147,51,234,0))",
+              background: isBrownGold
+                ? "conic-gradient(from 0deg, rgba(212,175,55,0), rgba(212,175,55,0.7), rgba(212,175,55,0))"
+                : "conic-gradient(from 0deg, rgba(147,51,234,0), rgba(147,51,234,0.6), rgba(147,51,234,0))",
               WebkitMask:
                 "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
               WebkitMaskComposite: "xor",

@@ -82,7 +82,7 @@ export default function ThemeToggle({
                 xmlns="http://www.w3.org/2000/svg"
                 width={4}
                 height={4}
-                fill={theme === "brown-gold" ? "#ffd76a" : "#ffffff"}
+                fill={theme === "brown-gold" ? "#e6ca65" : "#ffffff"}
                 className="star"
                 viewBox="0 0 16 16"
                 aria-hidden="true"
@@ -123,7 +123,7 @@ export default function ThemeToggle({
         }
 
         .rocket-switch-3pos:focus-visible .slider {
-          outline: 2px solid #ffd76a;
+          outline: 2px solid #e6ca65;
           outline-offset: 2px;
         }
 
@@ -194,7 +194,7 @@ export default function ThemeToggle({
         /* Position 3: Brown & Gold (Right) */
         .rocket-switch-3pos.theme-brown-gold .slider .fug .nav {
           transform: translateX(2.75em) rotate(45deg);
-          fill: #ffd76a;
+          fill: #e6ca65;
           filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.8));
           animation: rocketFloatGold 4s linear infinite;
         }
