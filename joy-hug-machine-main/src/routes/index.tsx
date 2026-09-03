@@ -5422,6 +5422,55 @@ function LiveLeadStream() {
   );
 }
 
+function ClaudeSparkIcon({ size = 32, className = "" }: { size?: number; className?: string }) {
+  const rays = [
+    { a: -105, l: 8.8 },
+    { a: -80, l: 9.6 },
+    { a: -50, l: 10.4 },
+    { a: -30, l: 8.6 },
+    { a: -10, l: 9.8 },
+    { a: 12, l: 9.2 },
+    { a: 35, l: 8.8 },
+    { a: 65, l: 9.6 },
+    { a: 90, l: 10.4 },
+    { a: 120, l: 9.4 },
+    { a: 145, l: 9.0 },
+    { a: 170, l: 9.5 },
+    { a: -170, l: 9.0 },
+    { a: -140, l: 9.6 },
+  ];
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeLinecap="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="3.2" />
+      {rays.map((r, i) => {
+        const rad = (r.a * Math.PI) / 180;
+        const x2 = 12 + r.l * Math.cos(rad);
+        const y2 = 12 + r.l * Math.sin(rad);
+        return (
+          <line
+            key={i}
+            x1="12"
+            y1="12"
+            x2={x2}
+            y2={y2}
+            strokeWidth="2.4"
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
 /* Neural core with rotating rings + orbiting particles */
 function NeuralCore() {
   return (
@@ -5451,7 +5500,7 @@ function NeuralCore() {
         animate={{ scale: [1, 1.06, 1] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Cloud size={28} strokeWidth={2.2} />
+        <ClaudeSparkIcon size={30} className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
         {/* shock pulse */}
         <motion.span
           aria-hidden
