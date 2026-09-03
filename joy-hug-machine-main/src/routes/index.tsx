@@ -798,12 +798,11 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.75, type: "spring", stiffness: 200, damping: 18 }}
-          className="flex flex-col sm:flex-row gap-3"
+          className="flex items-center justify-center"
         >
           <HeroMagneticButton variant="navy">
             Sign up <ArrowRight size={16} />
           </HeroMagneticButton>
-          <HeroMagneticButton variant="outline">Contact Us</HeroMagneticButton>
         </motion.div>
 
         <motion.div
