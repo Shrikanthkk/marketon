@@ -900,7 +900,7 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
               delay: (i % 7) * 0.35,
             }}
             whileHover={{ scale: 1.08, y: -4 }}
-            className={`text-[24px] sm:text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap bg-clip-text text-transparent ${
+            className={`text-[24px] sm:text-[28px] md:text-[32px] font-extrabold tracking-tight whitespace-nowrap uppercase bg-clip-text text-transparent ${
               isBrownGold
                 ? "bg-gradient-to-r from-[#D4AF37] via-[#FCF6BA] to-[#C5A059] hover:drop-shadow-[0_0_16px_rgba(212,175,55,0.65)]"
                 : "bg-gradient-to-r from-[#A855F7] via-[#C084FC] to-[#D8B4FE] hover:drop-shadow-[0_0_16px_rgba(192,132,252,0.65)]"
@@ -908,6 +908,7 @@ function MarqueeRow({ items, reverse = false }: { items: string[]; reverse?: boo
             style={{
               fontFamily: '"Space Grotesk", "Inter Tight", "Inter", system-ui, sans-serif',
               letterSpacing: "-0.02em",
+              textTransform: "uppercase",
               textShadow: isBrownGold
                 ? "0 1px 0 rgba(255,255,255,0.4), 0 0 22px rgba(212,175,55,0.35)"
                 : "0 1px 0 rgba(255,255,255,0.6), 0 0 22px rgba(192,132,252,0.35)",
@@ -928,15 +929,15 @@ function IntegrationStrip() {
     "MEXTO VENTURES",
     "IIFA",
     "GOPRAYANA",
-    "Trivik",
-    "Regis and Savoy",
-    "Mysore Sandal",
+    "TRIVIK",
+    "REGIS AND SAVOY",
+    "MYSORE SANDAL",
   ];
   const r2 = [
-    "Basaveshwara",
+    "BASAVESHWARA",
     "MVJ",
     "PUTUL",
-    "Mist N Fog",
+    "MIST N FOG",
     "NEWS MEDIA KIRAN",
     "LN EXIME",
   ];
