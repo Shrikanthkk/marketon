@@ -4578,6 +4578,9 @@ function SdkChips() {
 
 
 function BusinessesCan() {
+  const { theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
+
   return (
     <section className="py-24 md:py-32 bg-white relative overflow-hidden">
       <motion.div
@@ -4590,7 +4593,9 @@ function BusinessesCan() {
         aria-hidden
         animate={{ opacity: [0.25, 0.5, 0.25], scale: [1, 1.15, 1] }}
         transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="pointer-events-none absolute -bottom-24 -right-24 w-[460px] h-[460px] rounded-full bg-indigo-300/25 blur-3xl"
+        className={`pointer-events-none absolute -bottom-24 -right-24 w-[460px] h-[460px] rounded-full ${
+          isBrownGold ? "bg-[#d4af37]/15" : "bg-indigo-300/25"
+        } blur-3xl`}
       />
 
       <div className="relative max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
@@ -4606,7 +4611,19 @@ function BusinessesCan() {
                 transition={{ duration: 0.7, delay: i * 0.12, ease: EASE_EXPO }}
                 className="inline-block mr-2"
               >
-                {i === 1 ? <span className="bg-gradient-to-r from-mk-orange to-fuchsia-500 bg-clip-text text-transparent">{w}</span> : w}
+                {i === 1 ? (
+                  <span
+                    className={
+                      isBrownGold
+                        ? "text-[#ffd76a]"
+                        : "bg-gradient-to-r from-mk-orange to-fuchsia-500 bg-clip-text text-transparent"
+                    }
+                  >
+                    {w}
+                  </span>
+                ) : (
+                  w
+                )}
               </motion.span>
             ))}
           </h2>

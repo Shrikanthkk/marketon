@@ -16,6 +16,8 @@ function MagneticLink({
   isActive: boolean;
   onClick?: () => void;
 }) {
+  const { theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
   const ref = useRef<HTMLAnchorElement>(null);
   const x = useSpring(0, { stiffness: 300, damping: 20 });
   const y = useSpring(0, { stiffness: 300, damping: 20 });
@@ -48,7 +50,9 @@ function MagneticLink({
       }}
       className={`relative py-1 text-[13px] font-semibold tracking-wider transition-colors uppercase ${
         isActive
-          ? "text-mk-orange font-bold drop-shadow-[0_0_12px_rgba(168,85,247,0.45)]"
+          ? isBrownGold
+            ? "text-mk-orange font-bold drop-shadow-[0_0_12px_rgba(212,175,55,0.6)]"
+            : "text-mk-orange font-bold drop-shadow-[0_0_12px_rgba(168,85,247,0.45)]"
           : "text-mk-body hover:text-mk-navy"
       }`}
     >
@@ -56,7 +60,11 @@ function MagneticLink({
       {isActive && (
         <motion.span
           layoutId="nav-active-indicator"
-          className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-mk-orange shadow-[0_0_10px_rgba(168,85,247,0.8)]"
+          className={`absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-mk-orange ${
+            isBrownGold
+              ? "shadow-[0_0_10px_rgba(212,175,55,0.8)]"
+              : "shadow-[0_0_10px_rgba(168,85,247,0.8)]"
+          }`}
           transition={{ type: "spring", stiffness: 380, damping: 30 }}
         />
       )}

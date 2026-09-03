@@ -692,39 +692,235 @@ a.bg-mk-navy,
   color: #e2d1b3 !important;
 }
 
-/* Purple to Gold badge/accent overrides in Brown-Gold mode */
+/* ==========================================================================
+   Comprehensive Brown & Gold Theme Purple-to-Gold Replacement System
+   ========================================================================== */
+
+/* 1. All text gradients & highlighted spans in brown-gold */
+[data-theme="brown-gold"] .bg-clip-text.bg-gradient-to-r,
+[data-theme="brown-gold"] .bg-clip-text.bg-gradient-to-br,
+[data-theme="brown-gold"] .bg-clip-text.bg-gradient-to-tr,
+.brown-gold .bg-clip-text.bg-gradient-to-r,
+.brown-gold .bg-clip-text.bg-gradient-to-br,
+.brown-gold .bg-clip-text.bg-gradient-to-tr {
+  background-image: linear-gradient(90deg, #d4af37, #ffe08a, #d4af37) !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* 2. Text colors: Purple, Violet, Fuchsia, Pink, Indigo to Gold */
+[data-theme="brown-gold"] .text-purple-300,
+[data-theme="brown-gold"] .text-purple-400,
+[data-theme="brown-gold"] .text-purple-500,
+[data-theme="brown-gold"] .text-purple-600,
+[data-theme="brown-gold"] .text-purple-700,
+[data-theme="brown-gold"] .text-violet-300,
+[data-theme="brown-gold"] .text-violet-400,
+[data-theme="brown-gold"] .text-violet-500,
+[data-theme="brown-gold"] .text-violet-600,
+[data-theme="brown-gold"] .text-fuchsia-300,
+[data-theme="brown-gold"] .text-fuchsia-400,
+[data-theme="brown-gold"] .text-fuchsia-500,
+[data-theme="brown-gold"] .text-fuchsia-600,
+[data-theme="brown-gold"] .text-pink-400,
+[data-theme="brown-gold"] .text-pink-500,
+[data-theme="brown-gold"] .text-indigo-300,
+[data-theme="brown-gold"] .text-indigo-400,
+[data-theme="brown-gold"] .text-indigo-500,
+[data-theme="brown-gold"] .text-mk-orange,
+.brown-gold .text-purple-300,
+.brown-gold .text-purple-400,
+.brown-gold .text-purple-500,
+.brown-gold .text-purple-600,
+.brown-gold .text-purple-700,
+.brown-gold .text-violet-300,
+.brown-gold .text-violet-400,
+.brown-gold .text-violet-500,
+.brown-gold .text-violet-600,
+.brown-gold .text-fuchsia-300,
+.brown-gold .text-fuchsia-400,
+.brown-gold .text-fuchsia-500,
+.brown-gold .text-fuchsia-600,
+.brown-gold .text-pink-400,
+.brown-gold .text-pink-500,
+.brown-gold .text-indigo-300,
+.brown-gold .text-indigo-400,
+.brown-gold .text-indigo-500,
+.brown-gold .text-mk-orange {
+  color: #ffd76a !important;
+}
+
+/* 3. Background tints: Purple/Violet/Fuchsia/Pink/Indigo to Gold Glass */
+[data-theme="brown-gold"] .bg-purple-500\/10,
+[data-theme="brown-gold"] .bg-purple-500\/15,
+[data-theme="brown-gold"] .bg-purple-500\/20,
+[data-theme="brown-gold"] .bg-purple-500\/25,
+[data-theme="brown-gold"] .bg-violet-500\/10,
+[data-theme="brown-gold"] .bg-violet-500\/15,
+[data-theme="brown-gold"] .bg-violet-500\/20,
+[data-theme="brown-gold"] .bg-fuchsia-500\/10,
+[data-theme="brown-gold"] .bg-fuchsia-500\/15,
+[data-theme="brown-gold"] .bg-fuchsia-500\/20,
+[data-theme="brown-gold"] .bg-indigo-300\/25,
+[data-theme="brown-gold"] .bg-mk-orange\/10,
+[data-theme="brown-gold"] .bg-mk-orange\/15,
+[data-theme="brown-gold"] .bg-mk-orange\/20,
+[data-theme="brown-gold"] .bg-mk-orange\/25,
+[data-theme="brown-gold"] .bg-mk-orange\/30,
+.brown-gold .bg-purple-500\/10,
+.brown-gold .bg-purple-500\/15,
+.brown-gold .bg-purple-500\/20,
+.brown-gold .bg-purple-500\/25,
+.brown-gold .bg-violet-500\/10,
+.brown-gold .bg-violet-500\/15,
+.brown-gold .bg-violet-500\/20,
+.brown-gold .bg-fuchsia-500\/10,
+.brown-gold .bg-fuchsia-500\/15,
+.brown-gold .bg-fuchsia-500\/20,
+.brown-gold .bg-indigo-300\/25,
+.brown-gold .bg-mk-orange\/10,
+.brown-gold .bg-mk-orange\/15,
+.brown-gold .bg-mk-orange\/20,
+.brown-gold .bg-mk-orange\/25,
+.brown-gold .bg-mk-orange\/30 {
+  background-color: rgba(212, 175, 55, 0.18) !important;
+}
+
+/* 4. Solid backgrounds: Purple/Violet/Fuchsia to Gold */
+[data-theme="brown-gold"] .bg-purple-400,
+[data-theme="brown-gold"] .bg-purple-500,
+[data-theme="brown-gold"] .bg-purple-600,
+[data-theme="brown-gold"] .bg-violet-400,
+[data-theme="brown-gold"] .bg-violet-500,
+[data-theme="brown-gold"] .bg-violet-600,
+[data-theme="brown-gold"] .bg-fuchsia-400,
+[data-theme="brown-gold"] .bg-fuchsia-500,
+[data-theme="brown-gold"] .bg-fuchsia-600,
+.brown-gold .bg-purple-400,
+.brown-gold .bg-purple-500,
+.brown-gold .bg-purple-600,
+.brown-gold .bg-violet-400,
+.brown-gold .bg-violet-500,
+.brown-gold .bg-violet-600,
+.brown-gold .bg-fuchsia-400,
+.brown-gold .bg-fuchsia-500,
+.brown-gold .bg-fuchsia-600 {
+  background-color: #d4af37 !important;
+}
+
+/* 5. Border colors: Purple/Violet/Fuchsia to Gold */
+[data-theme="brown-gold"] .border-purple-200,
+[data-theme="brown-gold"] .border-purple-200\/70,
+[data-theme="brown-gold"] .border-purple-200\/80,
+[data-theme="brown-gold"] .border-purple-300,
+[data-theme="brown-gold"] .border-purple-400,
+[data-theme="brown-gold"] .border-purple-500,
+[data-theme="brown-gold"] .border-violet-200,
+[data-theme="brown-gold"] .border-violet-300,
+[data-theme="brown-gold"] .border-violet-400,
+[data-theme="brown-gold"] .border-violet-500,
+[data-theme="brown-gold"] .border-fuchsia-200,
+[data-theme="brown-gold"] .border-fuchsia-300,
+[data-theme="brown-gold"] .border-fuchsia-400,
+[data-theme="brown-gold"] .border-mk-orange,
+[data-theme="brown-gold"] .border-mk-orange\/25,
+[data-theme="brown-gold"] .border-mk-orange\/30,
+[data-theme="brown-gold"] .border-mk-orange\/40,
+.brown-gold .border-purple-200,
+.brown-gold .border-purple-200\/70,
+.brown-gold .border-purple-200\/80,
+.brown-gold .border-purple-300,
+.brown-gold .border-purple-400,
+.brown-gold .border-purple-500,
+.brown-gold .border-violet-200,
+.brown-gold .border-violet-300,
+.brown-gold .border-violet-400,
+.brown-gold .border-violet-500,
+.brown-gold .border-fuchsia-200,
+.brown-gold .border-fuchsia-300,
+.brown-gold .border-fuchsia-400,
+.brown-gold .border-mk-orange,
+.brown-gold .border-mk-orange\/25,
+.brown-gold .border-mk-orange\/30,
+.brown-gold .border-mk-orange\/40 {
+  border-color: rgba(212, 175, 55, 0.45) !important;
+}
+
+/* 6. Gradients: from-*, via-*, to-* overrides for rich luxury gold */
+[data-theme="brown-gold"] .from-mk-orange,
+[data-theme="brown-gold"] .from-violet-400,
+[data-theme="brown-gold"] .from-violet-500,
+[data-theme="brown-gold"] .from-violet-600,
+[data-theme="brown-gold"] .from-purple-400,
+[data-theme="brown-gold"] .from-purple-500,
+[data-theme="brown-gold"] .from-purple-600,
+[data-theme="brown-gold"] .from-fuchsia-400,
+[data-theme="brown-gold"] .from-fuchsia-500,
+.brown-gold .from-mk-orange,
+.brown-gold .from-violet-400,
+.brown-gold .from-violet-500,
+.brown-gold .from-violet-600,
+.brown-gold .from-purple-400,
+.brown-gold .from-purple-500,
+.brown-gold .from-purple-600,
+.brown-gold .from-fuchsia-400,
+.brown-gold .from-fuchsia-500 {
+  --tw-gradient-from: #b8860b !important;
+  --tw-gradient-to: rgba(184, 134, 11, 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), #d4af37, var(--tw-gradient-to) !important;
+}
+
+[data-theme="brown-gold"] .to-fuchsia-300,
+[data-theme="brown-gold"] .to-fuchsia-400,
+[data-theme="brown-gold"] .to-fuchsia-500,
+[data-theme="brown-gold"] .to-violet-400,
+[data-theme="brown-gold"] .to-violet-500,
+[data-theme="brown-gold"] .to-purple-400,
+[data-theme="brown-gold"] .to-purple-500,
+[data-theme="brown-gold"] .to-purple-600,
+[data-theme="brown-gold"] .to-pink-400,
+[data-theme="brown-gold"] .to-pink-500,
+.brown-gold .to-fuchsia-300,
+.brown-gold .to-fuchsia-400,
+.brown-gold .to-fuchsia-500,
+.brown-gold .to-violet-400,
+.brown-gold .to-violet-500,
+.brown-gold .to-purple-400,
+.brown-gold .to-purple-500,
+.brown-gold .to-purple-600,
+.brown-gold .to-pink-400,
+.brown-gold .to-pink-500 {
+  --tw-gradient-to: #ffe08a !important;
+}
+
+[data-theme="brown-gold"] .via-fuchsia-400,
+[data-theme="brown-gold"] .via-fuchsia-500,
+[data-theme="brown-gold"] .via-purple-400,
+[data-theme="brown-gold"] .via-purple-500,
+.brown-gold .via-fuchsia-400,
+.brown-gold .via-fuchsia-500,
+.brown-gold .via-purple-400,
+.brown-gold .via-purple-500 {
+  --tw-gradient-to: rgba(242, 201, 76, 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), #f2c94c, var(--tw-gradient-to) !important;
+}
+
+/* 7. SVG Fills and Strokes */
+[data-theme="brown-gold"] svg.fill-mk-orange,
+.brown-gold svg.fill-mk-orange {
+  fill: #d4af37 !important;
+}
+[data-theme="brown-gold"] svg.text-mk-orange,
+.brown-gold svg.text-mk-orange {
+  color: #d4af37 !important;
+}
+
+/* 8. Pill badges & tags */
 [data-theme="brown-gold"] .bg-\[\#FAF5FF\],
 .brown-gold .bg-\[\#FAF5FF\] {
   background-color: rgba(90, 52, 28, 0.75) !important;
   border-color: rgba(212, 175, 55, 0.45) !important;
-  color: #e6ca65 !important;
-}
-
-[data-theme="brown-gold"] .border-purple-200\/70,
-[data-theme="brown-gold"] .border-purple-200\/80,
-[data-theme="brown-gold"] .border-purple-200,
-.brown-gold .border-purple-200\/70,
-.brown-gold .border-purple-200\/80,
-.brown-gold .border-purple-200 {
-  border-color: rgba(212, 175, 55, 0.45) !important;
-}
-
-[data-theme="brown-gold"] .text-mk-orange,
-.brown-gold .text-mk-orange,
-[data-theme="brown-gold"] .text-purple-600,
-.brown-gold .text-purple-600,
-[data-theme="brown-gold"] .text-purple-500,
-.brown-gold .text-purple-500,
-[data-theme="brown-gold"] .text-purple-400,
-.brown-gold .text-purple-400 {
-  color: #e6ca65 !important;
-}
-
-[data-theme="brown-gold"] .bg-purple-500,
-.brown-gold .bg-purple-500,
-[data-theme="brown-gold"] .bg-purple-600,
-.brown-gold .bg-purple-600 {
-  background-color: #d4af37 !important;
+  color: #ffd76a !important;
 }
 
 /* Scoped Site Footer Styles */
