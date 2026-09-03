@@ -5627,17 +5627,21 @@ function InfraGrid() {
 /* ----------------------------- Case Studies ----------------------------- */
 
 function CaseStudies() {
+  const { isGalaxy } = useTheme();
   const c = [
     { tag: "Real Estate Agency", h: "3x increase in site visits", d: "Automated WhatsApp follow-ups and AI scheduling tripled qualified site visits within 60 days." },
     { tag: "Education Institute", h: "6,500+ student leads automated", d: "End-to-end lead capture, nurture, and admission counselling — fully automated across channels." },
     { tag: "Healthcare Clinic", h: "72% appointment confirmation rate", d: "Voice AI reminders and rebooking flows doubled show-up rates across three clinic locations." },
   ];
   return (
-    <section className="py-24 md:py-32 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="case-studies" className="py-24 md:py-32 relative overflow-hidden transition-colors duration-300">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <Reveal>
-            <h2 className="font-display text-[32px] md:text-[48px] text-mk-heading max-w-2xl">
+            <h2
+              className="font-display text-[32px] md:text-[48px] max-w-2xl leading-tight"
+              style={{ color: "var(--case-heading)" }}
+            >
               Trusted by businesses that want more conversions
             </h2>
           </Reveal>
@@ -5648,11 +5652,35 @@ function CaseStudies() {
         <div className="grid md:grid-cols-3 gap-5">
           {c.map((x, i) => (
             <Reveal key={x.h} delay={i * 0.08}>
-              <div className="p-6 rounded-2xl border border-mk-border bg-white h-full flex flex-col gap-4 hover:-translate-y-1 hover:shadow-xl transition">
+              <div
+                className="p-6 rounded-2xl h-full flex flex-col gap-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 backdrop-blur-md"
+                style={{
+                  backgroundColor: "var(--case-card-bg)",
+                  border: "1px solid var(--case-border)",
+                  boxShadow: isGalaxy ? "0 4px 20px rgba(0,0,0,0.4)" : "0 4px 20px rgba(0,0,0,0.04)",
+                }}
+              >
                 <span className="text-xs font-bold text-mk-orange uppercase tracking-wider">{x.tag}</span>
-                <h3 className="font-display text-2xl text-mk-navy">{x.h}</h3>
-                <p className="text-mk-body text-sm flex-1">{x.d}</p>
-                <a className="text-mk-navy font-semibold text-sm hover:text-mk-orange">Read case study →</a>
+                <h3
+                  className="font-display text-2xl font-bold leading-snug"
+                  style={{ color: "var(--case-heading)" }}
+                >
+                  {x.h}
+                </h3>
+                <p
+                  className="text-sm flex-1 leading-relaxed"
+                  style={{ color: "var(--case-text)" }}
+                >
+                  {x.d}
+                </p>
+                <a
+                  href="/#case-studies"
+                  className="font-semibold text-sm hover:text-mk-orange transition-colors flex items-center gap-1.5"
+                  style={{ color: "var(--case-heading)" }}
+                >
+                  <span>Read case study</span>
+                  <span>→</span>
+                </a>
               </div>
             </Reveal>
           ))}

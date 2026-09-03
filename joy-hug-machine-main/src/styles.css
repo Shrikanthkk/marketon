@@ -47,13 +47,19 @@
 /* ==========================================================================
    Light Mode (Default Theme — High Contrast & Perfect Readability)
    ========================================================================== */
-:root {
+:root,
+[data-theme="light"] {
   --radius: 0.75rem;
   --page-bg: #F4F4FB;
   --text-primary: #111827;
   --text-secondary: #374151;
   --text-muted: #6B7280;
   --heading-color: #0F172A;
+
+  --case-heading: #111827;
+  --case-text: #4b5563;
+  --case-card-bg: #ffffff;
+  --case-border: rgba(17, 24, 39, 0.15);
 
   --background: #FFFFFF;
   --foreground: #111827;
@@ -102,6 +108,11 @@
   --text-secondary: #D1D5DB;
   --text-muted: #9CA3AF;
   --heading-color: #FFFFFF;
+
+  --case-heading: #ffffff;
+  --case-text: #cbd5e1;
+  --case-card-bg: rgba(255, 255, 255, 0.04);
+  --case-border: rgba(255, 255, 255, 0.18);
 
   --background: #010104;
   --foreground: #FFFFFF;
