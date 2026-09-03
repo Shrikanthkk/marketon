@@ -278,12 +278,16 @@
   color: #FFFFFF !important;
 }
 
-/* Smooth Theme Switching Transition */
-html.theme-transition,
-html.theme-transition *,
-html.theme-transition *::before,
-html.theme-transition *::after {
-  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, box-shadow 300ms ease, fill 300ms ease, stroke 300ms ease !important;
+/* Smooth Theme Switching Transition - Targeted elements only */
+html.theme-transition body,
+html.theme-transition header,
+html.theme-transition footer,
+html.theme-transition section,
+html.theme-transition div.mk-card,
+html.theme-transition button,
+html.theme-transition input,
+html.theme-transition textarea {
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, box-shadow 300ms ease !important;
 }
 
 /* ===== MARKETON BASE & COMPONENTS ===== */
@@ -561,73 +565,34 @@ a.bg-mk-navy,
   color: #e2d1b3 !important;
 }
 
-@keyframes royalGoldShimmer {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Royal Gold Radiant Metallic Headings with specular sheen */
+/* Clean High-Contrast Royal Gold Headings */
 [data-theme="brown-gold"] h1,
 [data-theme="brown-gold"] h2,
 [data-theme="brown-gold"] h3,
-[data-theme="brown-gold"] .font-display,
-[data-theme="brown-gold"] .text-mk-heading,
-.brown-gold h1,
-.brown-gold h2,
-.brown-gold h3,
-.brown-gold .font-display,
-.brown-gold .text-mk-heading {
-  background: linear-gradient(
-    115deg,
-    #bf953f 0%,
-    #fcf6ba 22%,
-    #b38728 45%,
-    #fbf5b7 65%,
-    #aa771c 85%,
-    #fdf0cd 100%
-  ) !important;
-  background-size: 250% auto !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  animation: royalGoldShimmer 9s ease-in-out infinite !important;
-  filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.28));
-  display: inline-block;
-}
-
 [data-theme="brown-gold"] h4,
 [data-theme="brown-gold"] h5,
 [data-theme="brown-gold"] h6,
+[data-theme="brown-gold"] .font-display,
+[data-theme="brown-gold"] .text-mk-heading,
+[data-theme="brown-gold"] .text-mk-navy,
+.brown-gold h1,
+.brown-gold h2,
+.brown-gold h3,
 .brown-gold h4,
 .brown-gold h5,
-.brown-gold h6 {
+.brown-gold h6,
+.brown-gold .font-display,
+.brown-gold .text-mk-heading,
+.brown-gold .text-mk-navy {
   color: #e6ca65 !important;
+  text-shadow: 0 0 16px rgba(212, 175, 55, 0.35);
 }
 
 /* Royal Gold for brand logo */
 [data-theme="brown-gold"] .footer-brand,
-[data-theme="brown-gold"] header a[href="/"],
-.brown-gold .footer-brand,
-.brown-gold header a[href="/"] {
-  background: linear-gradient(
-    115deg,
-    #bf953f 0%,
-    #fcf6ba 25%,
-    #b38728 50%,
-    #fbf5b7 75%,
-    #aa771c 100%
-  ) !important;
-  background-size: 250% auto !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  animation: royalGoldShimmer 9s ease-in-out infinite !important;
-  filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.35));
+.brown-gold .footer-brand {
+  color: #e6ca65 !important;
+  text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
 }
 
 [data-theme="brown-gold"] p,
@@ -668,7 +633,6 @@ a.bg-mk-navy,
   border: 1px solid #fcf6ba !important;
   box-shadow: 0 4px 22px rgba(212, 175, 55, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.7) !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) !important;
-  animation: royalGoldShimmer 8s ease-in-out infinite !important;
 }
 
 [data-theme="brown-gold"] .mk-btn-navy:hover,
