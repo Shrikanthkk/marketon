@@ -561,15 +561,73 @@ a.bg-mk-navy,
   color: #e2d1b3 !important;
 }
 
-[data-theme="brown-gold"] h1, [data-theme="brown-gold"] h2, [data-theme="brown-gold"] h3,
-[data-theme="brown-gold"] h4, [data-theme="brown-gold"] h5, [data-theme="brown-gold"] h6,
-.brown-gold h1, .brown-gold h2, .brown-gold h3,
-.brown-gold h4, .brown-gold h5, .brown-gold h6,
+@keyframes royalGoldShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Royal Gold Radiant Metallic Headings with specular sheen */
+[data-theme="brown-gold"] h1,
+[data-theme="brown-gold"] h2,
+[data-theme="brown-gold"] h3,
+[data-theme="brown-gold"] .font-display,
 [data-theme="brown-gold"] .text-mk-heading,
-[data-theme="brown-gold"] .text-mk-navy,
-.brown-gold .text-mk-heading,
-.brown-gold .text-mk-navy {
+.brown-gold h1,
+.brown-gold h2,
+.brown-gold h3,
+.brown-gold .font-display,
+.brown-gold .text-mk-heading {
+  background: linear-gradient(
+    115deg,
+    #bf953f 0%,
+    #fcf6ba 22%,
+    #b38728 45%,
+    #fbf5b7 65%,
+    #aa771c 85%,
+    #fdf0cd 100%
+  ) !important;
+  background-size: 250% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: royalGoldShimmer 9s ease-in-out infinite !important;
+  filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.28));
+  display: inline-block;
+}
+
+[data-theme="brown-gold"] h4,
+[data-theme="brown-gold"] h5,
+[data-theme="brown-gold"] h6,
+.brown-gold h4,
+.brown-gold h5,
+.brown-gold h6 {
   color: #e6ca65 !important;
+}
+
+/* Royal Gold for brand logo */
+[data-theme="brown-gold"] .footer-brand,
+[data-theme="brown-gold"] header a[href="/"],
+.brown-gold .footer-brand,
+.brown-gold header a[href="/"] {
+  background: linear-gradient(
+    115deg,
+    #bf953f 0%,
+    #fcf6ba 25%,
+    #b38728 50%,
+    #fbf5b7 75%,
+    #aa771c 100%
+  ) !important;
+  background-size: 250% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: royalGoldShimmer 9s ease-in-out infinite !important;
+  filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.35));
 }
 
 [data-theme="brown-gold"] p,
@@ -589,16 +647,28 @@ a.bg-mk-navy,
   border-color: rgba(212, 175, 55, 0.35) !important;
 }
 
+/* Royal Gold Metallic Buttons */
 [data-theme="brown-gold"] .mk-btn-navy,
 [data-theme="brown-gold"] button.bg-mk-navy,
 [data-theme="brown-gold"] a.bg-mk-navy,
 .brown-gold .mk-btn-navy,
 .brown-gold button.bg-mk-navy,
 .brown-gold a.bg-mk-navy {
-  background-color: #d4af37 !important;
-  color: #1c0f08 !important;
-  border: 1px solid #e5c158 !important;
-  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3) !important;
+  background: linear-gradient(
+    135deg,
+    #c5a059 0%,
+    #fcf6ba 28%,
+    #d4af37 52%,
+    #fbf5b7 76%,
+    #b38728 100%
+  ) !important;
+  background-size: 200% auto !important;
+  color: #1a0d06 !important;
+  font-weight: 700 !important;
+  border: 1px solid #fcf6ba !important;
+  box-shadow: 0 4px 22px rgba(212, 175, 55, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.7) !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  animation: royalGoldShimmer 8s ease-in-out infinite !important;
 }
 
 [data-theme="brown-gold"] .mk-btn-navy:hover,
@@ -607,24 +677,37 @@ a.bg-mk-navy,
 .brown-gold .mk-btn-navy:hover,
 .brown-gold button.bg-mk-navy:hover,
 .brown-gold a.bg-mk-navy:hover {
-  background-color: #e5c158 !important;
-  color: #1c0f08 !important;
-  border-color: #f3dc87 !important;
-  box-shadow: 0 12px 28px -8px rgba(229, 193, 88, 0.6) !important;
+  background: linear-gradient(
+    135deg,
+    #fcf6ba 0%,
+    #d4af37 35%,
+    #fbf5b7 65%,
+    #c5a059 100%
+  ) !important;
+  background-size: 200% auto !important;
+  color: #1a0d06 !important;
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.65), inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
 }
 
 [data-theme="brown-gold"] .mk-btn-outline,
 .brown-gold .mk-btn-outline {
-  background-color: rgba(212, 175, 55, 0.12) !important;
+  background: rgba(212, 175, 55, 0.12) !important;
   color: #e6ca65 !important;
   border: 1.5px solid rgba(212, 175, 55, 0.6) !important;
+  box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.15) !important;
 }
 
 [data-theme="brown-gold"] .mk-btn-outline:hover,
 .brown-gold .mk-btn-outline:hover {
-  background-color: #d4af37 !important;
-  color: #1c0f08 !important;
-  border-color: #d4af37 !important;
+  background: linear-gradient(
+    135deg,
+    #d4af37 0%,
+    #fcf6ba 50%,
+    #b38728 100%
+  ) !important;
+  color: #1a0d06 !important;
+  border-color: #fcf6ba !important;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4) !important;
 }
 
 [data-theme="brown-gold"] input,

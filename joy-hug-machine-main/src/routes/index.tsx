@@ -760,7 +760,9 @@ function Hero() {
             aria-hidden
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[160%] pointer-events-none -z-10"
             style={{
-              background: isGalaxy
+              background: isBrownGold
+                ? "radial-gradient(circle at 50% 45%, rgba(212,175,55,0.22), rgba(90,52,28,0.15) 40%, transparent 70%)"
+                : isGalaxy
                 ? "radial-gradient(circle at 50% 45%, rgba(147,51,234,.08), rgba(15,18,35,.04) 30%, transparent 60%)"
                 : "radial-gradient(ellipse at center, rgba(192,132,252,0.45), transparent 60%)",
               filter: "blur(40px)",
@@ -774,10 +776,11 @@ function Hero() {
             aria-hidden
             className="absolute inset-0 pointer-events-none"
             style={{
-              background:
-                "linear-gradient(110deg, transparent 30%, rgba(216,180,254,0.35) 50%, transparent 70%)",
+              background: isBrownGold
+                ? "linear-gradient(110deg, transparent 25%, rgba(255,248,184,0.6) 50%, transparent 75%)"
+                : "linear-gradient(110deg, transparent 30%, rgba(216,180,254,0.35) 50%, transparent 70%)",
               backgroundSize: "200% 100%",
-              mixBlendMode: "soft-light",
+              mixBlendMode: isBrownGold ? "overlay" : "soft-light",
               animation: "heroSweep 6s ease-in-out infinite",
             }}
           />
