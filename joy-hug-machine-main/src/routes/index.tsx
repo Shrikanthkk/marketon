@@ -5349,6 +5349,9 @@ function FullStackCards() {
 }
 
 function FloatingTrio() {
+  const { theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
+
   return (
     <div className="relative mt-16 md:mt-24 h-[760px] md:h-[640px]" style={{ fontFamily: "'DM Sans', 'Plus Jakarta Sans', system-ui, sans-serif" }}>
       {/* Card 1 — Lead Automation (top left, tilted) */}
@@ -5359,10 +5362,18 @@ function FloatingTrio() {
         transition={{ duration: 0.8, ease: EASE_EXPO }}
         whileHover={{ rotate: 0, y: -6 }}
         className="absolute top-0 left-1/2 md:left-[2%] -translate-x-1/2 md:translate-x-0 w-[320px] md:w-[340px] rounded-3xl p-6 border border-mk-border bg-white/85 backdrop-blur-xl z-30"
-        style={{ boxShadow: "0 32px 80px -24px rgba(82,120,255,0.28), 0 0 0 1px rgba(255,255,255,0.6) inset" }}
+        style={{
+          boxShadow: isBrownGold
+            ? "0 32px 80px -24px rgba(212,175,55,0.25), 0 0 0 1px rgba(212,175,55,0.3) inset"
+            : "0 32px 80px -24px rgba(82,120,255,0.28), 0 0 0 1px rgba(255,255,255,0.6) inset",
+        }}
       >
         <FloatHover>
-          <div className="w-10 h-10 rounded-xl bg-[#5278FF]/12 flex items-center justify-center text-[#5278FF] mb-5">
+          <div
+            className={`w-10 h-10 rounded-xl ${
+              isBrownGold ? "bg-[#d4af37]/15 text-[#d4af37]" : "bg-[#5278FF]/12 text-[#5278FF]"
+            } flex items-center justify-center mb-5`}
+          >
             <Users size={18} />
           </div>
           <h3 className="text-mk-navy text-[18px] font-bold leading-tight mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
@@ -5382,8 +5393,12 @@ function FloatingTrio() {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.9, ease: EASE_EXPO, delay: 0.1 }}
         whileHover={{ y: -4 }}
-        className="absolute top-[36%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-y-1/2 w-[360px] md:w-[420px] rounded-[40px] p-8 border border-mk-border bg-white z-40 flex flex-col items-center text-center"
-        style={{ boxShadow: "0 48px 120px -32px rgba(147,51,234,0.35), 0 0 0 1px rgba(255,255,255,0.7) inset" }}
+        className="ai-engines-card absolute top-[36%] md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-y-1/2 w-[360px] md:w-[420px] rounded-[40px] p-8 border border-mk-border bg-white z-40 flex flex-col items-center text-center"
+        style={{
+          boxShadow: isBrownGold
+            ? "0 48px 120px -32px rgba(212,175,55,0.35), 0 0 0 1px rgba(212,175,55,0.4) inset"
+            : "0 48px 120px -32px rgba(147,51,234,0.35), 0 0 0 1px rgba(255,255,255,0.7) inset",
+        }}
       >
         <NeuralCore />
         <h3 className="text-mk-navy text-[22px] md:text-[26px] font-bold mb-3 leading-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
@@ -5396,11 +5411,25 @@ function FloatingTrio() {
           {["AI Brain", "Decision Engine", "Voice AI", "Content Studio"].map((l, i) => (
             <motion.div
               key={l}
-              whileHover={{ y: -2, backgroundColor: "rgba(147,51,234,0.08)" }}
-              className="px-3 py-2.5 bg-mk-bg rounded-2xl text-[11px] font-bold text-[#9333EA] border border-purple-100 flex items-center justify-center gap-1.5 cursor-pointer"
+              whileHover={{
+                y: -2,
+                backgroundColor: isBrownGold
+                  ? "rgba(212,175,55,0.12)"
+                  : "rgba(147,51,234,0.08)",
+              }}
+              className={`feature-pill px-3 py-2.5 bg-mk-bg rounded-2xl text-[11px] font-bold ${
+                isBrownGold
+                  ? "text-[#ffe08a] border border-[rgba(212,175,55,0.45)] hover:border-[#d4af37]"
+                  : "text-[#9333EA] border border-purple-100"
+              } flex items-center justify-center gap-1.5 cursor-pointer transition-colors`}
             >
-              <span className="w-1 h-1 rounded-full bg-[#9333EA] animate-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
-              {l}
+              <span
+                className={`feature-bullet w-1 h-1 rounded-full ${
+                  isBrownGold ? "bg-[#d4af37]" : "bg-[#9333EA]"
+                } animate-pulse`}
+                style={{ animationDelay: `${i * 0.3}s` }}
+              />
+              <span>{l}</span>
             </motion.div>
           ))}
         </div>
@@ -5414,7 +5443,11 @@ function FloatingTrio() {
         transition={{ duration: 0.8, ease: EASE_EXPO, delay: 0.2 }}
         whileHover={{ rotate: 0, y: -6 }}
         className="absolute bottom-0 left-1/2 md:left-auto md:right-[2%] -translate-x-1/2 md:translate-x-0 w-[320px] md:w-[340px] rounded-3xl p-6 border border-mk-border bg-white/85 backdrop-blur-xl z-30"
-        style={{ boxShadow: "0 32px 80px -24px rgba(27,43,75,0.25), 0 0 0 1px rgba(255,255,255,0.6) inset" }}
+        style={{
+          boxShadow: isBrownGold
+            ? "0 32px 80px -24px rgba(212,175,55,0.22), 0 0 0 1px rgba(212,175,55,0.3) inset"
+            : "0 32px 80px -24px rgba(27,43,75,0.25), 0 0 0 1px rgba(255,255,255,0.6) inset",
+        }}
       >
         <FloatHover delay={0.5}>
           <InfraGrid />
@@ -5430,7 +5463,14 @@ function FloatingTrio() {
               <div className="text-[9px] uppercase tracking-widest text-mk-muted font-bold">Leads/sec</div>
             </div>
             <div className="text-center">
-              <div className="text-[20px] font-bold text-[#5278FF] tabular-nums" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>&lt;100ms</div>
+              <div
+                className={`text-[20px] font-bold ${
+                  isBrownGold ? "text-[#d4af37]" : "text-[#5278FF]"
+                } tabular-nums`}
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                &lt;100ms
+              </div>
               <div className="text-[9px] uppercase tracking-widest text-mk-muted font-bold">Latency</div>
             </div>
             <div className="text-right">
@@ -5567,29 +5607,44 @@ function ClaudeSparkIcon({ size = 32, className = "" }: { size?: number; classNa
 
 /* Neural core with rotating rings + orbiting particles */
 function NeuralCore() {
+  const { theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
+
   return (
     <div className="relative w-44 h-44 mb-6 flex items-center justify-center">
       {/* Outer dashed ring */}
       <motion.div
-        className="absolute inset-0 rounded-full border-[1.5px] border-dashed border-[#9333EA]/30"
+        className={`orbit-ring absolute inset-0 rounded-full border-[1.5px] border-dashed ${
+          isBrownGold ? "border-[#d4af37]/55" : "border-[#9333EA]/30"
+        }`}
         animate={{ rotate: 360 }}
         transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
       />
       {/* Mid ring */}
       <motion.div
-        className="absolute inset-4 rounded-full border-[1.5px] border-dashed border-[#9333EA]/45"
+        className={`orbit-ring absolute inset-4 rounded-full border-[1.5px] border-dashed ${
+          isBrownGold ? "border-[#d4af37]/65" : "border-[#9333EA]/45"
+        }`}
         animate={{ rotate: -360 }}
         transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
       />
       {/* Inner static ring */}
-      <div className="absolute inset-8 rounded-full border-[1.5px] border-[#9333EA]/15" />
+      <div
+        className={`orbit-ring absolute inset-8 rounded-full border-[1.5px] ${
+          isBrownGold ? "border-[#d4af37]/35" : "border-[#9333EA]/15"
+        }`}
+      />
 
       {/* Core orb */}
       <motion.div
-        className="relative w-20 h-20 rounded-full flex items-center justify-center text-white z-10"
+        className="ai-icon-circle relative w-20 h-20 rounded-full flex items-center justify-center text-white z-10"
         style={{
-          background: "radial-gradient(circle at 30% 30%, #E9D5FF 0%, #C084FC 35%, #7C3AED 75%, #4C1D95 100%)",
-          boxShadow: "0 0 50px rgba(168,85,247,0.6), 0 0 25px rgba(34,211,238,0.35), inset 0 1px 0 rgba(255,255,255,0.4)",
+          background: isBrownGold
+            ? "linear-gradient(135deg, #b8860b 0%, #d4af37 40%, #ffe08a 80%, #f2c94c 100%)"
+            : "radial-gradient(circle at 30% 30%, #E9D5FF 0%, #C084FC 35%, #7C3AED 75%, #4C1D95 100%)",
+          boxShadow: isBrownGold
+            ? "0 0 20px rgba(212, 175, 55, 0.55), 0 0 45px rgba(242, 201, 76, 0.30), inset 0 1px 0 rgba(255,255,255,0.6)"
+            : "0 0 50px rgba(168,85,247,0.6), 0 0 25px rgba(34,211,238,0.35), inset 0 1px 0 rgba(255,255,255,0.4)",
         }}
         animate={{ scale: [1, 1.06, 1] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
@@ -5599,15 +5654,37 @@ function NeuralCore() {
         <motion.span
           aria-hidden
           className="absolute inset-0 rounded-full"
-          animate={{ boxShadow: ["0 0 0 0 rgba(147,51,234,0.45)", "0 0 0 22px rgba(147,51,234,0)"] }}
+          animate={{
+            boxShadow: isBrownGold
+              ? ["0 0 0 0 rgba(212,175,55,0.55)", "0 0 0 22px rgba(212,175,55,0)"]
+              : ["0 0 0 0 rgba(147,51,234,0.45)", "0 0 0 22px rgba(147,51,234,0)"],
+          }}
           transition={{ duration: 2, repeat: Infinity }}
         />
       </motion.div>
 
       {/* Orbiting particles */}
-      <Orbit color="#9333EA" duration={8} radius={86} size={10} />
-      <Orbit color="#5278FF" duration={11} radius={76} size={7} reverse offset={120} />
-      <Orbit color="#C084FC" duration={14} radius={92} size={6} offset={240} />
+      <Orbit
+        color={isBrownGold ? "#f2c94c" : "#9333EA"}
+        duration={8}
+        radius={86}
+        size={10}
+      />
+      <Orbit
+        color={isBrownGold ? "#ffe08a" : "#5278FF"}
+        duration={11}
+        radius={76}
+        size={7}
+        reverse
+        offset={120}
+      />
+      <Orbit
+        color={isBrownGold ? "#d4af37" : "#C084FC"}
+        duration={14}
+        radius={92}
+        size={6}
+        offset={240}
+      />
     </div>
   );
 }
@@ -5635,7 +5712,7 @@ function Orbit({
       transition={{ duration, repeat: Infinity, ease: "linear" }}
     >
       <span
-        className="absolute top-1/2 left-1/2 rounded-full"
+        className="orbit-dot absolute top-1/2 left-1/2 rounded-full"
         style={{
           width: size,
           height: size,
@@ -5650,21 +5727,26 @@ function Orbit({
 
 /* Infrastructure dot-grid with traveling data streams */
 function InfraGrid() {
+  const { theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
+
   return (
     <div className="relative h-32 w-full bg-mk-navy rounded-2xl overflow-hidden">
       <div
         className="absolute inset-0 opacity-30"
         style={{
-          backgroundImage: "radial-gradient(#5278FF 1.1px, transparent 1.1px)",
+          backgroundImage: isBrownGold
+            ? "radial-gradient(#d4af37 1.1px, transparent 1.1px)"
+            : "radial-gradient(#5278FF 1.1px, transparent 1.1px)",
           backgroundSize: "12px 12px",
         }}
       />
       {/* Active nodes */}
       {[
-        { top: "22%", left: "18%", c: "#9333EA", d: 0 },
-        { top: "55%", left: "42%", c: "#5278FF", d: 0.6 },
-        { top: "30%", left: "70%", c: "#10B981", d: 1.2 },
-        { top: "68%", left: "82%", c: "#5278FF", d: 1.8 },
+        { top: "22%", left: "18%", c: isBrownGold ? "#d4af37" : "#9333EA", d: 0 },
+        { top: "55%", left: "42%", c: isBrownGold ? "#f2c94c" : "#5278FF", d: 0.6 },
+        { top: "30%", left: "70%", c: isBrownGold ? "#ffe08a" : "#10B981", d: 1.2 },
+        { top: "68%", left: "82%", c: isBrownGold ? "#b8860b" : "#5278FF", d: 1.8 },
       ].map((n, i) => (
         <motion.span
           key={i}
@@ -5677,19 +5759,31 @@ function InfraGrid() {
       {/* Data streams */}
       <motion.div
         className="absolute top-1/2 left-0 w-full h-px"
-        style={{ background: "linear-gradient(90deg, transparent, #5278FF, transparent)" }}
+        style={{
+          background: isBrownGold
+            ? "linear-gradient(90deg, transparent, #d4af37, transparent)"
+            : "linear-gradient(90deg, transparent, #5278FF, transparent)",
+        }}
         animate={{ x: ["-100%", "100%"] }}
         transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
       />
       <motion.div
         className="absolute top-1/4 left-0 w-full h-px"
-        style={{ background: "linear-gradient(90deg, transparent, #9333EA, transparent)" }}
+        style={{
+          background: isBrownGold
+            ? "linear-gradient(90deg, transparent, #f2c94c, transparent)"
+            : "linear-gradient(90deg, transparent, #9333EA, transparent)",
+        }}
         animate={{ x: ["100%", "-100%"] }}
         transition={{ duration: 4, repeat: Infinity, ease: "linear", delay: 0.5 }}
       />
       <motion.div
         className="absolute top-3/4 left-0 w-full h-px"
-        style={{ background: "linear-gradient(90deg, transparent, #10B981, transparent)" }}
+        style={{
+          background: isBrownGold
+            ? "linear-gradient(90deg, transparent, #ffe08a, transparent)"
+            : "linear-gradient(90deg, transparent, #10B981, transparent)",
+        }}
         animate={{ x: ["-100%", "100%"] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: "linear", delay: 1 }}
       />

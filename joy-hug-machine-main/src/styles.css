@@ -923,6 +923,59 @@ a.bg-mk-navy,
   color: #ffd76a !important;
 }
 
+/* 9. Scoped AI Engines Card Styles in Brown & Gold Theme */
+[data-theme="brown-gold"] .ai-engines-card .ai-icon-circle,
+.brown-gold .ai-engines-card .ai-icon-circle {
+  background: linear-gradient(135deg, #b8860b, #d4af37, #ffe08a) !important;
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.55),
+    0 0 45px rgba(242, 201, 76, 0.30) !important;
+}
+
+[data-theme="brown-gold"] .ai-engines-card .orbit-ring,
+.brown-gold .ai-engines-card .orbit-ring {
+  border-color: rgba(212, 175, 55, 0.55) !important;
+}
+
+[data-theme="brown-gold"] .ai-engines-card .orbit-dot,
+.brown-gold .ai-engines-card .orbit-dot {
+  background-color: #f2c94c !important;
+  box-shadow: 0 0 10px rgba(242, 201, 76, 0.70) !important;
+}
+
+[data-theme="brown-gold"] .ai-engines-card .feature-pill,
+[data-theme="brown-gold"] .ai-engines-card .feature-pill span,
+.brown-gold .ai-engines-card .feature-pill,
+.brown-gold .ai-engines-card .feature-pill span {
+  color: #ffe08a !important;
+  -webkit-text-fill-color: #ffe08a !important;
+}
+
+[data-theme="brown-gold"] .ai-engines-card .feature-pill::before,
+[data-theme="brown-gold"] .ai-engines-card .feature-bullet,
+.brown-gold .ai-engines-card .feature-pill::before,
+.brown-gold .ai-engines-card .feature-bullet {
+  background-color: #d4af37 !important;
+  color: #d4af37 !important;
+}
+
+[data-theme="brown-gold"] .ai-engines-card .feature-pill:hover,
+[data-theme="brown-gold"] .ai-engines-card .feature-pill:focus-visible,
+.brown-gold .ai-engines-card .feature-pill:hover,
+.brown-gold .ai-engines-card .feature-pill:focus-visible {
+  color: #fff4c2 !important;
+  border-color: #d4af37 !important;
+  background: rgba(212, 175, 55, 0.10) !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.18) !important;
+}
+
+[data-theme="brown-gold"] .ai-engines-card svg circle,
+[data-theme="brown-gold"] .ai-engines-card svg path,
+.brown-gold .ai-engines-card svg circle,
+.brown-gold .ai-engines-card svg path {
+  stroke: #d4af37;
+}
+
 /* Scoped Site Footer Styles */
 /* Site Footer Layering & Scoped Theme Styles */
 .site-footer {
