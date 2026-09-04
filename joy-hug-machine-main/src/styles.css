@@ -1024,22 +1024,31 @@ a.bg-mk-navy,
    Developer Section "Engineered for speed, scale & resilience" Styles
    ========================================================================== */
 .developer-features-section {
+  position: relative !important;
   background-color: var(--page-bg);
   border-color: var(--mk-border);
 }
 
 .developer-features-heading {
+  position: relative !important;
+  z-index: 10 !important;
+  display: block !important;
   color: #0F172A;
   -webkit-text-fill-color: #0F172A;
   opacity: 1 !important;
   visibility: visible !important;
+  mix-blend-mode: normal !important;
 }
 
 .developer-features-desc {
+  position: relative !important;
+  z-index: 10 !important;
+  display: block !important;
   color: #475569;
   -webkit-text-fill-color: #475569;
   opacity: 1 !important;
   visibility: visible !important;
+  mix-blend-mode: normal !important;
 }
 
 /* Light Theme */

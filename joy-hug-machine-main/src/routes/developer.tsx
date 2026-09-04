@@ -891,18 +891,28 @@ function DeveloperPage() {
         </section>
 
         {/* Developer Feature Highlights */}
-        <section className="developer-features-section py-20 bg-mk-bg border-t border-mk-border">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center max-w-2xl mx-auto mb-14">
-              <h2 className="developer-features-heading font-display text-[28px] md:text-[38px] text-mk-heading mb-3">
+        <section className="developer-features-section relative z-20 py-16 md:py-20 bg-mk-bg border-t border-mk-border overflow-hidden">
+          {/* Subtle Ambient Glow Behind Content */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-0"
+            style={{
+              background:
+                "radial-gradient(800px 400px at 50% 20%, rgba(168,85,247,0.06), transparent 70%)",
+            }}
+          />
+
+          <div className="relative z-10 max-w-6xl mx-auto px-6">
+            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-14">
+              <h2 className="developer-features-heading font-display text-[28px] md:text-[38px] lg:text-[42px] leading-tight text-mk-heading mb-3 font-bold">
                 Engineered for speed, scale & resilience
               </h2>
-              <p className="developer-features-desc text-mk-body text-sm md:text-base">
+              <p className="developer-features-desc text-mk-body text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
                 Production-ready developer infrastructure with sub-100ms response times and enterprise reliability.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="relative z-20 grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
                   icon: <Globe className="w-5 h-5 text-mk-orange" />,
