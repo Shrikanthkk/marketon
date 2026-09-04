@@ -426,7 +426,7 @@ function ResourcesPage() {
                 return (
                   <motion.article
                     key={feat.id}
-                    layoutId={`resource-card-container-${feat.id}`}
+                    layoutId={`resource-card-${feat.id}`}
                     ref={(el) => {
                       triggerRefs.current[feat.id] = el;
                     }}
@@ -446,52 +446,39 @@ function ResourcesPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{
-                      duration: 0.6,
-                      delay: (index % 3) * 0.08,
-                      ease: EASE_EXPO,
+                      layout: { type: "spring", stiffness: 350, damping: 32, mass: 0.8 },
+                      opacity: { duration: 0.5, delay: (index % 3) * 0.08, ease: EASE_EXPO },
                     }}
-                    whileHover={{ y: -6 }}
-                    className="group relative rounded-2xl border border-mk-border bg-card/75 backdrop-blur-sm p-7 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-xl hover:border-mk-orange/50 transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-mk-orange"
+                    whileHover={selectedId ? undefined : { y: -6 }}
+                    className="group relative rounded-2xl border border-mk-border bg-card/75 backdrop-blur-sm p-7 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-xl hover:border-mk-orange/50 transition-colors duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-mk-orange"
                     style={{
                       opacity: selectedId && !isCardSelected ? 0.35 : 1,
                       filter: selectedId && !isCardSelected ? "blur(1px)" : "none",
                     }}
                   >
                     {/* Top Animated Color Bar */}
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-mk-orange to-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-mk-orange to-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 pointer-events-none" />
 
                     <div>
                       {/* Top Header: Icon & Micro Tag */}
                       <div className="flex items-center justify-between mb-5">
-                        <motion.div
-                          layoutId={`resource-card-icon-${feat.id}`}
-                          className="w-12 h-12 rounded-xl bg-mk-orange/10 border border-mk-orange/30 flex items-center justify-center text-mk-orange shadow-sm group-hover:scale-110 transition-transform duration-300"
-                        >
+                        <div className="w-12 h-12 rounded-xl bg-mk-orange/10 border border-mk-orange/30 flex items-center justify-center text-mk-orange shadow-sm group-hover:scale-110 transition-transform duration-300">
                           {feat.icon}
-                        </motion.div>
-                        <motion.span
-                          layoutId={`resource-card-badge-${feat.id}`}
-                          className="text-[11px] font-bold uppercase tracking-wider text-mk-body bg-mk-bg px-2.5 py-1 rounded-full border border-mk-border"
-                        >
+                        </div>
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-mk-body bg-mk-bg px-2.5 py-1 rounded-full border border-mk-border">
                           {feat.badge}
-                        </motion.span>
+                        </span>
                       </div>
 
                       {/* Title */}
-                      <motion.h2
-                        layoutId={`resource-card-title-${feat.id}`}
-                        className="font-bold text-mk-heading text-[20px] mb-2.5 leading-snug group-hover:text-mk-orange transition-colors"
-                      >
+                      <h2 className="font-bold text-mk-heading text-[20px] mb-2.5 leading-snug group-hover:text-mk-orange transition-colors">
                         {feat.title}
-                      </motion.h2>
+                      </h2>
 
                       {/* Description */}
-                      <motion.p
-                        layoutId={`resource-card-desc-${feat.id}`}
-                        className="text-sm text-mk-body leading-relaxed mb-6"
-                      >
+                      <p className="text-sm text-mk-body leading-relaxed mb-6">
                         {feat.description}
-                      </motion.p>
+                      </p>
                     </div>
 
                     {/* Footer Micro Highlight + Tap to Expand Cue */}
@@ -521,159 +508,158 @@ function ResourcesPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
                 onClick={handleClose}
-                className="absolute inset-0 bg-black/70 backdrop-blur-md"
+                className="absolute inset-0 bg-black/75 backdrop-blur-md"
                 aria-hidden="true"
               />
 
               {/* Expanded Card Shared Element */}
               <motion.div
                 ref={modalRef}
-                layoutId={`resource-card-container-${selectedFeature.id}`}
+                layoutId={`resource-card-${selectedFeature.id}`}
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby={`dialog-title-${selectedFeature.id}`}
                 tabIndex={-1}
                 transition={{
                   type: "spring",
-                  stiffness: 280,
-                  damping: 28,
-                  mass: 0.9,
+                  stiffness: 350,
+                  damping: 32,
+                  mass: 0.8,
                 }}
                 className="resource-expanded-card relative z-10 w-full max-w-4xl h-[92vh] max-h-[850px] rounded-3xl border border-mk-border bg-card shadow-2xl flex flex-col overflow-hidden focus:outline-none"
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Header Strip with Accent Glow & Close Button */}
-                <div className="relative border-b border-mk-border/70 px-6 sm:px-8 py-5 flex items-center justify-between gap-4 shrink-0 bg-mk-bg/40 backdrop-blur">
-                  <div className="flex items-center gap-4 min-w-0">
-                    <motion.div
-                      layoutId={`resource-card-icon-${selectedFeature.id}`}
-                      className="w-12 h-12 rounded-xl bg-mk-orange/15 border border-mk-orange/40 flex items-center justify-center text-mk-orange shadow-md shrink-0"
-                    >
-                      {selectedFeature.icon}
-                    </motion.div>
-                    <div className="min-w-0">
-                      <motion.span
-                        layoutId={`resource-card-badge-${selectedFeature.id}`}
-                        className="inline-block text-[10px] font-bold uppercase tracking-wider text-mk-orange bg-mk-orange/10 border border-mk-orange/30 px-2.5 py-0.5 rounded-full mb-1"
-                      >
-                        {selectedFeature.badge}
-                      </motion.span>
-                      <motion.h2
-                        id={`dialog-title-${selectedFeature.id}`}
-                        layoutId={`resource-card-title-${selectedFeature.id}`}
-                        className="font-bold text-mk-heading text-xl sm:text-2xl truncate leading-tight"
-                      >
-                        {selectedFeature.title}
-                      </motion.h2>
-                    </div>
-                  </div>
-
-                  {/* Close Button */}
-                  <button
-                    type="button"
-                    onClick={handleClose}
-                    aria-label="Close details view"
-                    className="w-10 h-10 rounded-full bg-mk-bg border border-mk-border hover:border-mk-orange/60 text-mk-heading hover:text-mk-orange flex items-center justify-center shadow-md transition-all hover:scale-105 shrink-0 cursor-pointer"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-
-                {/* Scrollable Content Container */}
-                <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-6 space-y-8 mk-no-scrollbar">
-                  {/* Lead Description & Full Overview */}
-                  <div>
-                    <motion.p
-                      layoutId={`resource-card-desc-${selectedFeature.id}`}
-                      className="text-base sm:text-lg text-mk-heading font-medium leading-relaxed mb-4"
-                    >
-                      {selectedFeature.description}
-                    </motion.p>
-                    <p className="text-sm sm:text-base text-mk-body leading-relaxed">
-                      {selectedFeature.overview}
-                    </p>
-                  </div>
-
-                  {/* Key Capabilities Grid */}
-                  <div>
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-mk-heading flex items-center gap-2 mb-4">
-                      <Layers size={16} className="text-mk-orange" />
-                      <span>Key Architectural Capabilities</span>
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      {selectedFeature.capabilities.map((cap, i) => (
-                        <div
-                          key={i}
-                          className="resource-card-feature-box p-4 rounded-xl border border-mk-border bg-mk-bg/60 backdrop-blur-sm flex items-start gap-3 shadow-sm"
+                {/* Inner Content with Fade-In to eliminate text warping during expansion */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.22, ease: "easeInOut" }}
+                  className="flex flex-col h-full overflow-hidden"
+                >
+                  {/* Header Strip with Accent Glow & Close Button */}
+                  <div className="relative border-b border-mk-border/70 px-6 sm:px-8 py-5 flex items-center justify-between gap-4 shrink-0 bg-mk-bg/40 backdrop-blur">
+                    <div className="flex items-center gap-4 min-w-0">
+                      <div className="w-12 h-12 rounded-xl bg-mk-orange/15 border border-mk-orange/40 flex items-center justify-center text-mk-orange shadow-md shrink-0">
+                        {selectedFeature.icon}
+                      </div>
+                      <div className="min-w-0">
+                        <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-mk-orange bg-mk-orange/10 border border-mk-orange/30 px-2.5 py-0.5 rounded-full mb-1">
+                          {selectedFeature.badge}
+                        </span>
+                        <h2
+                          id={`dialog-title-${selectedFeature.id}`}
+                          className="font-bold text-mk-heading text-xl sm:text-2xl truncate leading-tight"
                         >
-                          <CheckCircle2
-                            size={18}
-                            className="text-emerald-500 shrink-0 mt-0.5"
-                          />
-                          <span className="text-xs sm:text-sm text-mk-body font-medium leading-relaxed">
-                            {cap}
-                          </span>
-                        </div>
-                      ))}
+                          {selectedFeature.title}
+                        </h2>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Technical Benchmarks & Specs */}
-                  <div>
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-mk-heading flex items-center gap-2 mb-4">
-                      <Activity size={16} className="text-mk-orange" />
-                      <span>Technical Performance & Specs</span>
-                    </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      {selectedFeature.specs.map((spec, i) => (
-                        <div
-                          key={i}
-                          className="resource-card-spec-box p-3.5 rounded-xl border border-mk-border bg-mk-bg/40 flex flex-col justify-between"
-                        >
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-mk-muted mb-1">
-                            {spec.label}
-                          </span>
-                          <span className="text-xs sm:text-sm font-bold text-mk-heading">
-                            {spec.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Security & Reliability Banner */}
-                  <div className="p-4 rounded-2xl border border-mk-border/80 bg-mk-orange/5 flex items-center gap-3.5">
-                    <ShieldCheck size={22} className="text-mk-orange shrink-0" />
-                    <div className="text-xs sm:text-sm text-mk-body">
-                      <strong className="text-mk-heading">Enterprise Production Ready:</strong> Built with end-to-end TLS 1.3 encryption, automatic failover clusters, and 99.99% uptime SLA.
-                    </div>
-                  </div>
-                </div>
-
-                {/* Footer Modal Actions */}
-                <div className="border-t border-mk-border/70 px-6 sm:px-8 py-4 bg-mk-bg/60 backdrop-blur flex flex-wrap items-center justify-between gap-3 shrink-0">
-                  <span className="text-xs font-medium text-mk-muted hidden sm:inline-block">
-                    Press <kbd className="px-1.5 py-0.5 rounded bg-mk-border/40 text-mk-heading font-mono text-[10px]">Esc</kbd> or click outside to close
-                  </span>
-                  <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                    {/* Close Button */}
                     <button
                       type="button"
                       onClick={handleClose}
-                      className="mk-btn-outline px-5 py-2.5 rounded-full text-xs font-semibold transition"
+                      aria-label="Close details view"
+                      className="w-10 h-10 rounded-full bg-mk-bg border border-mk-border hover:border-mk-orange/60 text-mk-heading hover:text-mk-orange flex items-center justify-center shadow-md transition-all hover:scale-105 shrink-0 cursor-pointer"
                     >
-                      <span>Close</span>
+                      <X size={18} />
                     </button>
-                    <a
-                      href={selectedFeature.ctaHref}
-                      className="mk-btn-navy px-6 py-2.5 rounded-full text-xs font-semibold shadow-md transition flex items-center gap-2"
-                    >
-                      <span>{selectedFeature.ctaText}</span>
-                      <ExternalLink size={14} />
-                    </a>
                   </div>
-                </div>
+
+                  {/* Scrollable Content Container */}
+                  <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-6 space-y-8 mk-no-scrollbar">
+                    {/* Lead Description & Full Overview */}
+                    <div>
+                      <p className="text-base sm:text-lg text-mk-heading font-medium leading-relaxed mb-4">
+                        {selectedFeature.description}
+                      </p>
+                      <p className="text-sm sm:text-base text-mk-body leading-relaxed">
+                        {selectedFeature.overview}
+                      </p>
+                    </div>
+
+                    {/* Key Capabilities Grid */}
+                    <div>
+                      <h3 className="text-sm font-bold uppercase tracking-wider text-mk-heading flex items-center gap-2 mb-4">
+                        <Layers size={16} className="text-mk-orange" />
+                        <span>Key Architectural Capabilities</span>
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        {selectedFeature.capabilities.map((cap, i) => (
+                          <div
+                            key={i}
+                            className="resource-card-feature-box p-4 rounded-xl border border-mk-border bg-mk-bg/60 backdrop-blur-sm flex items-start gap-3 shadow-sm"
+                          >
+                            <CheckCircle2
+                              size={18}
+                              className="text-emerald-500 shrink-0 mt-0.5"
+                            />
+                            <span className="text-xs sm:text-sm text-mk-body font-medium leading-relaxed">
+                              {cap}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Technical Benchmarks & Specs */}
+                    <div>
+                      <h3 className="text-sm font-bold uppercase tracking-wider text-mk-heading flex items-center gap-2 mb-4">
+                        <Activity size={16} className="text-mk-orange" />
+                        <span>Technical Performance & Specs</span>
+                      </h3>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        {selectedFeature.specs.map((spec, i) => (
+                          <div
+                            key={i}
+                            className="resource-card-spec-box p-3.5 rounded-xl border border-mk-border bg-mk-bg/40 flex flex-col justify-between"
+                          >
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-mk-muted mb-1">
+                              {spec.label}
+                            </span>
+                            <span className="text-xs sm:text-sm font-bold text-mk-heading">
+                              {spec.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Security & Reliability Banner */}
+                    <div className="p-4 rounded-2xl border border-mk-border/80 bg-mk-orange/5 flex items-center gap-3.5">
+                      <ShieldCheck size={22} className="text-mk-orange shrink-0" />
+                      <div className="text-xs sm:text-sm text-mk-body">
+                        <strong className="text-mk-heading">Enterprise Production Ready:</strong> Built with end-to-end TLS 1.3 encryption, automatic failover clusters, and 99.99% uptime SLA.
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Footer Modal Actions */}
+                  <div className="border-t border-mk-border/70 px-6 sm:px-8 py-4 bg-mk-bg/60 backdrop-blur flex flex-wrap items-center justify-between gap-3 shrink-0">
+                    <span className="text-xs font-medium text-mk-muted hidden sm:inline-block">
+                      Press <kbd className="px-1.5 py-0.5 rounded bg-mk-border/40 text-mk-heading font-mono text-[10px]">Esc</kbd> or click outside to close
+                    </span>
+                    <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                      <button
+                        type="button"
+                        onClick={handleClose}
+                        className="mk-btn-outline px-5 py-2.5 rounded-full text-xs font-semibold transition cursor-pointer"
+                      >
+                        <span>Close</span>
+                      </button>
+                      <a
+                        href={selectedFeature.ctaHref}
+                        className="mk-btn-navy px-6 py-2.5 rounded-full text-xs font-semibold shadow-md transition flex items-center gap-2"
+                      >
+                        <span>{selectedFeature.ctaText}</span>
+                        <ExternalLink size={14} />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
               </motion.div>
             </div>
           )}
