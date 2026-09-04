@@ -977,6 +977,50 @@ a.bg-mk-navy,
 }
 
 /* ==========================================================================
+   Developer Section & Code Sandbox Theme Overrides
+   ========================================================================== */
+[data-theme="dark"] .developer-sandbox-card,
+[data-theme="galaxy"] .developer-sandbox-card,
+.dark .developer-sandbox-card {
+  background-color: #090d1a !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8), 0 0 30px rgba(168, 85, 247, 0.12) !important;
+}
+
+[data-theme="dark"] .developer-sandbox-terminal,
+[data-theme="galaxy"] .developer-sandbox-terminal,
+.dark .developer-sandbox-terminal {
+  background-color: rgba(5, 8, 18, 0.75) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .developer-sandbox-status,
+[data-theme="galaxy"] .developer-sandbox-status,
+.dark .developer-sandbox-status {
+  background-color: #050814 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="brown-gold"] .developer-sandbox-card,
+.brown-gold .developer-sandbox-card {
+  background-color: #1a0f08 !important;
+  border-color: rgba(212, 175, 55, 0.45) !important;
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.85), 0 0 30px rgba(212, 175, 55, 0.18) !important;
+}
+
+[data-theme="brown-gold"] .developer-sandbox-terminal,
+.brown-gold .developer-sandbox-terminal {
+  background-color: rgba(18, 9, 4, 0.85) !important;
+  border-color: rgba(212, 175, 55, 0.30) !important;
+}
+
+[data-theme="brown-gold"] .developer-sandbox-status,
+.brown-gold .developer-sandbox-status {
+  background-color: #120904 !important;
+  border-color: rgba(212, 175, 55, 0.35) !important;
+}
+
+/* ==========================================================================
    Businesses That Run on Markethon Heading Styles
    ========================================================================== */
 .businesses-heading {

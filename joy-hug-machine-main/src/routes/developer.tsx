@@ -517,7 +517,7 @@ function DeveloperApiSection() {
         className="w-full min-w-0"
       >
         <div
-          className="relative bg-[#0B1020] rounded-3xl overflow-hidden border border-white/5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)]"
+          className="relative developer-sandbox-card bg-[#0B1020] rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)]"
           onMouseEnter={() => setAutoSwitch(false)}
           onMouseLeave={() => {
             if (!userTouched.current) setAutoSwitch(true);
@@ -678,7 +678,7 @@ function DeveloperApiSection() {
           </div>
 
           {/* response terminal */}
-          <div className="relative border-t border-white/5 bg-black/40">
+          <div className="relative developer-sandbox-terminal border-t border-white/5 bg-black/40">
             <div className="flex items-center justify-between px-4 py-2 text-[10px] font-mono text-gray-400">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1.5">
@@ -780,7 +780,7 @@ function DeveloperApiSection() {
           </div>
 
           {/* status bar */}
-          <div className="relative flex items-center justify-between px-4 py-2 bg-[#070b18] border-t border-white/5 text-[10px] font-mono text-gray-500">
+          <div className="relative developer-sandbox-status flex items-center justify-between px-4 py-2 bg-[#070b18] border-t border-white/5 text-[10px] font-mono text-gray-500">
             <div className="flex items-center gap-3">
               <span className="text-mk-orange">●</span>
               <span>main</span>
@@ -852,7 +852,7 @@ function DeveloperPage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE_EXPO }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF5FF] border border-purple-200/80 text-mk-orange text-xs font-bold uppercase tracking-wider mb-6 shadow-[0_4px_20px_-4px_rgba(168,85,247,0.25)]"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-mk-orange/10 border border-mk-orange/30 text-mk-orange text-xs font-bold uppercase tracking-wider mb-6 shadow-sm"
             >
               <Code2 size={14} className="text-mk-orange" />
               <span>MARKETHON DEVELOPER PLATFORM</span>
@@ -891,7 +891,7 @@ function DeveloperPage() {
         </section>
 
         {/* Developer Feature Highlights */}
-        <section className="py-20 bg-white border-t border-mk-border">
+        <section className="py-20 bg-mk-bg border-t border-mk-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center max-w-2xl mx-auto mb-14">
               <h2 className="font-display text-[28px] md:text-[38px] text-mk-heading mb-3">
@@ -922,12 +922,12 @@ function DeveloperPage() {
               ].map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-6 rounded-2xl border border-mk-border bg-[#FAF5FF]/30 flex flex-col gap-3 hover:shadow-lg hover:border-purple-200 transition-all"
+                  className="p-6 rounded-2xl border border-mk-border bg-card/70 backdrop-blur-sm flex flex-col gap-3 hover:shadow-lg hover:border-mk-orange/40 transition-all"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-white border border-purple-200/80 flex items-center justify-center shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-mk-orange/10 border border-mk-orange/30 flex items-center justify-center shadow-sm text-mk-orange">
                     {item.icon}
                   </div>
-                  <h3 className="font-bold text-mk-navy text-lg">{item.title}</h3>
+                  <h3 className="font-bold text-mk-heading text-lg">{item.title}</h3>
                   <p className="text-sm text-mk-body leading-relaxed">{item.desc}</p>
                 </div>
               ))}
@@ -958,14 +958,14 @@ function DeveloperPage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="/#top"
-                className="px-7 py-3.5 rounded-full bg-mk-navy text-white text-sm font-semibold hover:scale-[1.02] shadow-[0_12px_28px_-8px_rgba(27,43,75,0.45)] transition flex items-center justify-center gap-2"
+                className="mk-btn-navy px-7 py-3.5 rounded-full text-sm font-semibold shadow-lg transition flex items-center justify-center gap-2"
               >
                 <span>Get API Keys</span>
                 <ArrowRight size={16} />
               </a>
               <a
                 href="/resources"
-                className="px-7 py-3.5 rounded-full bg-white border border-mk-navy text-mk-navy text-sm font-semibold hover:bg-mk-navy hover:text-white transition flex items-center justify-center"
+                className="mk-btn-outline px-7 py-3.5 rounded-full text-sm font-semibold transition flex items-center justify-center"
               >
                 <span>Explore Resources</span>
               </a>

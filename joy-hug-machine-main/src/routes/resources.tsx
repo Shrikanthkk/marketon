@@ -153,7 +153,7 @@ function ResourcesPage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE_EXPO }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF5FF] border border-purple-200/80 text-mk-orange text-xs font-bold uppercase tracking-wider mb-6 shadow-[0_4px_20px_-4px_rgba(168,85,247,0.25)]"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-mk-orange/10 border border-mk-orange/30 text-mk-orange text-xs font-bold uppercase tracking-wider mb-6 shadow-sm"
             >
               <Sparkles size={14} className="text-mk-orange" />
               <span>MARKETHON RESOURCE HUB</span>
@@ -189,14 +189,14 @@ function ResourcesPage() {
             >
               <a
                 href="/#platform"
-                className="px-6 py-3 rounded-full bg-mk-navy text-white text-sm font-semibold hover:scale-[1.02] shadow-[0_12px_28px_-8px_rgba(27,43,75,0.45)] transition flex items-center gap-2"
+                className="mk-btn-navy px-6 py-3 rounded-full text-sm font-semibold shadow-lg transition flex items-center gap-2"
               >
                 <span>Interactive Platform Demo</span>
                 <ArrowRight size={16} />
               </a>
               <a
                 href="/#developers"
-                className="px-6 py-3 rounded-full bg-white border border-mk-border text-mk-navy text-sm font-semibold hover:border-mk-orange hover:text-mk-orange hover:shadow-md transition flex items-center gap-2"
+                className="mk-btn-outline px-6 py-3 rounded-full text-sm font-semibold transition flex items-center gap-2"
               >
                 <span>Developer API & SDK</span>
               </a>
@@ -205,7 +205,7 @@ function ResourcesPage() {
         </section>
 
         {/* 9 Feature Cards Section in Responsive Grid */}
-        <section className="py-16 md:py-24 bg-white relative">
+        <section className="py-16 md:py-24 bg-mk-bg relative border-t border-mk-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {FEATURES.map((feat, index) => (
@@ -220,24 +220,24 @@ function ResourcesPage() {
                     ease: EASE_EXPO,
                   }}
                   whileHover={{ y: -6 }}
-                  className="group relative rounded-2xl border border-mk-border bg-white p-7 flex flex-col justify-between overflow-hidden shadow-[0_4px_24px_-8px_rgba(27,43,75,0.06)] hover:shadow-[0_24px_48px_-16px_rgba(168,85,247,0.22)] hover:border-purple-300/80 transition-all duration-300"
+                  className="group relative rounded-2xl border border-mk-border bg-card/75 backdrop-blur-sm p-7 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-xl hover:border-mk-orange/50 transition-all duration-300"
                 >
                   {/* Top Animated Color Bar */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#A855F7] via-[#C084FC] to-[#22D3EE] scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-mk-orange to-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
 
                   <div>
                     {/* Top Header: Icon & Micro Tag */}
                     <div className="flex items-center justify-between mb-5">
-                      <div className="w-12 h-12 rounded-xl bg-[#FAF5FF] border border-purple-200/70 flex items-center justify-center text-mk-orange shadow-[0_4px_16px_-4px_rgba(168,85,247,0.25)] group-hover:scale-110 transition-transform duration-300">
+                      <div className="w-12 h-12 rounded-xl bg-mk-orange/10 border border-mk-orange/30 flex items-center justify-center text-mk-orange shadow-sm group-hover:scale-110 transition-transform duration-300">
                         {feat.icon}
                       </div>
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-mk-body/75 bg-mk-bg px-2.5 py-1 rounded-full border border-mk-border/80">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-mk-body bg-mk-bg px-2.5 py-1 rounded-full border border-mk-border">
                         {feat.badge}
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h2 className="font-bold text-mk-navy text-[20px] mb-2.5 leading-snug group-hover:text-mk-orange transition-colors">
+                    <h2 className="font-bold text-mk-heading text-[20px] mb-2.5 leading-snug group-hover:text-mk-orange transition-colors">
                       {feat.title}
                     </h2>
 
@@ -248,7 +248,7 @@ function ResourcesPage() {
                   </div>
 
                   {/* Footer Micro Highlight */}
-                  <div className="pt-4 border-t border-mk-border/60 flex items-center gap-2 text-xs font-semibold text-mk-body/90">
+                  <div className="pt-4 border-t border-mk-border/60 flex items-center gap-2 text-xs font-semibold text-mk-body">
                     <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
                     <span className="truncate">{feat.highlight}</span>
                   </div>
@@ -282,14 +282,14 @@ function ResourcesPage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="/#top"
-                className="px-7 py-3.5 rounded-full bg-mk-navy text-white text-sm font-semibold hover:scale-[1.02] shadow-[0_12px_28px_-8px_rgba(27,43,75,0.45)] transition flex items-center justify-center gap-2"
+                className="mk-btn-navy px-7 py-3.5 rounded-full text-sm font-semibold shadow-lg transition flex items-center justify-center gap-2"
               >
                 <span>Get Started Free</span>
                 <ArrowRight size={16} />
               </a>
               <a
                 href="/#contact"
-                className="px-7 py-3.5 rounded-full bg-white border border-mk-navy text-mk-navy text-sm font-semibold hover:bg-mk-navy hover:text-white transition flex items-center justify-center"
+                className="mk-btn-outline px-7 py-3.5 rounded-full text-sm font-semibold transition flex items-center justify-center"
               >
                 <span>Book a Demo</span>
               </a>

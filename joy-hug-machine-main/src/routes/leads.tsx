@@ -96,9 +96,9 @@ function LeadsPage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE_EXPO }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF5FF] border border-purple-200/80 text-[#9333EA] text-xs font-bold uppercase tracking-wider mb-6 shadow-[0_4px_20px_-4px_rgba(147,51,234,0.25)]"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-mk-orange/10 border border-mk-orange/30 text-mk-orange text-xs font-bold uppercase tracking-wider mb-6 shadow-sm"
             >
-              <Users size={14} className="text-[#9333EA]" />
+              <Users size={14} className="text-mk-orange" />
               <span>LEAD INTELLIGENCE & SCORING</span>
             </motion.div>
 
@@ -125,9 +125,9 @@ function LeadsPage() {
               {METRICS.map((m, i) => (
                 <div
                   key={i}
-                  className="p-4 rounded-2xl border border-mk-border bg-white/60 backdrop-blur-sm shadow-sm"
+                  className="p-4 rounded-2xl border border-mk-border bg-card/75 backdrop-blur-sm shadow-sm"
                 >
-                  <div className="text-2xl md:text-3xl font-bold font-mono text-[#9333EA]">{m.val}</div>
+                  <div className="text-2xl md:text-3xl font-bold font-mono text-mk-orange">{m.val}</div>
                   <div className="text-[11px] text-mk-body mt-1 uppercase tracking-wider">{m.label}</div>
                 </div>
               ))}
@@ -136,7 +136,7 @@ function LeadsPage() {
         </section>
 
         {/* Feature Grid */}
-        <section className="py-20 bg-white border-t border-mk-border">
+        <section className="py-20 bg-mk-bg border-t border-mk-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center max-w-2xl mx-auto mb-14">
               <h2 className="font-display text-[30px] md:text-[42px] text-mk-heading mb-3">
@@ -155,17 +155,17 @@ function LeadsPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.6 }}
-                  className="p-6 md:p-8 rounded-3xl border border-mk-border bg-mk-bg/40 flex flex-col gap-4 hover:shadow-lg transition-all"
+                  className="p-6 md:p-8 rounded-3xl border border-mk-border bg-card/75 backdrop-blur-sm flex flex-col gap-4 hover:shadow-lg transition-all"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-2xl bg-white border border-purple-200/80 flex items-center justify-center shadow-sm">
+                    <div className="w-12 h-12 rounded-2xl bg-mk-orange/10 border border-mk-orange/30 flex items-center justify-center shadow-sm text-mk-orange">
                       {c.icon}
                     </div>
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#FAF5FF] text-[#9333EA] border border-purple-200/60">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-mk-orange/10 text-mk-orange border border-mk-orange/30">
                       {c.badge}
                     </span>
                   </div>
-                  <h3 className="font-bold text-mk-navy text-xl">{c.title}</h3>
+                  <h3 className="font-bold text-mk-heading text-xl">{c.title}</h3>
                   <p className="text-sm text-mk-body leading-relaxed">{c.desc}</p>
                 </motion.div>
               ))}
@@ -186,14 +186,14 @@ function LeadsPage() {
               <Link
                 to="/"
                 hash="top"
-                className="px-7 py-3.5 rounded-full bg-mk-navy text-white text-sm font-semibold hover:scale-[1.02] shadow-lg transition flex items-center justify-center gap-2"
+                className="mk-btn-navy px-7 py-3.5 rounded-full text-sm font-semibold shadow-lg transition flex items-center justify-center gap-2"
               >
                 <span>Get Started Free</span>
                 <ArrowRight size={16} />
               </Link>
               <Link
                 to="/developer"
-                className="px-7 py-3.5 rounded-full bg-white border border-mk-navy text-mk-navy text-sm font-semibold hover:bg-mk-navy hover:text-white transition flex items-center justify-center"
+                className="mk-btn-outline px-7 py-3.5 rounded-full text-sm font-semibold transition flex items-center justify-center"
               >
                 <span>Developer APIs</span>
               </Link>
