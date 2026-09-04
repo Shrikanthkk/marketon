@@ -126,12 +126,12 @@ export default function AIOperationsRoom() {
 
   // Parallax cursor
   const mx = useMotionValue(0), my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 60, damping: 18 });
-  const sy = useSpring(my, { stiffness: 60, damping: 18 });
-  const driftX = useTransform(sx, (v) => v * 12);
-  const driftY = useTransform(sy, (v) => v * 12);
-  const driftX2 = useTransform(sx, (v) => v * -6);
-  const driftY2 = useTransform(sy, (v) => v * -6);
+  const sx = useSpring(mx, { stiffness: 50, damping: 20 });
+  const sy = useSpring(my, { stiffness: 50, damping: 20 });
+  const driftX = useTransform(sx, (v) => v * 14);
+  const driftY = useTransform(sy, (v) => v * 14);
+  const driftX2 = useTransform(sx, (v) => v * -8);
+  const driftY2 = useTransform(sy, (v) => v * -8);
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = containerRef.current?.getBoundingClientRect();
@@ -160,13 +160,13 @@ export default function AIOperationsRoom() {
       onMouseMove={onMove}
       className="relative w-full overflow-hidden rounded-2xl border border-white/10"
       style={{
-        background: "radial-gradient(900px 500px at 50% 30%, #0d1430 0%, #060814 60%, #03050f 100%)",
+        background: "radial-gradient(1000px 600px at 50% 35%, #0a0e24 0%, #050714 50%, #02030a 100%)",
         height: "min(500px, 58vh)",
         minHeight: 450,
       }}
     >
-      {/* Backdrop */}
-      <Backdrop driftX={driftX} driftY={driftY} driftX2={driftX2} driftY2={driftY2} />
+      {/* Elegant Animated Galaxy Backdrop */}
+      <GalaxyBackdrop driftX={driftX} driftY={driftY} driftX2={driftX2} driftY2={driftY2} />
 
       {/* HUD chrome */}
       <Hud soundOn={soundOn} onToggleSound={() => { setSoundOn((s) => !s); sound.click(); }} />
@@ -214,57 +214,182 @@ export default function AIOperationsRoom() {
   );
 }
 
-/* ---------------- Backdrop ---------------- */
-function Backdrop({ driftX, driftY, driftX2, driftY2 }: any) {
+/* ---------------- Elegant Animated Galaxy Backdrop ---------------- */
+const GALAXY_STARS_LAYER_1 = [
+  { id: "s1-1", x: 8, y: 14, size: 1.5, opacity: 0.85, dur: 2.8, delay: 0.2, color: "rgba(255,255,255,0.9)" },
+  { id: "s1-2", x: 19, y: 28, size: 1, opacity: 0.6, dur: 3.4, delay: 1.1, color: "rgba(224,231,255,0.85)" },
+  { id: "s1-3", x: 31, y: 12, size: 1.8, opacity: 0.9, dur: 2.4, delay: 0.5, color: "rgba(196,181,253,0.9)" },
+  { id: "s1-4", x: 44, y: 22, size: 1.2, opacity: 0.5, dur: 4.1, delay: 1.8, color: "rgba(255,255,255,0.8)" },
+  { id: "s1-5", x: 57, y: 15, size: 1.6, opacity: 0.8, dur: 3.1, delay: 0.9, color: "rgba(165,243,252,0.85)" },
+  { id: "s1-6", x: 72, y: 24, size: 1, opacity: 0.65, dur: 2.6, delay: 1.4, color: "rgba(255,255,255,0.85)" },
+  { id: "s1-7", x: 86, y: 18, size: 1.7, opacity: 0.85, dur: 3.7, delay: 0.3, color: "rgba(224,231,255,0.9)" },
+  { id: "s1-8", x: 92, y: 35, size: 1.2, opacity: 0.55, dur: 2.9, delay: 2.0, color: "rgba(196,181,253,0.8)" },
+  { id: "s1-9", x: 12, y: 48, size: 1.5, opacity: 0.75, dur: 3.3, delay: 0.7, color: "rgba(255,255,255,0.85)" },
+  { id: "s1-10", x: 24, y: 62, size: 1, opacity: 0.5, dur: 4.5, delay: 1.2, color: "rgba(165,243,252,0.75)" },
+  { id: "s1-11", x: 15, y: 78, size: 1.8, opacity: 0.8, dur: 2.7, delay: 0.4, color: "rgba(255,255,255,0.9)" },
+  { id: "s1-12", x: 28, y: 88, size: 1.2, opacity: 0.6, dur: 3.6, delay: 1.6, color: "rgba(224,231,255,0.8)" },
+  { id: "s1-13", x: 42, y: 82, size: 1.4, opacity: 0.7, dur: 3.0, delay: 0.8, color: "rgba(196,181,253,0.85)" },
+  { id: "s1-14", x: 61, y: 86, size: 1.6, opacity: 0.85, dur: 2.5, delay: 1.0, color: "rgba(255,255,255,0.9)" },
+  { id: "s1-15", x: 76, y: 74, size: 1, opacity: 0.55, dur: 3.9, delay: 0.6, color: "rgba(165,243,252,0.8)" },
+  { id: "s1-16", x: 88, y: 66, size: 1.7, opacity: 0.8, dur: 3.2, delay: 1.5, color: "rgba(255,255,255,0.85)" },
+  { id: "s1-17", x: 82, y: 88, size: 1.3, opacity: 0.65, dur: 2.8, delay: 0.2, color: "rgba(224,231,255,0.85)" },
+  { id: "s1-18", x: 6, y: 92, size: 1.1, opacity: 0.5, dur: 4.2, delay: 2.1, color: "rgba(255,255,255,0.75)" },
+  { id: "s1-19", x: 94, y: 8, size: 1.5, opacity: 0.8, dur: 3.5, delay: 1.3, color: "rgba(196,181,253,0.9)" },
+  { id: "s1-20", x: 5, y: 34, size: 1.3, opacity: 0.7, dur: 2.9, delay: 0.9, color: "rgba(255,255,255,0.8)" },
+  { id: "s1-21", x: 96, y: 52, size: 1.6, opacity: 0.75, dur: 3.8, delay: 1.7, color: "rgba(165,243,252,0.85)" },
+  { id: "s1-22", x: 68, y: 10, size: 1.2, opacity: 0.6, dur: 3.1, delay: 0.5, color: "rgba(255,255,255,0.8)" },
+];
+
+const GALAXY_STARS_LAYER_2 = [
+  { id: "s2-1", x: 14, y: 20, size: 0.9, opacity: 0.45, dur: 4.5, delay: 0.3 },
+  { id: "s2-2", x: 26, y: 38, size: 1.1, opacity: 0.55, dur: 3.8, delay: 1.5 },
+  { id: "s2-3", x: 38, y: 8, size: 0.8, opacity: 0.4, dur: 5.0, delay: 0.8 },
+  { id: "s2-4", x: 52, y: 30, size: 1.0, opacity: 0.5, dur: 4.2, delay: 2.2 },
+  { id: "s2-5", x: 65, y: 18, size: 0.9, opacity: 0.45, dur: 3.6, delay: 1.1 },
+  { id: "s2-6", x: 79, y: 32, size: 1.1, opacity: 0.6, dur: 4.8, delay: 0.4 },
+  { id: "s2-7", x: 90, y: 26, size: 0.8, opacity: 0.35, dur: 5.2, delay: 1.9 },
+  { id: "s2-8", x: 18, y: 54, size: 1.0, opacity: 0.5, dur: 3.9, delay: 0.7 },
+  { id: "s2-9", x: 34, y: 72, size: 0.9, opacity: 0.45, dur: 4.6, delay: 1.4 },
+  { id: "s2-10", x: 22, y: 84, size: 1.1, opacity: 0.55, dur: 3.7, delay: 2.0 },
+  { id: "s2-11", x: 48, y: 92, size: 0.8, opacity: 0.4, dur: 5.1, delay: 0.6 },
+  { id: "s2-12", x: 70, y: 82, size: 1.0, opacity: 0.5, dur: 4.0, delay: 1.7 },
+  { id: "s2-13", x: 84, y: 78, size: 0.9, opacity: 0.45, dur: 4.4, delay: 0.9 },
+  { id: "s2-14", x: 93, y: 90, size: 1.1, opacity: 0.55, dur: 3.5, delay: 1.3 },
+  { id: "s2-15", x: 10, y: 68, size: 0.8, opacity: 0.4, dur: 4.9, delay: 2.3 },
+  { id: "s2-16", x: 62, y: 68, size: 1.0, opacity: 0.5, dur: 4.1, delay: 0.5 },
+];
+
+const COSMIC_DRIFT_DUST = [
+  { id: "cd-1", left: 16, top: 22, dur: 9.5, delay: 0.2, size: 1.2 },
+  { id: "cd-2", left: 32, top: 40, dur: 11.2, delay: 1.8, size: 1.0 },
+  { id: "cd-3", left: 78, top: 28, dur: 10.0, delay: 2.4, size: 1.4 },
+  { id: "cd-4", left: 85, top: 62, dur: 12.0, delay: 0.9, size: 1.0 },
+  { id: "cd-5", left: 20, top: 76, dur: 10.8, delay: 3.1, size: 1.2 },
+  { id: "cd-6", left: 66, top: 80, dur: 11.5, delay: 1.5, size: 1.1 },
+];
+
+function GalaxyBackdrop({ driftX, driftY, driftX2, driftY2 }: any) {
   return (
-    <>
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+      {/* Soft Nebula Gas Clouds (Purple and Blue) */}
       <motion.div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.14]"
+        className="absolute inset-0 opacity-70 pointer-events-none"
         style={{
-          x: driftX, y: driftY,
-          backgroundImage:
-            "linear-gradient(rgba(82,120,255,0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(82,120,255,0.25) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-          maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+          x: driftX2,
+          y: driftY2,
+          background:
+            "radial-gradient(480px 280px at 22% 28%, rgba(147, 51, 234, 0.08), transparent 70%), radial-gradient(420px 260px at 80% 72%, rgba(34, 211, 238, 0.07), transparent 70%), radial-gradient(460px 300px at 50% 88%, rgba(88, 28, 135, 0.06), transparent 75%)",
         }}
       />
-      {/* Floating particles */}
-      <Particles />
-      {/* Vignette */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.65) 100%)" }}
-      />
-    </>
-  );
-}
 
-function Particles() {
-  const dots = useMemo(
-    () => Array.from({ length: 24 }, (_, i) => ({
-      id: i,
-      left: (i * 53) % 100,
-      top: (i * 37) % 100,
-      delay: (i % 9) * 0.4,
-      dur: 8 + (i % 5),
-      size: 1 + (i % 2),
-    })),
-    [],
-  );
-  return (
-    <div className="absolute inset-0 pointer-events-none">
-      {dots.map((d) => (
-        <motion.span
-          key={d.id}
-          className="absolute rounded-full bg-white/50"
-          style={{ left: `${d.left}%`, top: `${d.top}%`, width: d.size, height: d.size }}
-          animate={{ y: [0, -18, 0], opacity: [0.1, 0.5, 0.1] }}
-          transition={{ duration: d.dur, delay: d.delay, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ))}
+      {/* Subtle Coordinate Vector Grid */}
+      <motion.div
+        className="absolute inset-0 opacity-[0.09]"
+        style={{
+          x: driftX,
+          y: driftY,
+          backgroundImage:
+            "linear-gradient(rgba(82, 120, 255, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(82, 120, 255, 0.25) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
+          maskImage: "radial-gradient(ellipse at center, black 35%, transparent 80%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, black 35%, transparent 80%)",
+        }}
+      />
+
+      {/* Layer 2: Deep-Field Distant Galaxy Stars (Slow Parallax) */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ x: driftX2, y: driftY2 }}
+      >
+        {GALAXY_STARS_LAYER_2.map((star) => (
+          <motion.span
+            key={star.id}
+            className="absolute rounded-full bg-white"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: star.size,
+              height: star.size,
+              opacity: star.opacity,
+            }}
+            animate={{
+              opacity: [star.opacity * 0.4, star.opacity, star.opacity * 0.4],
+            }}
+            transition={{
+              duration: star.dur,
+              delay: star.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* Layer 1: Mid-Field Twinkling Stars (Responsive Parallax) */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ x: driftX, y: driftY }}
+      >
+        {GALAXY_STARS_LAYER_1.map((star) => (
+          <motion.span
+            key={star.id}
+            className="absolute rounded-full"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: star.size,
+              height: star.size,
+              backgroundColor: star.color,
+            }}
+            animate={{
+              opacity: [star.opacity * 0.35, star.opacity, star.opacity * 0.35],
+              scale: [0.9, 1.15, 0.9],
+            }}
+            transition={{
+              duration: star.dur,
+              delay: star.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </motion.div>
+
+      {/* Cosmic Floating Dust Specks */}
+      <div className="absolute inset-0">
+        {COSMIC_DRIFT_DUST.map((dust) => (
+          <motion.span
+            key={dust.id}
+            className="absolute rounded-full bg-white/40"
+            style={{
+              left: `${dust.left}%`,
+              top: `${dust.top}%`,
+              width: dust.size,
+              height: dust.size,
+            }}
+            animate={{
+              y: [0, -22, 0],
+              x: [0, 8, 0],
+              opacity: [0.1, 0.5, 0.1],
+            }}
+            transition={{
+              duration: dust.dur,
+              delay: dust.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Deep Space Outer Edge Vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 55%, rgba(2, 3, 10, 0.6) 85%, rgba(2, 3, 10, 0.9) 100%)",
+        }}
+      />
     </div>
   );
 }
