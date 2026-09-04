@@ -507,32 +507,22 @@ function DeveloperApiSection() {
   const lineCount = Math.max(typed.split("\n").length, 1);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-8 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
       {/* Code Editor Column */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.7, ease: EASE_EXPO }}
+        transition={{ duration: 0.6, ease: EASE_EXPO }}
         className="w-full min-w-0"
       >
         <div
-          className="relative developer-sandbox-card bg-[#0B1020] rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.6)]"
+          className="relative developer-sandbox-card bg-[#0B1020] rounded-2xl overflow-hidden border border-white/10 shadow-xl flex flex-col justify-between h-full"
           onMouseEnter={() => setAutoSwitch(false)}
           onMouseLeave={() => {
             if (!userTouched.current) setAutoSwitch(true);
           }}
         >
-          {/* ambient glow */}
-          <div
-            aria-hidden
-            className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-mk-orange/20 blur-3xl pointer-events-none"
-          />
-          <div
-            aria-hidden
-            className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-cyan-500/20 blur-3xl pointer-events-none"
-          />
-
           {/* scanning line */}
           <motion.div
             aria-hidden
@@ -541,271 +531,275 @@ function DeveloperApiSection() {
               background:
                 "linear-gradient(90deg, transparent, rgba(168,85,247,0.7), rgba(34,211,238,0.7), transparent)",
             }}
-            animate={{ y: [0, 600, 0] }}
-            transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
+            animate={{ y: [0, 480, 0] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
           />
 
-          {/* window chrome */}
-          <div className="relative flex items-center justify-between px-4 py-3 border-b border-white/5 bg-black/30">
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-              <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
-              <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-              <div className="ml-3 flex items-center gap-2 text-[11px] text-gray-400 font-mono">
-                <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">
-                  markethon-sdk
-                </span>
-                <span>›</span>
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={lang}
-                    initial={{ opacity: 0, y: -4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 4 }}
-                    transition={{ duration: 0.25 }}
-                    className="text-gray-300"
-                  >
-                    {FILE_NAMES[lang]}
-                  </motion.span>
-                </AnimatePresence>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handleCopy}
-                className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-mono text-gray-300 transition"
-                title="Copy code"
-              >
-                {copied ? <Check size={10} className="text-emerald-400" /> : <Copy size={10} />}
-                <span>{copied ? "Copied" : "Copy"}</span>
-              </button>
-
-              {running ? (
-                <button
-                  type="button"
-                  onClick={handleStop}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-mono text-rose-300 transition"
-                >
-                  <Square size={10} fill="currentColor" /> Stop
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={handleRun}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-mk-orange/15 hover:bg-mk-orange/25 border border-mk-orange/30 text-[10px] font-mono text-mk-orange transition"
-                >
-                  <Play size={10} fill="currentColor" /> Run
-                </button>
-              )}
-
-              <div className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 pl-1">
-                <motion.span
-                  animate={{ opacity: [1, 0.3, 1] }}
-                  transition={{ duration: 1.4, repeat: Infinity }}
-                  className="w-1.5 h-1.5 rounded-full bg-emerald-400"
-                />
-                <span>LIVE</span>
-              </div>
-            </div>
-          </div>
-
-          {/* lang tabs — horizontally scrollable */}
-          <div className="relative border-b border-white/5 bg-black/20">
-            <div className="flex items-center gap-0 px-3 pt-2 overflow-x-auto mk-no-scrollbar">
-              {LANGS.map((l) => (
-                <button
-                  key={l}
-                  type="button"
-                  onClick={() => {
-                    userTouched.current = true;
-                    setAutoSwitch(false);
-                    setLang(l);
-                  }}
-                  className={`relative shrink-0 px-3 py-2 text-[11px] font-mono transition cursor-pointer ${
-                    lang === l ? "text-white" : "text-gray-500 hover:text-gray-300"
-                  }`}
-                >
-                  {l}
-                  {lang === l && (
+          <div>
+            {/* window chrome */}
+            <div className="relative flex items-center justify-between px-3.5 py-2 border-b border-white/5 bg-black/30">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                <div className="ml-2.5 flex items-center gap-1.5 text-[10px] text-gray-400 font-mono">
+                  <span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10">
+                    markethon-sdk
+                  </span>
+                  <span>›</span>
+                  <AnimatePresence mode="wait">
                     <motion.span
-                      layoutId="dev-tab"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      className="absolute bottom-0 left-1 right-1 h-0.5 bg-mk-orange shadow-[0_0_10px_rgba(168,85,247,0.7)]"
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
+                      key={lang}
+                      initial={{ opacity: 0, y: -3 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 3 }}
+                      transition={{ duration: 0.2 }}
+                      className="text-gray-300"
+                    >
+                      {FILE_NAMES[lang]}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
+              </div>
 
-          {/* code body with line numbers */}
-          <div className="relative px-4 pt-4 pb-3">
-            <div className="text-[11px] text-gray-500 font-mono mb-2 flex items-center gap-3 flex-wrap">
-              <span>
-                <span className="text-mk-orange">{ENDPOINTS[lang].split(" ")[0]}</span>{" "}
-                {ENDPOINTS[lang].split(" ").slice(1).join(" ")}
-              </span>
-              <span className="text-gray-600">·</span>
-              <span>{TAGLINES[lang]}</span>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-[9px] font-mono text-gray-300 transition cursor-pointer"
+                  title="Copy code"
+                >
+                  {copied ? <Check size={9} className="text-emerald-400" /> : <Copy size={9} />}
+                  <span>{copied ? "Copied" : "Copy"}</span>
+                </button>
+
+                {running ? (
+                  <button
+                    type="button"
+                    onClick={handleStop}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-[9px] font-mono text-rose-300 transition cursor-pointer"
+                  >
+                    <Square size={8} fill="currentColor" /> Stop
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleRun}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-mk-orange/15 hover:bg-mk-orange/25 border border-mk-orange/30 text-[9px] font-mono text-mk-orange transition cursor-pointer"
+                  >
+                    <Play size={8} fill="currentColor" /> Run
+                  </button>
+                )}
+
+                <div className="flex items-center gap-1 text-[9px] font-mono text-emerald-400 pl-0.5">
+                  <motion.span
+                    animate={{ opacity: [1, 0.3, 1] }}
+                    transition={{ duration: 1.4, repeat: Infinity }}
+                    className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                  />
+                  <span>LIVE</span>
+                </div>
+              </div>
             </div>
-            <div className="relative flex text-[13px] font-mono leading-[1.55] min-h-[260px] max-h-[260px] overflow-auto">
-              <div className="select-none text-right pr-3 text-gray-600 border-r border-white/5 mr-3">
-                {Array.from({ length: lineCount }).map((_, i) => (
-                  <div key={i}>{i + 1}</div>
+
+            {/* lang tabs — horizontally scrollable */}
+            <div className="relative border-b border-white/5 bg-black/20">
+              <div className="flex items-center gap-0 px-2.5 pt-1.5 overflow-x-auto mk-no-scrollbar">
+                {LANGS.map((l) => (
+                  <button
+                    key={l}
+                    type="button"
+                    onClick={() => {
+                      userTouched.current = true;
+                      setAutoSwitch(false);
+                      setLang(l);
+                    }}
+                    className={`relative shrink-0 px-2.5 py-1.5 text-[10px] font-mono transition cursor-pointer ${
+                      lang === l ? "text-white font-semibold" : "text-gray-500 hover:text-gray-300"
+                    }`}
+                  >
+                    {l}
+                    {lang === l && (
+                      <motion.span
+                        layoutId="dev-tab"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        className="absolute bottom-0 left-1 right-1 h-0.5 bg-mk-orange shadow-[0_0_8px_rgba(168,85,247,0.7)]"
+                      />
+                    )}
+                  </button>
                 ))}
               </div>
-              <pre className="flex-1">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={lang}
-                    initial={{ opacity: 0, filter: "blur(4px)" }}
-                    animate={{ opacity: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, filter: "blur(4px)" }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {highlightFor(lang, typed)}
-                  </motion.div>
-                </AnimatePresence>
-                <motion.span
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.7, repeat: Infinity }}
-                  className="inline-block w-1.5 h-4 bg-mk-orange align-middle"
-                />
-              </pre>
+            </div>
+
+            {/* code body with line numbers */}
+            <div className="relative px-3.5 pt-3 pb-2">
+              <div className="text-[10px] text-gray-500 font-mono mb-1.5 flex items-center gap-2 flex-wrap">
+                <span>
+                  <span className="text-mk-orange font-semibold">{ENDPOINTS[lang].split(" ")[0]}</span>{" "}
+                  {ENDPOINTS[lang].split(" ").slice(1).join(" ")}
+                </span>
+                <span className="text-gray-600">·</span>
+                <span className="truncate">{TAGLINES[lang]}</span>
+              </div>
+              <div className="relative flex text-[12px] font-mono leading-[1.45] min-h-[165px] max-h-[175px] overflow-auto mk-no-scrollbar">
+                <div className="select-none text-right pr-2.5 text-gray-600 border-r border-white/5 mr-2.5 text-[11px]">
+                  {Array.from({ length: lineCount }).map((_, i) => (
+                    <div key={i}>{i + 1}</div>
+                  ))}
+                </div>
+                <pre className="flex-1 overflow-x-auto mk-no-scrollbar">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={lang}
+                      initial={{ opacity: 0, filter: "blur(3px)" }}
+                      animate={{ opacity: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, filter: "blur(3px)" }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {highlightFor(lang, typed)}
+                    </motion.div>
+                  </AnimatePresence>
+                  <motion.span
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.7, repeat: Infinity }}
+                    className="inline-block w-1 h-3.5 bg-mk-orange align-middle"
+                  />
+                </pre>
+              </div>
             </div>
           </div>
 
-          {/* response terminal */}
-          <div className="relative developer-sandbox-terminal border-t border-white/5 bg-black/40">
-            <div className="flex items-center justify-between px-4 py-2 text-[10px] font-mono text-gray-400">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center gap-1.5">
-                  <motion.span
-                    animate={running ? { scale: [1, 1.4, 1] } : { scale: 1 }}
-                    transition={{ duration: 0.6, repeat: running ? Infinity : 0 }}
-                    className={`w-1.5 h-1.5 rounded-full ${
-                      running
-                        ? "bg-mk-orange"
+          <div>
+            {/* response terminal */}
+            <div className="relative developer-sandbox-terminal border-t border-white/5 bg-black/40">
+              <div className="flex items-center justify-between px-3.5 py-1.5 text-[9px] font-mono text-gray-400">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex items-center gap-1">
+                    <motion.span
+                      animate={running ? { scale: [1, 1.4, 1] } : { scale: 1 }}
+                      transition={{ duration: 0.6, repeat: running ? Infinity : 0 }}
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        running
+                          ? "bg-mk-orange"
+                          : succeeded
+                          ? "bg-emerald-400"
+                          : "bg-gray-500"
+                      }`}
+                    />
+                    <span
+                      className={
+                        running
+                          ? "text-mk-orange"
+                          : succeeded
+                          ? "text-emerald-400"
+                          : "text-gray-400"
+                      }
+                    >
+                      {running
+                        ? "executing…"
                         : succeeded
-                        ? "bg-emerald-400"
-                        : "bg-gray-500"
-                    }`}
-                  />
-                  <span
-                    className={
-                      running
-                        ? "text-mk-orange"
-                        : succeeded
-                        ? "text-emerald-400"
-                        : "text-gray-400"
-                    }
-                  >
-                    {running
-                      ? "executing…"
-                      : succeeded
-                      ? "200 OK"
-                      : logLines.length
-                      ? "ready"
-                      : "idle"}
+                        ? "200 OK"
+                        : logLines.length
+                        ? "ready"
+                        : "idle"}
+                    </span>
                   </span>
+                  <span>· {latency}ms</span>
+                  <span>· {reqCount.toLocaleString()} req</span>
+                  {succeeded && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="px-1 py-0.2 rounded bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-[8px]"
+                    >
+                      AI ACTIVE
+                    </motion.span>
+                  )}
+                </div>
+                <span className="text-gray-500 flex items-center gap-1 text-[9px]">
+                  <Terminal size={9} /> stdout
                 </span>
-                <span>· {latency}ms</span>
-                <span>· {reqCount.toLocaleString()} req today</span>
-                {succeeded && (
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="px-1.5 py-0.5 rounded bg-emerald-400/10 border border-emerald-400/30 text-emerald-300"
+              </div>
+              <div className="px-3.5 pb-2.5 text-[11px] font-mono leading-relaxed min-h-[95px] max-h-[105px] overflow-y-auto mk-no-scrollbar">
+                {logLines.map((ln, i) => {
+                  const isWarn = ln.startsWith("⚠");
+                  const isOk = ln.startsWith("✓");
+                  const isReq = ln.startsWith("→");
+                  const isTick = ln.startsWith("●");
+                  return (
+                    <motion.div
+                      key={`${lang}-${runId}-${i}`}
+                      initial={{ opacity: 0, x: -6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className={`flex gap-2 ${
+                        isWarn
+                          ? "text-amber-300/90"
+                          : isOk
+                          ? "text-emerald-300/90"
+                          : isReq
+                          ? "text-sky-300/90"
+                          : isTick
+                          ? "text-amber-300/90"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      <span className="text-gray-600 shrink-0 tabular-nums text-[10px]">
+                        {String(Math.floor(i * 0.28)).padStart(2, "0")}:
+                        {String(Math.floor(((i * 280) % 1000) / 10)).padStart(2, "0")}
+                      </span>
+                      <span className="break-all">{ln}</span>
+                    </motion.div>
+                  );
+                })}
+                {running && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex items-center gap-1.5 text-gray-500 mt-0.5 text-[10px]"
                   >
-                    AI ACTIVE
-                  </motion.span>
+                    <motion.span
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                      className="inline-block w-2 h-2 border border-mk-orange/60 border-t-transparent rounded-full"
+                    />
+                    <span>streaming…</span>
+                  </motion.div>
+                )}
+                {!logLines.length && !running && (
+                  <span className="text-gray-600 text-[10px]">// press Run to execute workflow…</span>
                 )}
               </div>
-              <span className="text-gray-500 flex items-center gap-1.5">
-                <Terminal size={10} /> stdout · {FILE_NAMES[lang]}
-              </span>
             </div>
-            <div className="px-4 pb-4 text-[12px] font-mono leading-relaxed min-h-[160px] max-h-[180px] overflow-y-auto mk-no-scrollbar">
-              {logLines.map((ln, i) => {
-                const isWarn = ln.startsWith("⚠");
-                const isOk = ln.startsWith("✓");
-                const isReq = ln.startsWith("→");
-                const isTick = ln.startsWith("●");
-                return (
-                  <motion.div
-                    key={`${lang}-${runId}-${i}`}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className={`flex gap-3 ${
-                      isWarn
-                        ? "text-amber-300/90"
-                        : isOk
-                        ? "text-emerald-300/90"
-                        : isReq
-                        ? "text-sky-300/90"
-                        : isTick
-                        ? "text-amber-300/90"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    <span className="text-gray-600 shrink-0 tabular-nums">
-                      {String(Math.floor(i * 0.28)).padStart(2, "0")}:
-                      {String(Math.floor(((i * 280) % 1000) / 10)).padStart(2, "0")}
-                    </span>
-                    <span className="break-all">{ln}</span>
-                  </motion.div>
-                );
-              })}
-              {running && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex items-center gap-2 text-gray-500 mt-1"
-                >
-                  <motion.span
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-                    className="inline-block w-2.5 h-2.5 border border-mk-orange/60 border-t-transparent rounded-full"
-                  />
-                  <span>streaming…</span>
-                </motion.div>
-              )}
-              {!logLines.length && !running && (
-                <span className="text-gray-600">// press Run to execute workflow…</span>
-              )}
-            </div>
-          </div>
 
-          {/* status bar */}
-          <div className="relative developer-sandbox-status flex items-center justify-between px-4 py-2 bg-[#070b18] border-t border-white/5 text-[10px] font-mono text-gray-500">
-            <div className="flex items-center gap-3">
-              <span className="text-mk-orange">●</span>
-              <span>main</span>
-              <span>· {lang.toLowerCase()}</span>
-              <span>· UTF-8</span>
-              <span>· Ln {lineCount}</span>
+            {/* status bar */}
+            <div className="relative developer-sandbox-status flex items-center justify-between px-3.5 py-1.5 bg-[#070b18] border-t border-white/5 text-[9px] font-mono text-gray-500">
+              <div className="flex items-center gap-2.5">
+                <span className="text-mk-orange">●</span>
+                <span>main</span>
+                <span>· {lang.toLowerCase()}</span>
+                <span>· UTF-8</span>
+                <span>· Ln {lineCount}</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleRun}
+                className="text-mk-orange hover:underline cursor-pointer bg-transparent border-0 p-0 font-mono text-[9px]"
+              >
+                {succeeded ? "✓ Run again →" : "Get API key →"}
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={handleRun}
-              className="text-mk-orange hover:underline cursor-pointer bg-transparent border-0 p-0 font-mono text-[10px]"
-            >
-              {succeeded ? "✓ Run again →" : "Get your API key →"}
-            </button>
           </div>
         </div>
       </motion.div>
 
       {/* AI Operations Room / System Graphic Column */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.15, ease: EASE_EXPO }}
-        className="w-full min-w-0"
+        transition={{ duration: 0.6, delay: 0.1, ease: EASE_EXPO }}
+        className="w-full min-w-0 flex flex-col justify-stretch"
       >
         <AIOperationsRoom />
       </motion.div>
@@ -819,26 +813,26 @@ function DeveloperPage() {
       <main className="bg-mk-bg text-mk-heading min-h-screen flex flex-col selection:bg-mk-orange/20 selection:text-mk-navy">
         <Navbar />
 
-        {/* Hero Header with Cosmic Ambient Aura */}
-        <section className="relative pt-36 pb-12 md:pt-44 md:pb-16 overflow-hidden bg-mk-bg">
-          {/* Cosmic Atmospheric Backdrops */}
+        {/* Compact Hero Header with Subtle Ambient Aura */}
+        <section className="relative pt-20 pb-2 md:pt-24 md:pb-3 overflow-hidden bg-mk-bg">
+          {/* Atmospheric Backdrops */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 -z-10"
             style={{
               background:
-                "radial-gradient(900px 500px at 50% 15%, rgba(168,85,247,0.18), transparent 65%), radial-gradient(700px 450px at 85% 55%, rgba(34,211,238,0.14), transparent 60%), radial-gradient(800px 500px at 15% 65%, rgba(217,70,239,0.10), transparent 60%)",
+                "radial-gradient(800px 400px at 50% 10%, rgba(168,85,247,0.12), transparent 65%), radial-gradient(600px 350px at 85% 45%, rgba(34,211,238,0.10), transparent 60%)",
             }}
           />
 
           {/* Grid Lines */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 opacity-[0.08] pointer-events-none"
+            className="absolute inset-0 opacity-[0.06] pointer-events-none"
             style={{
               backgroundImage:
                 "linear-gradient(rgba(27,43,75,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(27,43,75,0.12) 1px, transparent 1px)",
-              backgroundSize: "60px 60px",
+              backgroundSize: "48px 48px",
               maskImage:
                 "radial-gradient(ellipse 70% 60% at 50% 40%, black 40%, transparent 80%)",
               WebkitMaskImage:
@@ -849,40 +843,40 @@ function DeveloperPage() {
           <div className="max-w-6xl mx-auto px-6 text-center relative z-10 flex flex-col items-center">
             {/* Pill Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE_EXPO }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-mk-orange/10 border border-mk-orange/30 text-mk-orange text-xs font-bold uppercase tracking-wider mb-6 shadow-sm"
+              transition={{ duration: 0.5, ease: EASE_EXPO }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-mk-orange/10 border border-mk-orange/30 text-mk-orange text-[10px] font-bold uppercase tracking-wider mb-2 shadow-sm"
             >
-              <Code2 size={14} className="text-mk-orange" />
+              <Code2 size={12} className="text-mk-orange" />
               <span>MARKETHON DEVELOPER PLATFORM</span>
             </motion.div>
 
             {/* Main Heading */}
             <motion.h1
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: EASE_EXPO }}
-              className="font-display text-[40px] md:text-[64px] leading-[1.08] text-mk-heading max-w-4xl tracking-tight mb-6"
+              transition={{ duration: 0.6, delay: 0.08, ease: EASE_EXPO }}
+              className="font-display text-2xl sm:text-3xl md:text-[34px] leading-tight text-mk-heading max-w-3xl tracking-tight mb-1.5"
             >
               Build anything with MARKETHON APIs
             </motion.h1>
 
             {/* Subtitle */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: EASE_EXPO }}
-              className="text-base md:text-lg text-mk-body max-w-2xl leading-relaxed mb-10"
+              transition={{ duration: 0.6, delay: 0.15, ease: EASE_EXPO }}
+              className="text-xs sm:text-sm text-mk-body max-w-xl leading-relaxed mb-3"
             >
-              Integrate intelligent lead scoring, omnichannel WhatsApp automation, voice agents,
+              Integrate intelligent lead scoring, omnichannel automation, voice agents,
               and real-time analytics with simple, developer-first REST endpoints and SDKs.
             </motion.p>
           </div>
         </section>
 
         {/* Main Interactive Developer API Section */}
-        <section id="developers" className="py-8 pb-24 md:pb-32 bg-mk-bg">
+        <section id="developers" className="py-2 pb-14 md:pb-18 bg-mk-bg">
           <div className="max-w-6xl mx-auto px-6">
             <PlaygroundErrorBoundary>
               <DeveloperApiSection />

@@ -128,10 +128,10 @@ export default function AIOperationsRoom() {
   const mx = useMotionValue(0), my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 60, damping: 18 });
   const sy = useSpring(my, { stiffness: 60, damping: 18 });
-  const driftX = useTransform(sx, (v) => v * 18);
-  const driftY = useTransform(sy, (v) => v * 18);
-  const driftX2 = useTransform(sx, (v) => v * -10);
-  const driftY2 = useTransform(sy, (v) => v * -10);
+  const driftX = useTransform(sx, (v) => v * 12);
+  const driftY = useTransform(sy, (v) => v * 12);
+  const driftX2 = useTransform(sx, (v) => v * -6);
+  const driftY2 = useTransform(sy, (v) => v * -6);
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = containerRef.current?.getBoundingClientRect();
@@ -158,14 +158,14 @@ export default function AIOperationsRoom() {
     <div
       ref={containerRef}
       onMouseMove={onMove}
-      className="relative w-full overflow-hidden rounded-[28px] border border-white/10"
+      className="relative w-full overflow-hidden rounded-2xl border border-white/10"
       style={{
-        background: "radial-gradient(1200px 700px at 50% 30%, #0d1430 0%, #060814 55%, #03050f 100%)",
-        height: "min(86vh, 820px)",
-        minHeight: 620,
+        background: "radial-gradient(900px 500px at 50% 30%, #0d1430 0%, #060814 60%, #03050f 100%)",
+        height: "min(500px, 58vh)",
+        minHeight: 450,
       }}
     >
-      {/* Volumetric backdrop */}
+      {/* Backdrop */}
       <Backdrop driftX={driftX} driftY={driftY} driftX2={driftX2} driftY2={driftY2} />
 
       {/* HUD chrome */}
@@ -178,8 +178,8 @@ export default function AIOperationsRoom() {
             key="orbit"
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.08, filter: "blur(8px)" }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, scale: 1.06, filter: "blur(6px)" }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0"
           >
             <OrbitStage
@@ -194,10 +194,10 @@ export default function AIOperationsRoom() {
         {active && activeMod && (
           <motion.div
             key={`focus-${active}`}
-            initial={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+            initial={{ opacity: 0, scale: 1.06, filter: "blur(8px)" }}
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 0.96 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0"
           >
             <FocusedModule
@@ -220,23 +220,14 @@ function Backdrop({ driftX, driftY, driftX2, driftY2 }: any) {
     <>
       <motion.div
         aria-hidden
-        className="absolute inset-0 opacity-[0.18]"
+        className="absolute inset-0 opacity-[0.14]"
         style={{
           x: driftX, y: driftY,
           backgroundImage:
-            "linear-gradient(rgba(82,120,255,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(82,120,255,0.35) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
+            "linear-gradient(rgba(82,120,255,0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(82,120,255,0.25) 1px, transparent 1px)",
+          backgroundSize: "44px 44px",
           maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
           WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-        }}
-      />
-      <motion.div
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          x: driftX2, y: driftY2,
-          background:
-            "radial-gradient(600px 400px at 20% 80%, rgba(168,85,247,0.22), transparent 60%), radial-gradient(700px 500px at 80% 20%, rgba(34,211,238,0.22), transparent 60%)",
         }}
       />
       {/* Floating particles */}
@@ -245,7 +236,7 @@ function Backdrop({ driftX, driftY, driftX2, driftY2 }: any) {
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.7) 100%)" }}
+        style={{ background: "radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.65) 100%)" }}
       />
     </>
   );
@@ -253,13 +244,13 @@ function Backdrop({ driftX, driftY, driftX2, driftY2 }: any) {
 
 function Particles() {
   const dots = useMemo(
-    () => Array.from({ length: 36 }, (_, i) => ({
+    () => Array.from({ length: 24 }, (_, i) => ({
       id: i,
       left: (i * 53) % 100,
       top: (i * 37) % 100,
       delay: (i % 9) * 0.4,
       dur: 8 + (i % 5),
-      size: 1 + (i % 3),
+      size: 1 + (i % 2),
     })),
     [],
   );
@@ -268,9 +259,9 @@ function Particles() {
       {dots.map((d) => (
         <motion.span
           key={d.id}
-          className="absolute rounded-full bg-white/60"
-          style={{ left: `${d.left}%`, top: `${d.top}%`, width: d.size, height: d.size, filter: "blur(0.5px)" }}
-          animate={{ y: [0, -24, 0], opacity: [0.1, 0.6, 0.1] }}
+          className="absolute rounded-full bg-white/50"
+          style={{ left: `${d.left}%`, top: `${d.top}%`, width: d.size, height: d.size }}
+          animate={{ y: [0, -18, 0], opacity: [0.1, 0.5, 0.1] }}
           transition={{ duration: d.dur, delay: d.delay, repeat: Infinity, ease: "easeInOut" }}
         />
       ))}
@@ -286,22 +277,23 @@ function Hud({ soundOn, onToggleSound }: { soundOn: boolean; onToggleSound: () =
     u(); const id = setInterval(u, 1000); return () => clearInterval(id);
   }, []);
   return (
-    <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-5 py-4 text-[10px] uppercase tracking-[0.22em] text-white/60 font-mono">
-      <div className="flex items-center gap-3">
-        <span className="inline-flex items-center gap-2">
+    <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-4 py-3 text-[9px] uppercase tracking-[0.2em] text-white/50 font-mono pointer-events-auto">
+      <div className="flex items-center gap-2">
+        <span className="inline-flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          MARKETHON · AIOS v4.2
+          MARKETHON · AIOS
         </span>
-        <span className="hidden sm:inline">SECURE LINK</span>
+        <span className="hidden sm:inline text-white/30">|</span>
+        <span className="hidden sm:inline">SECURE</span>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5">
         <span className="hidden sm:inline">CORE ONLINE</span>
-        <span>{time}</span>
+        <span className="text-white/60">{time}</span>
         <button
           onClick={onToggleSound}
-          className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-white/80 hover:bg-white/10 transition"
+          className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-white/70 hover:bg-white/10 transition text-[9px] cursor-pointer"
         >
-          {soundOn ? <Volume2 className="w-3 h-3" /> : <VolumeX className="w-3 h-3" />}
+          {soundOn ? <Volume2 className="w-2.5 h-2.5" /> : <VolumeX className="w-2.5 h-2.5" />}
           {soundOn ? "SOUND ON" : "SOUND OFF"}
         </button>
       </div>
@@ -310,11 +302,11 @@ function Hud({ soundOn, onToggleSound }: { soundOn: boolean; onToggleSound: () =
 }
 
 /* ---------------- Orbit Stage & Interactive Joystick ---------------- */
-const MAX_RADIUS = 68;
-const ACTIVATION_DIST = 32;
+const MAX_RADIUS = 30;
+const ACTIVATION_DIST = 14;
 
 function OrbitStage({
-  onHover, onSelect, driftX, driftY, sound,
+  onHover, driftX, driftY, sound,
 }: {
   onHover: () => void;
   onSelect: (k: ModKey) => void;
@@ -324,11 +316,10 @@ function OrbitStage({
   const navigate = useNavigate();
   const stageRef = useRef<HTMLDivElement>(null);
   const [joystickOffset, setJoystickOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
   const [targetedModKey, setTargetedModKey] = useState<ModKey | null>(null);
 
   // Measure stage size for accurate SVG coordinate percentage
-  const [stageSize, setStageSize] = useState<{ width: number; height: number }>({ width: 720, height: 720 });
+  const [stageSize, setStageSize] = useState<{ width: number; height: number }>({ width: 400, height: 400 });
 
   useEffect(() => {
     const updateSize = () => {
@@ -368,7 +359,7 @@ function OrbitStage({
       }
     });
 
-    return bestDiff < Math.PI / 3.8 ? bestKey : null;
+    return bestDiff < Math.PI / 3.6 ? bestKey : null;
   }, []);
 
   const handleJoystickMove = useCallback((x: number, y: number) => {
@@ -382,19 +373,17 @@ function OrbitStage({
     });
   }, [computeTargetFromOffset, sound]);
 
-  const handleJoystickRelease = useCallback((finalTarget: ModKey | null) => {
-    setIsDragging(false);
+  const handleJoystickReset = useCallback(() => {
     setJoystickOffset({ x: 0, y: 0 });
     setTargetedModKey(null);
+  }, []);
 
-    if (finalTarget) {
+  const handleJoystickClick = useCallback(() => {
+    if (targetedMod) {
       sound.open();
-      const mod = MODS.find((m) => m.key === finalTarget);
-      if (mod) {
-        navigate({ to: mod.route as any });
-      }
+      navigate({ to: targetedMod.route as any });
     }
-  }, [navigate, sound]);
+  }, [targetedMod, navigate, sound]);
 
   const handleNodeClick = (mod: Mod) => {
     sound.click();
@@ -406,25 +395,25 @@ function OrbitStage({
   const coreYPct = 50 + (stageSize.height ? (joystickOffset.y / stageSize.height) * 100 : 0);
 
   return (
-    <motion.div className="absolute inset-0 flex items-center justify-center select-none" style={{ x: driftX, y: driftY }}>
+    <motion.div className="absolute inset-0 flex items-center justify-center select-none pt-4 pb-2" style={{ x: driftX, y: driftY }}>
       <div
         ref={stageRef}
         className="relative"
-        style={{ width: "min(720px, 92%)", aspectRatio: "1 / 1" }}
+        style={{ width: "min(400px, 88%)", aspectRatio: "1 / 1" }}
       >
-        {/* Concentric orbital guide rings */}
-        {[0.55, 0.78, 1].map((s, i) => (
+        {/* Subtle orbital guide rings */}
+        {[0.56, 0.82, 1].map((s, i) => (
           <motion.div
             key={i}
-            className="absolute inset-0 rounded-full border border-white/10 pointer-events-none"
+            className="absolute inset-0 rounded-full border border-white/[0.07] pointer-events-none"
             style={{ transform: `scale(${s})` }}
             animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-            transition={{ duration: 60 + i * 30, ease: "linear", repeat: Infinity }}
+            transition={{ duration: 70 + i * 30, ease: "linear", repeat: Infinity }}
           >
             <div
               className="absolute inset-0 rounded-full"
               style={{
-                borderTop: "1px dashed rgba(82,120,255,0.35)",
+                borderTop: "1px dashed rgba(255,255,255,0.18)",
                 borderRadius: "50%",
                 maskImage: "conic-gradient(from 0deg, black, transparent 70%)",
                 WebkitMaskImage: "conic-gradient(from 0deg, black, transparent 70%)",
@@ -441,34 +430,21 @@ function OrbitStage({
         >
           {MODS.map((m, i) => {
             const angle = (i / MODS.length) * Math.PI * 2 - Math.PI / 2;
-            const r = 46; // % of container
+            const r = 44; // % of container
             const x = 50 + Math.cos(angle) * r;
             const y = 50 + Math.sin(angle) * r;
             const isTargeted = targetedModKey === m.key;
 
             return (
               <g key={m.key}>
-                {/* Glow underlay for active target */}
-                {isTargeted && (
-                  <line
-                    x1={coreXPct}
-                    y1={coreYPct}
-                    x2={x}
-                    y2={y}
-                    stroke={m.color}
-                    strokeOpacity="0.85"
-                    strokeWidth="1.2"
-                    style={{ filter: `drop-shadow(0 0 6px ${m.color})` }}
-                  />
-                )}
                 <line
                   x1={coreXPct}
                   y1={coreYPct}
                   x2={x}
                   y2={y}
-                  stroke={isTargeted ? "#FFFFFF" : m.color}
-                  strokeOpacity={isTargeted ? "1" : "0.3"}
-                  strokeWidth={isTargeted ? "0.4" : "0.15"}
+                  stroke={isTargeted ? m.color : "rgba(255,255,255,0.12)"}
+                  strokeOpacity={isTargeted ? "0.9" : "0.3"}
+                  strokeWidth={isTargeted ? "0.35" : "0.15"}
                   strokeDasharray={isTargeted ? "1 0.5" : "0.6 0.8"}
                 />
               </g>
@@ -477,22 +453,21 @@ function OrbitStage({
         </svg>
 
         {/* Central Interactive AI Core Joystick */}
-        <div className="absolute inset-0 flex items-center justify-center z-20">
+        <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
           <JoystickAiCore
             offset={joystickOffset}
-            isDragging={isDragging}
-            setIsDragging={setIsDragging}
             onMove={handleJoystickMove}
-            onRelease={handleJoystickRelease}
+            onReset={handleJoystickReset}
+            onClick={handleJoystickClick}
             targetedMod={targetedMod}
             onHover={onHover}
           />
         </div>
 
-        {/* Orbiting modules — fixed angular positions with interactive targeting */}
+        {/* Orbiting modules — fixed angular positions */}
         {MODS.map((m, i) => {
           const angle = (i / MODS.length) * Math.PI * 2 - Math.PI / 2;
-          const r = 46; // % of container
+          const r = 44; // % of container
           const x = 50 + Math.cos(angle) * r;
           const y = 50 + Math.sin(angle) * r;
           const isTargeted = targetedModKey === m.key;
@@ -503,13 +478,24 @@ function OrbitStage({
               mod={m}
               xPct={x}
               yPct={y}
-              delay={i * 0.08}
+              delay={i * 0.05}
               isTargeted={isTargeted}
               onHover={onHover}
               onClick={() => handleNodeClick(m)}
             />
           );
         })}
+
+        {/* Core label placed cleanly at the bottom */}
+        <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-center pointer-events-none whitespace-nowrap z-20">
+          <div className="text-[9px] uppercase tracking-[0.25em] text-white/45 font-mono flex items-center justify-center gap-1">
+            <Compass className="w-2.5 h-2.5 text-purple-400 animate-spin" style={{ animationDuration: "10s" }} />
+            <span>HOVER TO NAVIGATE</span>
+          </div>
+          <div className="text-white/80 text-[11px] font-mono mt-0.5 tracking-wider font-semibold">
+            NEURAL CORE — MARKETHON · ENGINE
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -518,73 +504,72 @@ function OrbitStage({
 /* ---------------- Interactive Joystick Neural Core ---------------- */
 function JoystickAiCore({
   offset,
-  isDragging,
-  setIsDragging,
   onMove,
-  onRelease,
+  onReset,
+  onClick,
   targetedMod,
   onHover,
 }: {
   offset: { x: number; y: number };
-  isDragging: boolean;
-  setIsDragging: (d: boolean) => void;
   onMove: (x: number, y: number) => void;
-  onRelease: (target: ModKey | null) => void;
+  onReset: () => void;
+  onClick: () => void;
   targetedMod: Mod | null;
   onHover: () => void;
 }) {
-  const pointerStartRef = useRef<{ x: number; y: number } | null>(null);
-  const currentOffsetRef = useRef<{ x: number; y: number }>(offset);
-  currentOffsetRef.current = offset;
-  const targetedModRef = useRef<ModKey | null>(targetedMod ? targetedMod.key : null);
-  targetedModRef.current = targetedMod ? targetedMod.key : null;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isPointerDownRef = useRef(false);
 
-  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    e.currentTarget.setPointerCapture(e.pointerId);
-    pointerStartRef.current = { x: e.clientX, y: e.clientY };
-    setIsDragging(true);
-    onHover();
-  };
-
-  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!pointerStartRef.current) return;
-    const rawDx = e.clientX - pointerStartRef.current.x;
-    const rawDy = e.clientY - pointerStartRef.current.y;
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const rawDx = e.clientX - centerX;
+    const rawDy = e.clientY - centerY;
     const dist = Math.hypot(rawDx, rawDy);
 
     let clampedX = rawDx;
     let clampedY = rawDy;
-
     if (dist > MAX_RADIUS) {
-      const dampedDist = MAX_RADIUS + (dist - MAX_RADIUS) * 0.18;
       const angle = Math.atan2(rawDy, rawDx);
-      clampedX = Math.cos(angle) * Math.min(dampedDist, MAX_RADIUS + 14);
-      clampedY = Math.sin(angle) * Math.min(dampedDist, MAX_RADIUS + 14);
+      clampedX = Math.cos(angle) * MAX_RADIUS;
+      clampedY = Math.sin(angle) * MAX_RADIUS;
     }
 
     onMove(clampedX, clampedY);
   };
 
-  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (pointerStartRef.current) {
+  const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
+    onHover();
+    handlePointerMove(e);
+  };
+
+  const handlePointerLeave = () => {
+    isPointerDownRef.current = false;
+    onReset();
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    isPointerDownRef.current = true;
+    if (e.pointerType === "touch") {
       try {
-        e.currentTarget.releasePointerCapture(e.pointerId);
+        e.currentTarget.setPointerCapture(e.pointerId);
       } catch {}
-      pointerStartRef.current = null;
-      onRelease(targetedModRef.current);
     }
   };
 
-  const onPointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (pointerStartRef.current) {
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "touch") {
       try {
         e.currentTarget.releasePointerCapture(e.pointerId);
       } catch {}
-      pointerStartRef.current = null;
-      onRelease(null);
     }
+    isPointerDownRef.current = false;
+    if (targetedMod) {
+      onClick();
+    }
+    onReset();
   };
 
   // Keyboard navigation support
@@ -597,89 +582,80 @@ function JoystickAiCore({
     else if (e.key === "ArrowRight") stepX = MAX_RADIUS;
     else if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      if (targetedModRef.current) {
-        onRelease(targetedModRef.current);
-      }
+      if (targetedMod) onClick();
       return;
     } else if (e.key === "Escape") {
-      onRelease(null);
+      onReset();
       return;
     } else {
       return;
     }
 
     e.preventDefault();
-    setIsDragging(true);
     onMove(stepX, stepY);
   };
 
   const onKeyUp = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
-      onRelease(targetedModRef.current);
+      if (targetedMod) onClick();
+      onReset();
     }
   };
 
   // 3D tilt calculation
-  const tiltX = (-offset.y / MAX_RADIUS) * 22;
-  const tiltY = (offset.x / MAX_RADIUS) * 22;
-
-  // Active theme glow
-  const activeGlowColor = targetedMod ? targetedMod.color : "rgba(168,85,247,0.55)";
+  const tiltX = (-offset.y / MAX_RADIUS) * 14;
+  const tiltY = (offset.x / MAX_RADIUS) * 14;
 
   return (
-    <div className="relative flex items-center justify-center" style={{ width: 260, height: 260 }}>
+    <div
+      ref={containerRef}
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onClick={onClick}
+      className="relative flex items-center justify-center pointer-events-auto cursor-pointer"
+      style={{ width: 170, height: 170 }}
+    >
       {/* Outer boundary orbit guide */}
-      <div
-        className="absolute inset-0 rounded-full border border-purple-500/20 pointer-events-none"
-        style={{
-          boxShadow: isDragging ? `0 0 40px ${activeGlowColor}33` : "none",
-          transition: "box-shadow 0.3s ease",
-        }}
-      />
+      <div className="absolute inset-0 rounded-full border border-purple-500/15 pointer-events-none" />
 
       {/* Target Preview Tooltip / Pill Badge */}
       <AnimatePresence>
         {targetedMod && (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.88 }}
+            initial={{ opacity: 0, y: 6, scale: 0.92 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.92 }}
-            transition={{ duration: 0.2 }}
-            className="absolute -top-14 left-1/2 -translate-x-1/2 z-30 whitespace-nowrap px-4 py-1.5 rounded-full border bg-black/90 backdrop-blur-md shadow-2xl flex items-center gap-2 pointer-events-none"
+            exit={{ opacity: 0, y: 4, scale: 0.92 }}
+            transition={{ duration: 0.18 }}
+            className="absolute -top-11 left-1/2 -translate-x-1/2 z-30 whitespace-nowrap px-3 py-1 rounded-full border bg-black/90 backdrop-blur-md shadow-lg flex items-center gap-1.5 pointer-events-none"
             style={{
               borderColor: targetedMod.color,
-              boxShadow: `0 0 24px ${targetedMod.color}66`,
             }}
           >
             <span
-              className="w-2 h-2 rounded-full animate-ping"
+              className="w-1.5 h-1.5 rounded-full"
               style={{ background: targetedMod.color }}
             />
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-white">
-              Release to open {targetedMod.short}
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white">
+              Click to open {targetedMod.short}
             </span>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Draggable Ball / Joystick Core */}
+      {/* Interactive Ball / Joystick Core */}
       <motion.div
-        role="slider"
+        role="button"
         aria-label="Neural Core Joystick Navigation"
-        aria-valuenow={targetedMod ? MODS.findIndex((m) => m.key === targetedMod.key) + 1 : 0}
         tabIndex={0}
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerCancel}
-        className={`relative flex items-center justify-center rounded-full select-none touch-none focus:outline-none focus:ring-2 focus:ring-purple-400/50 ${
-          isDragging ? "cursor-grabbing" : "cursor-grab"
-        }`}
+        className="relative flex items-center justify-center rounded-full select-none touch-none focus:outline-none focus:ring-1 focus:ring-purple-400/50"
         style={{
-          width: 220,
-          height: 220,
+          width: 140,
+          height: 140,
           touchAction: "none",
           userSelect: "none",
         }}
@@ -689,90 +665,34 @@ function JoystickAiCore({
           rotateX: tiltX,
           rotateY: tiltY,
         }}
-        transition={
-          isDragging
-            ? { type: "tween", ease: "linear", duration: 0 }
-            : { type: "spring", stiffness: 420, damping: 26 }
-        }
+        transition={{ type: "spring", stiffness: 450, damping: 30 }}
       >
-        {/* Dynamic volumetric halo */}
+        {/* Rotating subtle dashed ring */}
         <motion.div
-          className="absolute inset-0 rounded-full pointer-events-none"
-          style={{
-            background: `radial-gradient(circle at 50% 50%, ${activeGlowColor}, rgba(34,211,238,0.35) 45%, transparent 70%)`,
-            filter: "blur(20px)",
-          }}
-          animate={{
-            scale: isDragging ? [1.1, 1.18, 1.1] : [1, 1.1, 1],
-            opacity: isDragging ? 1 : [0.7, 1, 0.7],
-          }}
-          transition={{ duration: isDragging ? 1.5 : 4, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        {/* Energy wave rings (paused or accelerated while dragging) */}
-        {[0, 1, 2].map((i) => (
-          <motion.div
-            key={i}
-            className="absolute inset-0 rounded-full border border-white/30 pointer-events-none"
-            animate={{ scale: [0.6, 1.6], opacity: [0.6, 0] }}
-            transition={{ duration: 3.2, repeat: Infinity, ease: "easeOut", delay: i * 1.05 }}
-          />
-        ))}
-
-        {/* Rotating dashed ring */}
-        <motion.div
-          className="absolute inset-2 rounded-full border-2 border-dashed border-white/30 pointer-events-none"
+          className="absolute inset-2 rounded-full border border-dashed border-white/15 pointer-events-none"
           animate={{ rotate: 360 }}
-          transition={{ duration: 24, ease: "linear", repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute inset-6 rounded-full border border-white/20 pointer-events-none"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+          transition={{ duration: 28, ease: "linear", repeat: Infinity }}
         />
 
-        {/* Central Nucleus Ball */}
+        {/* Clean Central Nucleus Ball */}
         <motion.div
-          className="relative flex items-center justify-center rounded-full pointer-events-none shadow-2xl"
+          className="relative flex items-center justify-center rounded-full pointer-events-none"
           style={{
-            width: 124,
-            height: 124,
-            background:
-              "radial-gradient(circle at 35% 30%, #ffffff 0%, #E9D5FF 18%, #C084FC 45%, #7C3AED 75%, #4C1D95 100%)",
-            boxShadow: targetedMod
-              ? `0 0 90px ${targetedMod.color}, 0 0 50px rgba(34,211,238,0.45), inset 0 0 40px rgba(255,255,255,0.6)`
-              : "0 0 80px rgba(168,85,247,0.55), 0 0 40px rgba(34,211,238,0.35), inset 0 0 40px rgba(255,255,255,0.4)",
+            width: 76,
+            height: 76,
+            background: "linear-gradient(145deg, #7E22CE 0%, #6B21A8 50%, #4C1D95 100%)",
+            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.25)",
+            border: targetedMod ? `1.5px solid ${targetedMod.color}` : "1px solid rgba(255, 255, 255, 0.15)",
           }}
           animate={{
-            scale: isDragging ? 1.08 : [1, 1.04, 1],
+            scale: targetedMod ? 1.05 : 1,
           }}
-          transition={{ duration: 2.4, repeat: isDragging ? 0 : Infinity, ease: "easeInOut" }}
+          transition={{ duration: 0.2 }}
         >
-          {targetedMod ? (
-            <motion.div
-              key={targetedMod.key}
-              initial={{ scale: 0.7, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.9)]"
-            >
-              {targetedMod.icon}
-            </motion.div>
-          ) : (
-            <Cpu className="w-10 h-10 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]" />
-          )}
+          {/* Sharp Processor Symbol */}
+          <Cpu className="w-7 h-7 text-white" />
         </motion.div>
       </motion.div>
-
-      {/* Core label and Joystick Navigation hint */}
-      <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-center pointer-events-none whitespace-nowrap z-20">
-        <div className="text-[10px] uppercase tracking-[0.3em] text-white/60 font-mono flex items-center justify-center gap-1.5">
-          <Compass className="w-3 h-3 text-purple-400 animate-spin" style={{ animationDuration: "8s" }} />
-          <span>DRAG TO NAVIGATE</span>
-        </div>
-        <div className="text-white/90 text-xs font-mono mt-0.5 tracking-wider font-semibold">
-          NEURAL CORE — MARKETHON · ENGINE
-        </div>
-      </div>
     </div>
   );
 }
@@ -792,50 +712,35 @@ function OrbitNode({
       onClick={onClick}
       className="group absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none z-20 cursor-pointer"
       style={{ left: `${xPct}%`, top: `${yPct}%` }}
-      initial={{ opacity: 0, scale: 0.6 }}
+      initial={{ opacity: 0, scale: 0.7 }}
       animate={{
         opacity: 1,
-        scale: isTargeted ? 1.22 : 1,
+        scale: isTargeted ? 1.1 : 1,
       }}
-      transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ scale: 1.15 }}
-      whileTap={{ scale: 0.94 }}
+      transition={{ delay, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.95 }}
     >
-      {/* Halo */}
-      <motion.div
-        className="absolute -inset-4 rounded-full pointer-events-none"
-        style={{
-          background: `radial-gradient(circle, ${mod.color}${isTargeted ? "99" : "55"}, transparent 70%)`,
-          filter: isTargeted ? "blur(14px)" : "blur(10px)",
-        }}
-        animate={{ opacity: isTargeted ? [0.8, 1, 0.8] : [0.35, 0.7, 0.35] }}
-        transition={{ duration: isTargeted ? 1.2 : 3, repeat: Infinity, ease: "easeInOut", delay: delay * 2 }}
-      />
       <div
-        className={`relative flex flex-col items-center gap-1.5 rounded-2xl border backdrop-blur-md px-3.5 py-2.5 transition-all duration-300 ${
+        className={`relative flex flex-col items-center gap-1 rounded-xl border backdrop-blur-md px-2 py-1.5 transition-all duration-200 ${
           isTargeted
-            ? "border-white bg-white/20 shadow-[0_0_35px_rgba(255,255,255,0.4)]"
-            : "border-white/15 bg-white/5 group-hover:border-white/40"
+            ? "border-white/60 bg-white/15"
+            : "border-white/10 bg-white/5 group-hover:border-white/25 group-hover:bg-white/10"
         }`}
         style={{
-          boxShadow: isTargeted
-            ? `0 0 35px ${mod.color}88, inset 0 0 15px ${mod.color}44`
-            : `0 8px 30px ${mod.color}33`,
+          borderColor: isTargeted ? mod.color : undefined,
         }}
       >
         <span
-          className={`flex items-center justify-center w-10 h-10 rounded-full transition-transform duration-300 ${
-            isTargeted ? "scale-110 shadow-lg" : ""
-          }`}
+          className="flex items-center justify-center w-7 h-7 rounded-lg transition-transform duration-200"
           style={{
-            background: `linear-gradient(135deg, ${mod.color}, ${mod.color}90)`,
+            background: mod.color,
             color: "white",
-            boxShadow: isTargeted ? `0 0 20px ${mod.color}` : "none",
           }}
         >
           {mod.icon}
         </span>
-        <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white font-mono">
+        <span className="text-[9px] font-bold uppercase tracking-wider text-white/90 font-mono">
           {mod.short}
         </span>
       </div>
