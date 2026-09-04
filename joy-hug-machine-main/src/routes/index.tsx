@@ -431,8 +431,103 @@ function HeroMagneticButton({
   );
 }
 
+const HERO_HEADINGS = [
+  { id: "marketing", lines: ["Marketing for all,", "Automated."] },
+  { id: "agentic", lines: ["Agentic AI"] },
+];
+
+function EvaporatingHeroTitle() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    // 5 seconds visible + ~1.4s evaporation/condensation transition = 6400ms cycle
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % HERO_HEADINGS.length);
+    }, 6400);
+    return () => clearInterval(timer);
+  }, []);
+
+  const heading = HERO_HEADINGS[index];
+
+  return (
+    <div className="relative w-full flex flex-col items-center justify-center min-h-[96px] md:min-h-[155px]">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={heading.id}
+          className="flex flex-col items-center justify-center text-center"
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
+          {heading.lines.map((line, li) => {
+            const chars = line.split("");
+            const cumulativeOffset = li === 0 ? 0 : heading.lines[0].length;
+            return (
+              <span key={li} className="block whitespace-nowrap">
+                {chars.map((ch, ci) => {
+                  const globalIdx = cumulativeOffset + ci;
+                  const driftX = ((globalIdx * 7) % 11) - 5;
+                  const driftY = 32 + ((globalIdx * 13) % 24);
+                  const scaleVapor = 1.18 + ((globalIdx % 3) * 0.06);
+
+                  return (
+                    <motion.span
+                      key={`${heading.id}-${li}-${ci}`}
+                      custom={globalIdx}
+                      variants={{
+                        initial: {
+                          y: 28,
+                          x: driftX * 1.5,
+                          opacity: 0,
+                          filter: "blur(18px)",
+                          scale: 0.88,
+                        },
+                        animate: (i: number) => ({
+                          y: 0,
+                          x: 0,
+                          opacity: 1,
+                          filter: "blur(0px)",
+                          scale: 1,
+                          transition: {
+                            duration: 1.2,
+                            delay: i * 0.022,
+                            ease: EASE_EXPO,
+                          },
+                        }),
+                        exit: (i: number) => ({
+                          y: -driftY,
+                          x: driftX * 3.5,
+                          opacity: 0,
+                          filter: "blur(22px)",
+                          scale: scaleVapor,
+                          transition: {
+                            duration: 1.25,
+                            delay: i * 0.016,
+                            ease: [0.4, 0, 0.2, 1],
+                          },
+                        }),
+                      }}
+                      style={{
+                        display: "inline-block",
+                        transformOrigin: "50% 50%",
+                        whiteSpace: "pre",
+                        willChange: "transform, opacity, filter",
+                      }}
+                    >
+                      {ch === " " ? "\u00A0" : ch}
+                    </motion.span>
+                  );
+                })}
+              </span>
+            );
+          })}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function Hero() {
-  const titleLines = ["Marketing for all,", "Automated."];
   const { isGalaxy, theme } = useTheme();
   const isBrownGold = theme === "brown-gold";
 
@@ -754,7 +849,7 @@ function Hero() {
           />
         </motion.div>
 
-        <h1 className="relative font-display text-[44px] leading-[1.08] md:text-[72px] md:leading-[1.05] text-mk-heading">
+        <h1 className="relative font-display text-[44px] leading-[1.08] md:text-[72px] md:leading-[1.05] text-mk-heading w-full flex flex-col items-center justify-center">
           {/* soft glow behind heading */}
           <motion.span
             aria-hidden
@@ -785,37 +880,7 @@ function Hero() {
             }}
           />
 
-          {titleLines.map((line, li) => {
-            const chars = line.split("");
-            let cumulative = li === 0 ? 0 : titleLines[0].length;
-            return (
-              <span key={li} className="block">
-                {chars.map((ch, i) => {
-                  const idx = cumulative + i;
-                  return (
-                    <motion.span
-                      key={`${li}-${i}`}
-                      initial={{ y: 80, opacity: 0, filter: "blur(12px)", rotateX: -40 }}
-                      animate={{ y: 0, opacity: 1, filter: "blur(0px)", rotateX: 0 }}
-                      transition={{
-                        delay: 0.55 + idx * 0.025,
-                        duration: 1,
-                        ease: EASE_EXPO,
-                      }}
-                      style={{
-                        display: "inline-block",
-                        transformOrigin: "50% 100%",
-                        whiteSpace: "pre",
-                        animation: `heroLetterGlow 5s ease-in-out ${idx * 0.05}s infinite`,
-                      }}
-                    >
-                      {ch === " " ? "\u00A0" : ch}
-                    </motion.span>
-                  );
-                })}
-              </span>
-            );
-          })}
+          <EvaporatingHeroTitle />
         </h1>
 
         <motion.p
