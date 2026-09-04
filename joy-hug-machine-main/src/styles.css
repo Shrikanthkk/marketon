@@ -1021,6 +1021,105 @@ a.bg-mk-navy,
 }
 
 /* ==========================================================================
+   Developer Section "Engineered for speed, scale & resilience" Styles
+   ========================================================================== */
+.developer-features-section {
+  background-color: var(--page-bg);
+  border-color: var(--mk-border);
+}
+
+.developer-features-heading {
+  color: #0F172A;
+  -webkit-text-fill-color: #0F172A;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.developer-features-desc {
+  color: #475569;
+  -webkit-text-fill-color: #475569;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Light Theme */
+[data-theme="light"] .developer-features-section,
+.light .developer-features-section {
+  background-color: #F4F4FB !important;
+  border-color: #E5E7EB !important;
+}
+
+[data-theme="light"] .developer-features-heading,
+.light .developer-features-heading {
+  color: #0F172A !important;
+  -webkit-text-fill-color: #0F172A !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+[data-theme="light"] .developer-features-desc,
+.light .developer-features-desc {
+  color: #475569 !important;
+  -webkit-text-fill-color: #475569 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Dark / Galaxy Theme */
+[data-theme="dark"] .developer-features-section,
+[data-theme="galaxy"] .developer-features-section,
+.dark .developer-features-section,
+.galaxy .developer-features-section {
+  background-color: #010104 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+[data-theme="dark"] .developer-features-heading,
+[data-theme="galaxy"] .developer-features-heading,
+.dark .developer-features-heading,
+.galaxy .developer-features-heading {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .developer-features-desc,
+[data-theme="galaxy"] .developer-features-desc,
+.dark .developer-features-desc,
+.galaxy .developer-features-desc {
+  color: #D1D5DB !important;
+  -webkit-text-fill-color: #D1D5DB !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Brown and Gold Theme */
+[data-theme="brown-gold"] .developer-features-section,
+.brown-gold .developer-features-section {
+  background-color: #2b160d !important;
+  border-color: rgba(212, 175, 55, 0.35) !important;
+}
+
+[data-theme="brown-gold"] .developer-features-heading,
+.brown-gold .developer-features-heading {
+  color: #fff9ee !important;
+  -webkit-text-fill-color: #fff9ee !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: 0 0 14px rgba(212, 175, 55, 0.35) !important;
+}
+
+[data-theme="brown-gold"] .developer-features-desc,
+.brown-gold .developer-features-desc {
+  color: #e2d1b3 !important;
+  -webkit-text-fill-color: #e2d1b3 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* ==========================================================================
    Businesses That Run on Markethon Heading Styles
    ========================================================================== */
 .businesses-heading {

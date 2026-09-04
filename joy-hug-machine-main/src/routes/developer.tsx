@@ -891,13 +891,13 @@ function DeveloperPage() {
         </section>
 
         {/* Developer Feature Highlights */}
-        <section className="py-20 bg-mk-bg border-t border-mk-border">
+        <section className="developer-features-section py-20 bg-mk-bg border-t border-mk-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center max-w-2xl mx-auto mb-14">
-              <h2 className="font-display text-[28px] md:text-[38px] text-mk-heading mb-3">
+              <h2 className="developer-features-heading font-display text-[28px] md:text-[38px] text-mk-heading mb-3">
                 Engineered for speed, scale & resilience
               </h2>
-              <p className="text-mk-body text-sm md:text-base">
+              <p className="developer-features-desc text-mk-body text-sm md:text-base">
                 Production-ready developer infrastructure with sub-100ms response times and enterprise reliability.
               </p>
             </div>
