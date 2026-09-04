@@ -895,7 +895,7 @@ function DeveloperPage() {
           {/* Subtle Ambient Glow Behind Content */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0"
+            className="developer-features-glow pointer-events-none absolute inset-0 z-0"
             style={{
               background:
                 "radial-gradient(800px 400px at 50% 20%, rgba(168,85,247,0.06), transparent 70%)",

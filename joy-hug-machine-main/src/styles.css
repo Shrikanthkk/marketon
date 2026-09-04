@@ -1104,28 +1104,37 @@ a.bg-mk-navy,
   visibility: visible !important;
 }
 
-/* Brown and Gold Theme */
+/* Brown and Gold Theme (Developer Section Premium Gold Theme) */
 [data-theme="brown-gold"] .developer-features-section,
 .brown-gold .developer-features-section {
-  background-color: #2b160d !important;
+  background: linear-gradient(180deg, #1A0D08 0%, #3A1D10 100%) !important;
   border-color: rgba(212, 175, 55, 0.35) !important;
 }
 
 [data-theme="brown-gold"] .developer-features-heading,
 .brown-gold .developer-features-heading {
-  color: #fff9ee !important;
-  -webkit-text-fill-color: #fff9ee !important;
+  color: #D4AF37 !important;
+  background: linear-gradient(135deg, #F5D77A 0%, #D4AF37 50%, #F5D77A 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
   opacity: 1 !important;
   visibility: visible !important;
-  text-shadow: 0 0 14px rgba(212, 175, 55, 0.35) !important;
+  text-shadow: 0 0 16px rgba(212, 175, 55, 0.25) !important;
+  filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.20)) !important;
 }
 
 [data-theme="brown-gold"] .developer-features-desc,
 .brown-gold .developer-features-desc {
-  color: #e2d1b3 !important;
-  -webkit-text-fill-color: #e2d1b3 !important;
+  color: #E8D5A3 !important;
+  -webkit-text-fill-color: #E8D5A3 !important;
   opacity: 1 !important;
   visibility: visible !important;
+}
+
+[data-theme="brown-gold"] .developer-features-glow,
+.brown-gold .developer-features-glow {
+  background: radial-gradient(800px 400px at 50% 20%, rgba(212, 175, 55, 0.12), transparent 70%) !important;
 }
 
 /* ==========================================================================
