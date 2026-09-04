@@ -1410,6 +1410,50 @@ a.bg-mk-navy,
   border-color: rgba(212, 175, 55, 0.35) !important;
 }
 
+/* ==========================================================================
+   Expanded Resource Card Modal Styles & Theme Adaptations
+   ========================================================================== */
+.resource-expanded-card {
+  background-color: var(--card);
+  border-color: var(--mk-border);
+  color: var(--mk-heading);
+}
+
+[data-theme="light"] .resource-expanded-card,
+.light .resource-expanded-card {
+  background-color: #FFFFFF !important;
+  border-color: #E5E7EB !important;
+  box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme="dark"] .resource-expanded-card,
+[data-theme="galaxy"] .resource-expanded-card,
+.dark .resource-expanded-card,
+.galaxy .resource-expanded-card {
+  background-color: #0d1224 !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="brown-gold"] .resource-expanded-card,
+.brown-gold .resource-expanded-card {
+  background: linear-gradient(165deg, #32190f 0%, #201008 100%) !important;
+  border-color: rgba(212, 175, 55, 0.45) !important;
+  box-shadow: 0 25px 70px -15px rgba(18, 9, 4, 0.9), 0 0 40px -10px rgba(212, 175, 55, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.35) !important;
+}
+
+[data-theme="brown-gold"] .resource-expanded-card .resource-card-feature-box,
+.brown-gold .resource-expanded-card .resource-card-feature-box {
+  background-color: rgba(74, 42, 24, 0.6) !important;
+  border-color: rgba(212, 175, 55, 0.25) !important;
+}
+
+[data-theme="brown-gold"] .resource-expanded-card .resource-card-spec-box,
+.brown-gold .resource-expanded-card .resource-card-spec-box {
+  background-color: rgba(74, 42, 24, 0.4) !important;
+  border-color: rgba(212, 175, 55, 0.2) !important;
+}
+
 .mk-no-scrollbar::-webkit-scrollbar { display: none; }
 .mk-no-scrollbar { scrollbar-width: none; }
 
