@@ -1,15 +1,15 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode, useCallback } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useNavigate } from "@tanstack/react-router";
 import {
   Brain, PhoneCall, Zap, GitBranch, BarChart3, Users, TrendingUp, Sparkles,
-  Volume2, VolumeX, ArrowLeft, Cpu, Activity,
+  Volume2, VolumeX, ArrowLeft, Cpu, Activity, Compass,
 } from "lucide-react";
 
 /* ============================================================
    AI OPERATIONS ROOM
-   - Stable orbital layout (no random jitter)
-   - Central reactive AI core
-   - 8 orbiting modules; click to "zoom" into immersive demo
+   - Interactive Joystick Neural Core navigation
+   - 8 orbiting modules; drag joystick or click to navigate to route
    - Web Audio synthesized cinematic UI sounds + SpeechSynthesis voice
    ============================================================ */
 
@@ -23,17 +23,18 @@ type Mod = {
   short: string;
   icon: ReactNode;
   color: string;
+  route: string;
 };
 
 const MODS: Mod[] = [
-  { key: "leads",     label: "Lead Intelligence", short: "LEADS",     icon: <Users className="w-5 h-5" />,       color: "#9333EA" },
-  { key: "voice",     label: "Voice AI",          short: "VOICE",     icon: <PhoneCall className="w-5 h-5" />,   color: "#5278FF" },
-  { key: "omni",      label: "Omnichannel",       short: "OMNI",      icon: <Zap className="w-5 h-5" />,         color: "#10B981" },
-  { key: "workflow",  label: "Workflow Engine",   short: "FLOW",      icon: <GitBranch className="w-5 h-5" />,   color: "#8B5CF6" },
-  { key: "analytics", label: "Analytics",         short: "DATA",      icon: <BarChart3 className="w-5 h-5" />,   color: "#22D3EE" },
-  { key: "crm",       label: "CRM Automation",    short: "CRM",       icon: <Brain className="w-5 h-5" />,       color: "#F472B6" },
-  { key: "revenue",   label: "Revenue Tracking",  short: "REV",       icon: <TrendingUp className="w-5 h-5" />,  color: "#FBBF24" },
-  { key: "decisions", label: "AI Decisions",      short: "AI",        icon: <Sparkles className="w-5 h-5" />,    color: "#A78BFA" },
+  { key: "leads",     label: "Lead Intelligence", short: "LEADS",     icon: <Users className="w-5 h-5" />,       color: "#9333EA", route: "/leads" },
+  { key: "voice",     label: "Voice AI",          short: "VOICE",     icon: <PhoneCall className="w-5 h-5" />,   color: "#5278FF", route: "/voice" },
+  { key: "omni",      label: "Omnichannel",       short: "OMNI",      icon: <Zap className="w-5 h-5" />,         color: "#10B981", route: "/omni" },
+  { key: "workflow",  label: "Workflow Engine",   short: "FLOW",      icon: <GitBranch className="w-5 h-5" />,   color: "#8B5CF6", route: "/flow" },
+  { key: "analytics", label: "Analytics",         short: "DATA",      icon: <BarChart3 className="w-5 h-5" />,   color: "#22D3EE", route: "/data" },
+  { key: "crm",       label: "CRM Automation",    short: "CRM",       icon: <Brain className="w-5 h-5" />,       color: "#F472B6", route: "/crm" },
+  { key: "revenue",   label: "Revenue Tracking",  short: "REV",       icon: <TrendingUp className="w-5 h-5" />,  color: "#FBBF24", route: "/rev" },
+  { key: "decisions", label: "AI Decisions",      short: "AI",        icon: <Sparkles className="w-5 h-5" />,    color: "#A78BFA", route: "/ai" },
 ];
 
 /* ---------------- Sound engine (Web Audio synthesized) ---------------- */
@@ -185,6 +186,7 @@ export default function AIOperationsRoom() {
               onHover={() => sound.hover()}
               onSelect={(k) => { sound.open(); setActive(k); }}
               driftX={driftX} driftY={driftY}
+              sound={sound}
             />
           </motion.div>
         )}
@@ -307,22 +309,114 @@ function Hud({ soundOn, onToggleSound }: { soundOn: boolean; onToggleSound: () =
   );
 }
 
-/* ---------------- Orbit Stage ---------------- */
+/* ---------------- Orbit Stage & Interactive Joystick ---------------- */
+const MAX_RADIUS = 68;
+const ACTIVATION_DIST = 32;
+
 function OrbitStage({
-  onHover, onSelect, driftX, driftY,
+  onHover, onSelect, driftX, driftY, sound,
 }: {
   onHover: () => void;
   onSelect: (k: ModKey) => void;
   driftX: any; driftY: any;
+  sound: ReturnType<typeof useSoundEngine>;
 }) {
+  const navigate = useNavigate();
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [joystickOffset, setJoystickOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [targetedModKey, setTargetedModKey] = useState<ModKey | null>(null);
+
+  // Measure stage size for accurate SVG coordinate percentage
+  const [stageSize, setStageSize] = useState<{ width: number; height: number }>({ width: 720, height: 720 });
+
+  useEffect(() => {
+    const updateSize = () => {
+      if (stageRef.current) {
+        const rect = stageRef.current.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          setStageSize({ width: rect.width, height: rect.height });
+        }
+      }
+    };
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  const targetedMod = useMemo(
+    () => MODS.find((m) => m.key === targetedModKey) ?? null,
+    [targetedModKey]
+  );
+
+  // Compute targeted module from offset
+  const computeTargetFromOffset = useCallback((x: number, y: number): ModKey | null => {
+    const dist = Math.hypot(x, y);
+    if (dist < ACTIVATION_DIST) return null;
+
+    const angle = Math.atan2(y, x);
+    let bestDiff = Infinity;
+    let bestKey: ModKey = MODS[0].key;
+
+    MODS.forEach((m, idx) => {
+      const modAngle = (idx / MODS.length) * Math.PI * 2 - Math.PI / 2;
+      let diff = Math.abs(angle - modAngle);
+      while (diff > Math.PI) diff = Math.abs(diff - 2 * Math.PI);
+      if (diff < bestDiff) {
+        bestDiff = diff;
+        bestKey = m.key;
+      }
+    });
+
+    return bestDiff < Math.PI / 3.8 ? bestKey : null;
+  }, []);
+
+  const handleJoystickMove = useCallback((x: number, y: number) => {
+    setJoystickOffset({ x, y });
+    const target = computeTargetFromOffset(x, y);
+    setTargetedModKey((prev) => {
+      if (prev !== target && target) {
+        sound.hover();
+      }
+      return target;
+    });
+  }, [computeTargetFromOffset, sound]);
+
+  const handleJoystickRelease = useCallback((finalTarget: ModKey | null) => {
+    setIsDragging(false);
+    setJoystickOffset({ x: 0, y: 0 });
+    setTargetedModKey(null);
+
+    if (finalTarget) {
+      sound.open();
+      const mod = MODS.find((m) => m.key === finalTarget);
+      if (mod) {
+        navigate({ to: mod.route as any });
+      }
+    }
+  }, [navigate, sound]);
+
+  const handleNodeClick = (mod: Mod) => {
+    sound.click();
+    navigate({ to: mod.route as any });
+  };
+
+  // Calculate dynamic core center percentage for SVG lines
+  const coreXPct = 50 + (stageSize.width ? (joystickOffset.x / stageSize.width) * 100 : 0);
+  const coreYPct = 50 + (stageSize.height ? (joystickOffset.y / stageSize.height) * 100 : 0);
+
   return (
-    <motion.div className="absolute inset-0 flex items-center justify-center" style={{ x: driftX, y: driftY }}>
-      <div className="relative" style={{ width: "min(720px, 92%)", aspectRatio: "1 / 1" }}>
-        {/* Concentric rings */}
+    <motion.div className="absolute inset-0 flex items-center justify-center select-none" style={{ x: driftX, y: driftY }}>
+      <div
+        ref={stageRef}
+        className="relative"
+        style={{ width: "min(720px, 92%)", aspectRatio: "1 / 1" }}
+      >
+        {/* Concentric orbital guide rings */}
         {[0.55, 0.78, 1].map((s, i) => (
           <motion.div
             key={i}
-            className="absolute inset-0 rounded-full border border-white/10"
+            className="absolute inset-0 rounded-full border border-white/10 pointer-events-none"
             style={{ transform: `scale(${s})` }}
             animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
             transition={{ duration: 60 + i * 30, ease: "linear", repeat: Infinity }}
@@ -339,17 +433,70 @@ function OrbitStage({
           </motion.div>
         ))}
 
-        {/* Central AI Core */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <AiCore />
+        {/* Dynamic Connector lines core → nodes */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none z-10"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          {MODS.map((m, i) => {
+            const angle = (i / MODS.length) * Math.PI * 2 - Math.PI / 2;
+            const r = 46; // % of container
+            const x = 50 + Math.cos(angle) * r;
+            const y = 50 + Math.sin(angle) * r;
+            const isTargeted = targetedModKey === m.key;
+
+            return (
+              <g key={m.key}>
+                {/* Glow underlay for active target */}
+                {isTargeted && (
+                  <line
+                    x1={coreXPct}
+                    y1={coreYPct}
+                    x2={x}
+                    y2={y}
+                    stroke={m.color}
+                    strokeOpacity="0.85"
+                    strokeWidth="1.2"
+                    style={{ filter: `drop-shadow(0 0 6px ${m.color})` }}
+                  />
+                )}
+                <line
+                  x1={coreXPct}
+                  y1={coreYPct}
+                  x2={x}
+                  y2={y}
+                  stroke={isTargeted ? "#FFFFFF" : m.color}
+                  strokeOpacity={isTargeted ? "1" : "0.3"}
+                  strokeWidth={isTargeted ? "0.4" : "0.15"}
+                  strokeDasharray={isTargeted ? "1 0.5" : "0.6 0.8"}
+                />
+              </g>
+            );
+          })}
+        </svg>
+
+        {/* Central Interactive AI Core Joystick */}
+        <div className="absolute inset-0 flex items-center justify-center z-20">
+          <JoystickAiCore
+            offset={joystickOffset}
+            isDragging={isDragging}
+            setIsDragging={setIsDragging}
+            onMove={handleJoystickMove}
+            onRelease={handleJoystickRelease}
+            targetedMod={targetedMod}
+            onHover={onHover}
+          />
         </div>
 
-        {/* Orbiting modules — fixed angular positions, no jitter */}
+        {/* Orbiting modules — fixed angular positions with interactive targeting */}
         {MODS.map((m, i) => {
           const angle = (i / MODS.length) * Math.PI * 2 - Math.PI / 2;
           const r = 46; // % of container
           const x = 50 + Math.cos(angle) * r;
           const y = 50 + Math.sin(angle) * r;
+          const isTargeted = targetedModKey === m.key;
+
           return (
             <OrbitNode
               key={m.key}
@@ -357,99 +504,285 @@ function OrbitStage({
               xPct={x}
               yPct={y}
               delay={i * 0.08}
+              isTargeted={isTargeted}
               onHover={onHover}
-              onClick={() => onSelect(m.key)}
+              onClick={() => handleNodeClick(m)}
             />
           );
         })}
-
-        {/* Connector lines core → nodes */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-          {MODS.map((m, i) => {
-            const angle = (i / MODS.length) * Math.PI * 2 - Math.PI / 2;
-            const r = 46;
-            const x = 50 + Math.cos(angle) * r;
-            const y = 50 + Math.sin(angle) * r;
-            return (
-              <line
-                key={m.key}
-                x1="50" y1="50" x2={x} y2={y}
-                stroke={m.color}
-                strokeOpacity="0.25"
-                strokeWidth="0.15"
-                strokeDasharray="0.6 0.8"
-              />
-            );
-          })}
-        </svg>
       </div>
     </motion.div>
   );
 }
 
-function AiCore() {
+/* ---------------- Interactive Joystick Neural Core ---------------- */
+function JoystickAiCore({
+  offset,
+  isDragging,
+  setIsDragging,
+  onMove,
+  onRelease,
+  targetedMod,
+  onHover,
+}: {
+  offset: { x: number; y: number };
+  isDragging: boolean;
+  setIsDragging: (d: boolean) => void;
+  onMove: (x: number, y: number) => void;
+  onRelease: (target: ModKey | null) => void;
+  targetedMod: Mod | null;
+  onHover: () => void;
+}) {
+  const pointerStartRef = useRef<{ x: number; y: number } | null>(null);
+  const currentOffsetRef = useRef<{ x: number; y: number }>(offset);
+  currentOffsetRef.current = offset;
+  const targetedModRef = useRef<ModKey | null>(targetedMod ? targetedMod.key : null);
+  targetedModRef.current = targetedMod ? targetedMod.key : null;
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    pointerStartRef.current = { x: e.clientX, y: e.clientY };
+    setIsDragging(true);
+    onHover();
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!pointerStartRef.current) return;
+    const rawDx = e.clientX - pointerStartRef.current.x;
+    const rawDy = e.clientY - pointerStartRef.current.y;
+    const dist = Math.hypot(rawDx, rawDy);
+
+    let clampedX = rawDx;
+    let clampedY = rawDy;
+
+    if (dist > MAX_RADIUS) {
+      const dampedDist = MAX_RADIUS + (dist - MAX_RADIUS) * 0.18;
+      const angle = Math.atan2(rawDy, rawDx);
+      clampedX = Math.cos(angle) * Math.min(dampedDist, MAX_RADIUS + 14);
+      clampedY = Math.sin(angle) * Math.min(dampedDist, MAX_RADIUS + 14);
+    }
+
+    onMove(clampedX, clampedY);
+  };
+
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (pointerStartRef.current) {
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {}
+      pointerStartRef.current = null;
+      onRelease(targetedModRef.current);
+    }
+  };
+
+  const onPointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (pointerStartRef.current) {
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {}
+      pointerStartRef.current = null;
+      onRelease(null);
+    }
+  };
+
+  // Keyboard navigation support
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    let stepX = 0;
+    let stepY = 0;
+    if (e.key === "ArrowUp") stepY = -MAX_RADIUS;
+    else if (e.key === "ArrowDown") stepY = MAX_RADIUS;
+    else if (e.key === "ArrowLeft") stepX = -MAX_RADIUS;
+    else if (e.key === "ArrowRight") stepX = MAX_RADIUS;
+    else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (targetedModRef.current) {
+        onRelease(targetedModRef.current);
+      }
+      return;
+    } else if (e.key === "Escape") {
+      onRelease(null);
+      return;
+    } else {
+      return;
+    }
+
+    e.preventDefault();
+    setIsDragging(true);
+    onMove(stepX, stepY);
+  };
+
+  const onKeyUp = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
+      onRelease(targetedModRef.current);
+    }
+  };
+
+  // 3D tilt calculation
+  const tiltX = (-offset.y / MAX_RADIUS) * 22;
+  const tiltY = (offset.x / MAX_RADIUS) * 22;
+
+  // Active theme glow
+  const activeGlowColor = targetedMod ? targetedMod.color : "rgba(168,85,247,0.55)";
+
   return (
-    <div className="relative" style={{ width: 220, height: 220 }}>
-      {/* outer halo */}
-      <motion.div
-        className="absolute inset-0 rounded-full"
+    <div className="relative flex items-center justify-center" style={{ width: 260, height: 260 }}>
+      {/* Outer boundary orbit guide */}
+      <div
+        className="absolute inset-0 rounded-full border border-purple-500/20 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(circle at 50% 50%, rgba(168,85,247,0.55), rgba(34,211,238,0.35) 45%, transparent 70%)",
-          filter: "blur(18px)",
+          boxShadow: isDragging ? `0 0 40px ${activeGlowColor}33` : "none",
+          transition: "box-shadow 0.3s ease",
         }}
-        animate={{ scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* energy waves */}
-      {[0, 1, 2].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute inset-0 rounded-full border border-white/30"
-          animate={{ scale: [0.6, 1.6], opacity: [0.6, 0] }}
-          transition={{ duration: 3.2, repeat: Infinity, ease: "easeOut", delay: i * 1.05 }}
-        />
-      ))}
-      {/* rotating dashed ring */}
+
+      {/* Target Preview Tooltip / Pill Badge */}
+      <AnimatePresence>
+        {targetedMod && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.88 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.92 }}
+            transition={{ duration: 0.2 }}
+            className="absolute -top-14 left-1/2 -translate-x-1/2 z-30 whitespace-nowrap px-4 py-1.5 rounded-full border bg-black/90 backdrop-blur-md shadow-2xl flex items-center gap-2 pointer-events-none"
+            style={{
+              borderColor: targetedMod.color,
+              boxShadow: `0 0 24px ${targetedMod.color}66`,
+            }}
+          >
+            <span
+              className="w-2 h-2 rounded-full animate-ping"
+              style={{ background: targetedMod.color }}
+            />
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-white">
+              Release to open {targetedMod.short}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Draggable Ball / Joystick Core */}
       <motion.div
-        className="absolute inset-2 rounded-full border-2 border-dashed border-white/30"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 24, ease: "linear", repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute inset-6 rounded-full border border-white/20"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-      />
-      {/* nucleus */}
-      <div className="absolute inset-0 flex items-center justify-center">
+        role="slider"
+        aria-label="Neural Core Joystick Navigation"
+        aria-valuenow={targetedMod ? MODS.findIndex((m) => m.key === targetedMod.key) + 1 : 0}
+        tabIndex={0}
+        onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerCancel}
+        className={`relative flex items-center justify-center rounded-full select-none touch-none focus:outline-none focus:ring-2 focus:ring-purple-400/50 ${
+          isDragging ? "cursor-grabbing" : "cursor-grab"
+        }`}
+        style={{
+          width: 220,
+          height: 220,
+          touchAction: "none",
+          userSelect: "none",
+        }}
+        animate={{
+          x: offset.x,
+          y: offset.y,
+          rotateX: tiltX,
+          rotateY: tiltY,
+        }}
+        transition={
+          isDragging
+            ? { type: "tween", ease: "linear", duration: 0 }
+            : { type: "spring", stiffness: 420, damping: 26 }
+        }
+      >
+        {/* Dynamic volumetric halo */}
         <motion.div
-          className="relative flex items-center justify-center rounded-full"
+          className="absolute inset-0 rounded-full pointer-events-none"
           style={{
-            width: 120, height: 120,
-            background:
-              "radial-gradient(circle at 35% 30%, #fff 0%, #E9D5FF 18%, #C084FC 45%, #7C3AED 75%, #4C1D95 100%)",
-            boxShadow: "0 0 80px rgba(168,85,247,0.55), 0 0 40px rgba(34,211,238,0.35), inset 0 0 40px rgba(255,255,255,0.4)",
+            background: `radial-gradient(circle at 50% 50%, ${activeGlowColor}, rgba(34,211,238,0.35) 45%, transparent 70%)`,
+            filter: "blur(20px)",
           }}
-          animate={{ scale: [1, 1.04, 1] }}
-          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          animate={{
+            scale: isDragging ? [1.1, 1.18, 1.1] : [1, 1.1, 1],
+            opacity: isDragging ? 1 : [0.7, 1, 0.7],
+          }}
+          transition={{ duration: isDragging ? 1.5 : 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* Energy wave rings (paused or accelerated while dragging) */}
+        {[0, 1, 2].map((i) => (
+          <motion.div
+            key={i}
+            className="absolute inset-0 rounded-full border border-white/30 pointer-events-none"
+            animate={{ scale: [0.6, 1.6], opacity: [0.6, 0] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: "easeOut", delay: i * 1.05 }}
+          />
+        ))}
+
+        {/* Rotating dashed ring */}
+        <motion.div
+          className="absolute inset-2 rounded-full border-2 border-dashed border-white/30 pointer-events-none"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 24, ease: "linear", repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute inset-6 rounded-full border border-white/20 pointer-events-none"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+        />
+
+        {/* Central Nucleus Ball */}
+        <motion.div
+          className="relative flex items-center justify-center rounded-full pointer-events-none shadow-2xl"
+          style={{
+            width: 124,
+            height: 124,
+            background:
+              "radial-gradient(circle at 35% 30%, #ffffff 0%, #E9D5FF 18%, #C084FC 45%, #7C3AED 75%, #4C1D95 100%)",
+            boxShadow: targetedMod
+              ? `0 0 90px ${targetedMod.color}, 0 0 50px rgba(34,211,238,0.45), inset 0 0 40px rgba(255,255,255,0.6)`
+              : "0 0 80px rgba(168,85,247,0.55), 0 0 40px rgba(34,211,238,0.35), inset 0 0 40px rgba(255,255,255,0.4)",
+          }}
+          animate={{
+            scale: isDragging ? 1.08 : [1, 1.04, 1],
+          }}
+          transition={{ duration: 2.4, repeat: isDragging ? 0 : Infinity, ease: "easeInOut" }}
         >
-          <Cpu className="w-9 h-9 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]" />
+          {targetedMod ? (
+            <motion.div
+              key={targetedMod.key}
+              initial={{ scale: 0.7, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.9)]"
+            >
+              {targetedMod.icon}
+            </motion.div>
+          ) : (
+            <Cpu className="w-10 h-10 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]" />
+          )}
         </motion.div>
-      </div>
-      {/* core label */}
-      <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-center">
-        <div className="text-[10px] uppercase tracking-[0.3em] text-white/55 font-mono">Neural Core</div>
-        <div className="text-white/90 text-sm font-mono mt-0.5">MARKETHON · ENGINE</div>
+      </motion.div>
+
+      {/* Core label and Joystick Navigation hint */}
+      <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-center pointer-events-none whitespace-nowrap z-20">
+        <div className="text-[10px] uppercase tracking-[0.3em] text-white/60 font-mono flex items-center justify-center gap-1.5">
+          <Compass className="w-3 h-3 text-purple-400 animate-spin" style={{ animationDuration: "8s" }} />
+          <span>DRAG TO NAVIGATE</span>
+        </div>
+        <div className="text-white/90 text-xs font-mono mt-0.5 tracking-wider font-semibold">
+          NEURAL CORE — MARKETHON · ENGINE
+        </div>
       </div>
     </div>
   );
 }
 
+/* ---------------- Orbit Node Button ---------------- */
 function OrbitNode({
-  mod, xPct, yPct, delay, onHover, onClick,
+  mod, xPct, yPct, delay, isTargeted, onHover, onClick,
 }: {
   mod: Mod; xPct: number; yPct: number; delay: number;
+  isTargeted?: boolean;
   onHover: () => void; onClick: () => void;
 }) {
   return (
@@ -457,32 +790,54 @@ function OrbitNode({
       type="button"
       onMouseEnter={onHover}
       onClick={onClick}
-      className="group absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none"
+      className="group absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none z-20 cursor-pointer"
       style={{ left: `${xPct}%`, top: `${yPct}%` }}
       initial={{ opacity: 0, scale: 0.6 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ scale: 1.08 }}
-      whileTap={{ scale: 0.96 }}
+      animate={{
+        opacity: 1,
+        scale: isTargeted ? 1.22 : 1,
+      }}
+      transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ scale: 1.15 }}
+      whileTap={{ scale: 0.94 }}
     >
-      {/* halo */}
+      {/* Halo */}
       <motion.div
-        className="absolute -inset-3 rounded-full"
-        style={{ background: `radial-gradient(circle, ${mod.color}55, transparent 70%)`, filter: "blur(10px)" }}
-        animate={{ opacity: [0.35, 0.7, 0.35] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: delay * 2 }}
+        className="absolute -inset-4 rounded-full pointer-events-none"
+        style={{
+          background: `radial-gradient(circle, ${mod.color}${isTargeted ? "99" : "55"}, transparent 70%)`,
+          filter: isTargeted ? "blur(14px)" : "blur(10px)",
+        }}
+        animate={{ opacity: isTargeted ? [0.8, 1, 0.8] : [0.35, 0.7, 0.35] }}
+        transition={{ duration: isTargeted ? 1.2 : 3, repeat: Infinity, ease: "easeInOut", delay: delay * 2 }}
       />
       <div
-        className="relative flex flex-col items-center gap-1.5 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md px-3 py-2.5 transition group-hover:border-white/40"
-        style={{ boxShadow: `0 8px 30px ${mod.color}33` }}
+        className={`relative flex flex-col items-center gap-1.5 rounded-2xl border backdrop-blur-md px-3.5 py-2.5 transition-all duration-300 ${
+          isTargeted
+            ? "border-white bg-white/20 shadow-[0_0_35px_rgba(255,255,255,0.4)]"
+            : "border-white/15 bg-white/5 group-hover:border-white/40"
+        }`}
+        style={{
+          boxShadow: isTargeted
+            ? `0 0 35px ${mod.color}88, inset 0 0 15px ${mod.color}44`
+            : `0 8px 30px ${mod.color}33`,
+        }}
       >
         <span
-          className="flex items-center justify-center w-9 h-9 rounded-full"
-          style={{ background: `linear-gradient(135deg, ${mod.color}, ${mod.color}80)`, color: "white" }}
+          className={`flex items-center justify-center w-10 h-10 rounded-full transition-transform duration-300 ${
+            isTargeted ? "scale-110 shadow-lg" : ""
+          }`}
+          style={{
+            background: `linear-gradient(135deg, ${mod.color}, ${mod.color}90)`,
+            color: "white",
+            boxShadow: isTargeted ? `0 0 20px ${mod.color}` : "none",
+          }}
         >
           {mod.icon}
         </span>
-        <span className="text-[9px] uppercase tracking-[0.22em] text-white/80 font-mono">{mod.short}</span>
+        <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white font-mono">
+          {mod.short}
+        </span>
       </div>
     </motion.button>
   );

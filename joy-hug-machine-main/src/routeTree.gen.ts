@@ -10,12 +10,35 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AiRouteImport } from './routes/ai'
+import { Route as CrmRouteImport } from './routes/crm'
+import { Route as DataRouteImport } from './routes/data'
 import { Route as DeveloperRouteImport } from './routes/developer'
+import { Route as FlowRouteImport } from './routes/flow'
+import { Route as LeadsRouteImport } from './routes/leads'
+import { Route as OmniRouteImport } from './routes/omni'
 import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as RevRouteImport } from './routes/rev'
+import { Route as VoiceRouteImport } from './routes/voice'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiRoute = AiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CrmRoute = CrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DataRoute = DataRouteImport.update({
+  id: '/data',
+  path: '/data',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DeveloperRoute = DeveloperRouteImport.update({
@@ -23,40 +46,131 @@ const DeveloperRoute = DeveloperRouteImport.update({
   path: '/developer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FlowRoute = FlowRouteImport.update({
+  id: '/flow',
+  path: '/flow',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeadsRoute = LeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OmniRoute = OmniRouteImport.update({
+  id: '/omni',
+  path: '/omni',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResourcesRoute = ResourcesRouteImport.update({
   id: '/resources',
   path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RevRoute = RevRouteImport.update({
+  id: '/rev',
+  path: '/rev',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceRoute = VoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
+  '/crm': typeof CrmRoute
+  '/data': typeof DataRoute
   '/developer': typeof DeveloperRoute
+  '/flow': typeof FlowRoute
+  '/leads': typeof LeadsRoute
+  '/omni': typeof OmniRoute
   '/resources': typeof ResourcesRoute
+  '/rev': typeof RevRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
+  '/crm': typeof CrmRoute
+  '/data': typeof DataRoute
   '/developer': typeof DeveloperRoute
+  '/flow': typeof FlowRoute
+  '/leads': typeof LeadsRoute
+  '/omni': typeof OmniRoute
   '/resources': typeof ResourcesRoute
+  '/rev': typeof RevRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai': typeof AiRoute
+  '/crm': typeof CrmRoute
+  '/data': typeof DataRoute
   '/developer': typeof DeveloperRoute
+  '/flow': typeof FlowRoute
+  '/leads': typeof LeadsRoute
+  '/omni': typeof OmniRoute
   '/resources': typeof ResourcesRoute
+  '/rev': typeof RevRoute
+  '/voice': typeof VoiceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/developer' | '/resources'
+  fullPaths:
+    | '/'
+    | '/ai'
+    | '/crm'
+    | '/data'
+    | '/developer'
+    | '/flow'
+    | '/leads'
+    | '/omni'
+    | '/resources'
+    | '/rev'
+    | '/voice'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/developer' | '/resources'
-  id: '__root__' | '/' | '/developer' | '/resources'
+  to:
+    | '/'
+    | '/ai'
+    | '/crm'
+    | '/data'
+    | '/developer'
+    | '/flow'
+    | '/leads'
+    | '/omni'
+    | '/resources'
+    | '/rev'
+    | '/voice'
+  id:
+    | '__root__'
+    | '/'
+    | '/ai'
+    | '/crm'
+    | '/data'
+    | '/developer'
+    | '/flow'
+    | '/leads'
+    | '/omni'
+    | '/resources'
+    | '/rev'
+    | '/voice'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiRoute: typeof AiRoute
+  CrmRoute: typeof CrmRoute
+  DataRoute: typeof DataRoute
   DeveloperRoute: typeof DeveloperRoute
+  FlowRoute: typeof FlowRoute
+  LeadsRoute: typeof LeadsRoute
+  OmniRoute: typeof OmniRoute
   ResourcesRoute: typeof ResourcesRoute
+  RevRoute: typeof RevRoute
+  VoiceRoute: typeof VoiceRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,11 +182,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ai': {
+      id: '/ai'
+      path: '/ai'
+      fullPath: '/ai'
+      preLoaderRoute: typeof AiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/crm': {
+      id: '/crm'
+      path: '/crm'
+      fullPath: '/crm'
+      preLoaderRoute: typeof CrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/data': {
+      id: '/data'
+      path: '/data'
+      fullPath: '/data'
+      preLoaderRoute: typeof DataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/developer': {
       id: '/developer'
       path: '/developer'
       fullPath: '/developer'
       preLoaderRoute: typeof DeveloperRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flow': {
+      id: '/flow'
+      path: '/flow'
+      fullPath: '/flow'
+      preLoaderRoute: typeof FlowRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leads': {
+      id: '/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof LeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/omni': {
+      id: '/omni'
+      path: '/omni'
+      fullPath: '/omni'
+      preLoaderRoute: typeof OmniRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resources': {
@@ -82,13 +238,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rev': {
+      id: '/rev'
+      path: '/rev'
+      fullPath: '/rev'
+      preLoaderRoute: typeof RevRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice': {
+      id: '/voice'
+      path: '/voice'
+      fullPath: '/voice'
+      preLoaderRoute: typeof VoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiRoute: AiRoute,
+  CrmRoute: CrmRoute,
+  DataRoute: DataRoute,
   DeveloperRoute: DeveloperRoute,
+  FlowRoute: FlowRoute,
+  LeadsRoute: LeadsRoute,
+  OmniRoute: OmniRoute,
   ResourcesRoute: ResourcesRoute,
+  RevRoute: RevRoute,
+  VoiceRoute: VoiceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
