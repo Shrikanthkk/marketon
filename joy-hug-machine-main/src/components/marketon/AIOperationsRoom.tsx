@@ -302,8 +302,7 @@ function Hud({ soundOn, onToggleSound }: { soundOn: boolean; onToggleSound: () =
 }
 
 /* ---------------- Orbit Stage & Interactive Joystick ---------------- */
-const MAX_RADIUS = 30;
-const ACTIVATION_DIST = 14;
+const ACTIVATION_DIST = 26;
 
 function OrbitStage({
   onHover, driftX, driftY, sound,
@@ -317,6 +316,7 @@ function OrbitStage({
   const stageRef = useRef<HTMLDivElement>(null);
   const [joystickOffset, setJoystickOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [targetedModKey, setTargetedModKey] = useState<ModKey | null>(null);
+  const isPointerDownRef = useRef(false);
 
   // Measure stage size for accurate SVG coordinate percentage
   const [stageSize, setStageSize] = useState<{ width: number; height: number }>({ width: 400, height: 400 });
@@ -359,38 +359,90 @@ function OrbitStage({
       }
     });
 
-    return bestDiff < Math.PI / 3.6 ? bestKey : null;
+    return bestDiff < Math.PI / 3.4 ? bestKey : null;
   }, []);
 
-  const handleJoystickMove = useCallback((x: number, y: number) => {
-    setJoystickOffset({ x, y });
-    const target = computeTargetFromOffset(x, y);
+  // Full 360-degree orbit tracking across the entire stage
+  const handleStagePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!stageRef.current) return;
+    const rect = stageRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const rawDx = e.clientX - centerX;
+    const rawDy = e.clientY - centerY;
+    const dist = Math.hypot(rawDx, rawDy);
+
+    // Max radius covers the entire large orbital circle (leaving clearance for module cards)
+    const maxRadius = Math.min(rect.width * 0.30, 120);
+
+    let clampedX = rawDx;
+    let clampedY = rawDy;
+    if (dist > maxRadius) {
+      const angle = Math.atan2(rawDy, rawDx);
+      clampedX = Math.cos(angle) * maxRadius;
+      clampedY = Math.sin(angle) * maxRadius;
+    }
+
+    setJoystickOffset({ x: clampedX, y: clampedY });
+    const target = computeTargetFromOffset(clampedX, clampedY);
     setTargetedModKey((prev) => {
       if (prev !== target && target) {
         sound.hover();
       }
       return target;
     });
-  }, [computeTargetFromOffset, sound]);
+  };
 
-  const handleJoystickReset = useCallback(() => {
+  const handleStagePointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
+    onHover();
+    handleStagePointerMove(e);
+  };
+
+  const handleStagePointerLeave = () => {
+    isPointerDownRef.current = false;
     setJoystickOffset({ x: 0, y: 0 });
     setTargetedModKey(null);
-  }, []);
+  };
 
-  const handleJoystickClick = useCallback(() => {
+  const handleStagePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    isPointerDownRef.current = true;
+    if (e.pointerType === "touch") {
+      try {
+        e.currentTarget.setPointerCapture(e.pointerId);
+      } catch {}
+      handleStagePointerMove(e);
+    }
+  };
+
+  const handleStagePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "touch") {
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {}
+    }
+    isPointerDownRef.current = false;
     if (targetedMod) {
       sound.open();
       navigate({ to: targetedMod.route as any });
     }
-  }, [targetedMod, navigate, sound]);
+    setJoystickOffset({ x: 0, y: 0 });
+    setTargetedModKey(null);
+  };
 
-  const handleNodeClick = (mod: Mod) => {
+  const handleStageClick = () => {
+    if (targetedMod) {
+      sound.open();
+      navigate({ to: targetedMod.route as any });
+    }
+  };
+
+  const handleNodeClick = (mod: Mod, e: React.MouseEvent) => {
+    e.stopPropagation();
     sound.click();
     navigate({ to: mod.route as any });
   };
 
-  // Calculate dynamic core center percentage for SVG lines
+  // Dynamic core center percentage for SVG connector lines
   const coreXPct = 50 + (stageSize.width ? (joystickOffset.x / stageSize.width) * 100 : 0);
   const coreYPct = 50 + (stageSize.height ? (joystickOffset.y / stageSize.height) * 100 : 0);
 
@@ -398,7 +450,13 @@ function OrbitStage({
     <motion.div className="absolute inset-0 flex items-center justify-center select-none pt-4 pb-2" style={{ x: driftX, y: driftY }}>
       <div
         ref={stageRef}
-        className="relative"
+        onPointerEnter={handleStagePointerEnter}
+        onPointerMove={handleStagePointerMove}
+        onPointerLeave={handleStagePointerLeave}
+        onPointerDown={handleStagePointerDown}
+        onPointerUp={handleStagePointerUp}
+        onClick={handleStageClick}
+        className="relative cursor-pointer touch-none"
         style={{ width: "min(400px, 88%)", aspectRatio: "1 / 1" }}
       >
         {/* Subtle orbital guide rings */}
@@ -443,8 +501,8 @@ function OrbitStage({
                   x2={x}
                   y2={y}
                   stroke={isTargeted ? m.color : "rgba(255,255,255,0.12)"}
-                  strokeOpacity={isTargeted ? "0.9" : "0.3"}
-                  strokeWidth={isTargeted ? "0.35" : "0.15"}
+                  strokeOpacity={isTargeted ? "1" : "0.3"}
+                  strokeWidth={isTargeted ? "0.45" : "0.15"}
                   strokeDasharray={isTargeted ? "1 0.5" : "0.6 0.8"}
                 />
               </g>
@@ -452,15 +510,11 @@ function OrbitStage({
           })}
         </svg>
 
-        {/* Central Interactive AI Core Joystick */}
+        {/* Central Interactive AI Core Joystick (Enlarged + Free Orbit Movement) */}
         <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
           <JoystickAiCore
             offset={joystickOffset}
-            onMove={handleJoystickMove}
-            onReset={handleJoystickReset}
-            onClick={handleJoystickClick}
             targetedMod={targetedMod}
-            onHover={onHover}
           />
         </div>
 
@@ -481,7 +535,7 @@ function OrbitStage({
               delay={i * 0.05}
               isTargeted={isTargeted}
               onHover={onHover}
-              onClick={() => handleNodeClick(m)}
+              onClick={(e) => handleNodeClick(m, e)}
             />
           );
         })}
@@ -504,138 +558,34 @@ function OrbitStage({
 /* ---------------- Interactive Joystick Neural Core ---------------- */
 function JoystickAiCore({
   offset,
-  onMove,
-  onReset,
-  onClick,
   targetedMod,
-  onHover,
 }: {
   offset: { x: number; y: number };
-  onMove: (x: number, y: number) => void;
-  onReset: () => void;
-  onClick: () => void;
   targetedMod: Mod | null;
-  onHover: () => void;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isPointerDownRef = useRef(false);
-
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const rawDx = e.clientX - centerX;
-    const rawDy = e.clientY - centerY;
-    const dist = Math.hypot(rawDx, rawDy);
-
-    let clampedX = rawDx;
-    let clampedY = rawDy;
-    if (dist > MAX_RADIUS) {
-      const angle = Math.atan2(rawDy, rawDx);
-      clampedX = Math.cos(angle) * MAX_RADIUS;
-      clampedY = Math.sin(angle) * MAX_RADIUS;
-    }
-
-    onMove(clampedX, clampedY);
-  };
-
-  const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
-    onHover();
-    handlePointerMove(e);
-  };
-
-  const handlePointerLeave = () => {
-    isPointerDownRef.current = false;
-    onReset();
-  };
-
-  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    isPointerDownRef.current = true;
-    if (e.pointerType === "touch") {
-      try {
-        e.currentTarget.setPointerCapture(e.pointerId);
-      } catch {}
-    }
-  };
-
-  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.pointerType === "touch") {
-      try {
-        e.currentTarget.releasePointerCapture(e.pointerId);
-      } catch {}
-    }
-    isPointerDownRef.current = false;
-    if (targetedMod) {
-      onClick();
-    }
-    onReset();
-  };
-
-  // Keyboard navigation support
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    let stepX = 0;
-    let stepY = 0;
-    if (e.key === "ArrowUp") stepY = -MAX_RADIUS;
-    else if (e.key === "ArrowDown") stepY = MAX_RADIUS;
-    else if (e.key === "ArrowLeft") stepX = -MAX_RADIUS;
-    else if (e.key === "ArrowRight") stepX = MAX_RADIUS;
-    else if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      if (targetedMod) onClick();
-      return;
-    } else if (e.key === "Escape") {
-      onReset();
-      return;
-    } else {
-      return;
-    }
-
-    e.preventDefault();
-    onMove(stepX, stepY);
-  };
-
-  const onKeyUp = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) {
-      if (targetedMod) onClick();
-      onReset();
-    }
-  };
-
   // 3D tilt calculation
-  const tiltX = (-offset.y / MAX_RADIUS) * 14;
-  const tiltY = (offset.x / MAX_RADIUS) * 14;
+  const maxTiltRadius = 120;
+  const tiltX = (-offset.y / maxTiltRadius) * 16;
+  const tiltY = (offset.x / maxTiltRadius) * 16;
 
   return (
-    <div
-      ref={containerRef}
-      onPointerEnter={handlePointerEnter}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
-      onPointerDown={handlePointerDown}
-      onPointerUp={handlePointerUp}
-      onClick={onClick}
-      className="relative flex items-center justify-center pointer-events-auto cursor-pointer"
-      style={{ width: 170, height: 170 }}
-    >
-      {/* Outer boundary orbit guide */}
-      <div className="absolute inset-0 rounded-full border border-purple-500/15 pointer-events-none" />
-
+    <div className="relative flex items-center justify-center pointer-events-none">
       {/* Target Preview Tooltip / Pill Badge */}
       <AnimatePresence>
         {targetedMod && (
           <motion.div
-            initial={{ opacity: 0, y: 6, scale: 0.92 }}
+            initial={{ opacity: 0, y: 8, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 4, scale: 0.92 }}
-            transition={{ duration: 0.18 }}
-            className="absolute -top-11 left-1/2 -translate-x-1/2 z-30 whitespace-nowrap px-3 py-1 rounded-full border bg-black/90 backdrop-blur-md shadow-lg flex items-center gap-1.5 pointer-events-none"
+            exit={{ opacity: 0, y: 6, scale: 0.9 }}
+            transition={{ duration: 0.16 }}
+            className="absolute -top-14 left-1/2 -translate-x-1/2 z-30 whitespace-nowrap px-3.5 py-1.5 rounded-full border bg-black/90 backdrop-blur-md shadow-xl flex items-center gap-2 pointer-events-none"
             style={{
               borderColor: targetedMod.color,
+              boxShadow: `0 4px 20px rgba(0,0,0,0.5)`,
             }}
           >
             <span
-              className="w-1.5 h-1.5 rounded-full"
+              className="w-1.5 h-1.5 rounded-full animate-pulse"
               style={{ background: targetedMod.color }}
             />
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white">
@@ -645,53 +595,39 @@ function JoystickAiCore({
         )}
       </AnimatePresence>
 
-      {/* Interactive Ball / Joystick Core */}
+      {/* Interactive Purple Central Ball (~28% larger: 98px diameter) */}
       <motion.div
-        role="button"
-        aria-label="Neural Core Joystick Navigation"
-        tabIndex={0}
-        onKeyDown={onKeyDown}
-        onKeyUp={onKeyUp}
-        className="relative flex items-center justify-center rounded-full select-none touch-none focus:outline-none focus:ring-1 focus:ring-purple-400/50"
+        className="relative flex items-center justify-center rounded-full select-none"
         style={{
-          width: 140,
-          height: 140,
-          touchAction: "none",
-          userSelect: "none",
+          width: 98,
+          height: 98,
+          background: "linear-gradient(145deg, #7E22CE 0%, #6B21A8 50%, #4C1D95 100%)",
+          boxShadow: "0 6px 22px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.25)",
+          border: targetedMod ? `2px solid ${targetedMod.color}` : "1.5px solid rgba(255, 255, 255, 0.18)",
         }}
         animate={{
           x: offset.x,
           y: offset.y,
           rotateX: tiltX,
           rotateY: tiltY,
+          scale: targetedMod ? 1.06 : 1,
         }}
-        transition={{ type: "spring", stiffness: 450, damping: 30 }}
+        transition={{
+          type: "spring",
+          stiffness: 420,
+          damping: 28,
+          mass: 0.8,
+        }}
       >
-        {/* Rotating subtle dashed ring */}
+        {/* Subtle rotating dashed inner ring */}
         <motion.div
-          className="absolute inset-2 rounded-full border border-dashed border-white/15 pointer-events-none"
+          className="absolute inset-1.5 rounded-full border border-dashed border-white/15 pointer-events-none"
           animate={{ rotate: 360 }}
           transition={{ duration: 28, ease: "linear", repeat: Infinity }}
         />
 
-        {/* Clean Central Nucleus Ball */}
-        <motion.div
-          className="relative flex items-center justify-center rounded-full pointer-events-none"
-          style={{
-            width: 76,
-            height: 76,
-            background: "linear-gradient(145deg, #7E22CE 0%, #6B21A8 50%, #4C1D95 100%)",
-            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.25)",
-            border: targetedMod ? `1.5px solid ${targetedMod.color}` : "1px solid rgba(255, 255, 255, 0.15)",
-          }}
-          animate={{
-            scale: targetedMod ? 1.05 : 1,
-          }}
-          transition={{ duration: 0.2 }}
-        >
-          {/* Sharp Processor Symbol */}
-          <Cpu className="w-7 h-7 text-white" />
-        </motion.div>
+        {/* Sharp, Centered Processor Symbol */}
+        <Cpu className="w-9 h-9 text-white pointer-events-none" />
       </motion.div>
     </div>
   );
@@ -703,29 +639,29 @@ function OrbitNode({
 }: {
   mod: Mod; xPct: number; yPct: number; delay: number;
   isTargeted?: boolean;
-  onHover: () => void; onClick: () => void;
+  onHover: () => void; onClick: (e: React.MouseEvent) => void;
 }) {
   return (
     <motion.button
       type="button"
       onMouseEnter={onHover}
       onClick={onClick}
-      className="group absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none z-20 cursor-pointer"
+      className="group absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none z-30 cursor-pointer pointer-events-auto"
       style={{ left: `${xPct}%`, top: `${yPct}%` }}
       initial={{ opacity: 0, scale: 0.7 }}
       animate={{
         opacity: 1,
-        scale: isTargeted ? 1.1 : 1,
+        scale: isTargeted ? 1.14 : 1,
       }}
       transition={{ delay, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ scale: 1.08 }}
+      whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
     >
       <div
         className={`relative flex flex-col items-center gap-1 rounded-xl border backdrop-blur-md px-2 py-1.5 transition-all duration-200 ${
           isTargeted
-            ? "border-white/60 bg-white/15"
-            : "border-white/10 bg-white/5 group-hover:border-white/25 group-hover:bg-white/10"
+            ? "border-white/60 bg-white/20 shadow-md"
+            : "border-white/10 bg-white/5 group-hover:border-white/30 group-hover:bg-white/10"
         }`}
         style={{
           borderColor: isTargeted ? mod.color : undefined,
