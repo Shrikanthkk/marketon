@@ -132,9 +132,9 @@ export default function Navbar() {
       >
         <Link
           to="/"
-          className="text-[20px] font-extrabold text-mk-navy tracking-tight hover:opacity-90 transition-opacity"
+          className="text-[20px] font-extrabold text-mk-navy tracking-tight hover:opacity-90 transition-opacity uppercase"
         >
-          marketon
+          MARKETHON
         </Link>
         <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
           {links.map((l) => {

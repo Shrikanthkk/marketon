@@ -288,7 +288,7 @@ function Hud({ soundOn, onToggleSound }: { soundOn: boolean; onToggleSound: () =
       <div className="flex items-center gap-3">
         <span className="inline-flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          MARKETON · AIOS v4.2
+          MARKETHON · AIOS v4.2
         </span>
         <span className="hidden sm:inline">SECURE LINK</span>
       </div>
@@ -440,7 +440,7 @@ function AiCore() {
       {/* core label */}
       <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-center">
         <div className="text-[10px] uppercase tracking-[0.3em] text-white/55 font-mono">Neural Core</div>
-        <div className="text-white/90 text-sm font-mono mt-0.5">MARKETON · ENGINE</div>
+        <div className="text-white/90 text-sm font-mono mt-0.5">MARKETHON · ENGINE</div>
       </div>
     </div>
   );
@@ -640,7 +640,7 @@ function NeuralRing({ color, value }: { color: string; value: number }) {
 
 /* ---- Voice ---- */
 const VOICE_SCRIPT = [
-  { who: "AI", text: "Hi Priya, this is Aria from Marketon. I'm calling about your interest in our automation plan." },
+  { who: "AI", text: "Hi Priya, this is Aria from MARKETHON. I'm calling about your interest in our automation plan." },
   { who: "Customer", text: "Yes, I filled out the form yesterday." },
   { who: "AI", text: "Great. May I share a 30-second overview tailored to your business?" },
   { who: "Customer", text: "Sure, go ahead." },

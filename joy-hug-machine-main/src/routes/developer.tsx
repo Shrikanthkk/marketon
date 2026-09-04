@@ -26,13 +26,13 @@ import AIOperationsRoom from "@/components/marketon/AIOperationsRoom";
 export const Route = createFileRoute("/developer")({
   head: () => ({
     meta: [
-      { title: "Developer Platform & APIs — MARKETON" },
+      { title: "Developer Platform & APIs — MARKETHON" },
       {
         name: "description",
         content:
-          "Build anything with MARKETON APIs. Integrate AI lead scoring, WhatsApp automation, and omnichannel workflows in Python, TypeScript, Node.js, Go, cURL, and more.",
+          "Build anything with MARKETHON APIs. Integrate AI lead scoring, WhatsApp automation, and omnichannel workflows in Python, TypeScript, Node.js, Go, cURL, and more.",
       },
-      { property: "og:title", content: "Developer Platform & APIs — MARKETON" },
+      { property: "og:title", content: "Developer Platform & APIs — MARKETHON" },
       {
         property: "og:description",
         content:
@@ -110,9 +110,9 @@ const TAGLINES: Record<LangKey, string> = {
 };
 
 const CODE_SNIPPETS: Record<LangKey, string> = {
-  Python: `from marketon import MarketonAI
+  Python: `from markethon import MarkethonAI
 
-client = MarketonAI(api_key="sk_live_...")
+client = MarkethonAI(api_key="sk_live_...")
 
 lead = client.lead_scoring.analyze(
     name="Rahul Sharma",
@@ -123,9 +123,9 @@ lead = client.lead_scoring.analyze(
 
 print(lead.score, lead.recommended_action)`,
 
-  JavaScript: `import { MarketonAI } from "marketon";
+  JavaScript: `import { MarkethonAI } from "markethon";
 
-const mk = new MarketonAI({ apiKey: process.env.MK_KEY });
+const mk = new MarkethonAI({ apiKey: process.env.MK_KEY });
 
 await mk.whatsapp.send({
   to: "+91 98765 43210",
@@ -134,7 +134,7 @@ await mk.whatsapp.send({
   trackOpens: true,
 });`,
 
-  TypeScript: `import { defineWorkflow, ai } from "marketon";
+  TypeScript: `import { defineWorkflow, ai } from "markethon";
 
 export const onboarding = defineWorkflow({
   trigger: "lead.created",
@@ -145,9 +145,9 @@ export const onboarding = defineWorkflow({
   ],
 });`,
 
-  "Node.js": `import { MarketonAI } from "marketon";
+  "Node.js": `import { MarkethonAI } from "markethon";
 
-const mk = new MarketonAI({ apiKey: process.env.MK_KEY });
+const mk = new MarkethonAI({ apiKey: process.env.MK_KEY });
 
 const result = await mk.crm.sync({
   provider: "hubspot",
@@ -158,10 +158,10 @@ const result = await mk.crm.sync({
 
 console.log(\`synced \${result.count} contacts\`);`,
 
-  React: `import { useMarketonAnalytics } from "@marketon/react";
+  React: `import { useMarkethonAnalytics } from "@markethon/react";
 
 export function Dashboard() {
-  const { data, live } = useMarketonAnalytics({
+  const { data, live } = useMarkethonAnalytics({
     metric: "conversion_rate",
     window: "24h",
     realtime: true,
@@ -170,7 +170,7 @@ export function Dashboard() {
   return <LiveChart points={data} pulse={live} />;
 }`,
 
-  cURL: `curl -X POST https://api.marketon.ai/v1/campaigns/optimize \\
+  cURL: `curl -X POST https://api.markethon.ai/v1/campaigns/optimize \\
   -H "Authorization: Bearer sk_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -181,11 +181,11 @@ export function Dashboard() {
 
   Go: `package main
 
-import "github.com/marketon/marketon-go"
+import "github.com/markethon/markethon-go"
 
 func main() {
-    mk := marketon.New("sk_live_...")
-    res, _ := mk.Automation.Batch(marketon.BatchInput{
+    mk := markethon.New("sk_live_...")
+    res, _ := mk.Automation.Batch(markethon.BatchInput{
         Workflow: "wf_nurture_v4",
         Leads:    leads,
         Parallel: 256,
@@ -195,7 +195,7 @@ func main() {
 
   PHP: `<?php
 require 'vendor/autoload.php';
-use Marketon\\Client;
+use Markethon\\Client;
 
 $mk = new Client(getenv('MK_KEY'));
 
@@ -208,10 +208,10 @@ $lead = $mk->leads->capture([
 
 echo "lead {$lead->id} scored {$lead->score}";`,
 
-  Java: `import ai.marketon.MarketonClient;
-import ai.marketon.enterprise.SyncRequest;
+  Java: `import ai.markethon.MarkethonClient;
+import ai.markethon.enterprise.SyncRequest;
 
-MarketonClient mk = MarketonClient.builder()
+MarkethonClient mk = MarkethonClient.builder()
     .apiKey(System.getenv("MK_KEY"))
     .region("ap-south-1")
     .build();
@@ -221,9 +221,9 @@ SyncResult r = mk.enterprise().sync(
 );`,
 
   "Next.js": `import { NextResponse } from "next/server";
-import { MarketonAI } from "marketon";
+import { MarkethonAI } from "markethon";
 
-const mk = new MarketonAI({ apiKey: process.env.MK_KEY! });
+const mk = new MarkethonAI({ apiKey: process.env.MK_KEY! });
 
 export async function POST(req: Request) {
   const { leadId } = await req.json();
@@ -553,7 +553,7 @@ function DeveloperApiSection() {
               <span className="w-3 h-3 rounded-full bg-[#28c840]" />
               <div className="ml-3 flex items-center gap-2 text-[11px] text-gray-400 font-mono">
                 <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">
-                  marketon-sdk
+                  markethon-sdk
                 </span>
                 <span>›</span>
                 <AnimatePresence mode="wait">
@@ -855,7 +855,7 @@ function DeveloperPage() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF5FF] border border-purple-200/80 text-mk-orange text-xs font-bold uppercase tracking-wider mb-6 shadow-[0_4px_20px_-4px_rgba(168,85,247,0.25)]"
             >
               <Code2 size={14} className="text-mk-orange" />
-              <span>MARKETON DEVELOPER PLATFORM</span>
+              <span>MARKETHON DEVELOPER PLATFORM</span>
             </motion.div>
 
             {/* Main Heading */}
@@ -865,7 +865,7 @@ function DeveloperPage() {
               transition={{ duration: 0.7, delay: 0.1, ease: EASE_EXPO }}
               className="font-display text-[40px] md:text-[64px] leading-[1.08] text-mk-heading max-w-4xl tracking-tight mb-6"
             >
-              Build anything with MARKETON APIs
+              Build anything with MARKETHON APIs
             </motion.h1>
 
             {/* Subtitle */}
@@ -950,7 +950,7 @@ function DeveloperPage() {
               <Zap size={20} />
             </div>
             <h2 className="font-display text-[32px] md:text-[46px] text-mk-heading leading-tight">
-              Ready to build with MARKETON APIs?
+              Ready to build with MARKETHON APIs?
             </h2>
             <p className="text-mk-body text-base max-w-lg mb-4">
               Get your API keys in 2 minutes and launch your first AI automation pipeline today.

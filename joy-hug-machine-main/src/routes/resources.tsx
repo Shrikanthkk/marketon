@@ -22,13 +22,13 @@ import { type ReactNode } from "react";
 export const Route = createFileRoute("/resources")({
   head: () => ({
     meta: [
-      { title: "Resources & Features — MARKETON AI" },
+      { title: "Resources & Features — MARKETHON AI" },
       {
         name: "description",
         content:
           "Every tool you need to convert leads. Explore the AI Brain Engine, Decision Engine, Omnichannel Automation, Voice Agents, and CRM tools.",
       },
-      { property: "og:title", content: "Resources — MARKETON AI Marketing Automation" },
+      { property: "og:title", content: "Resources — MARKETHON AI Marketing Automation" },
       {
         property: "og:description",
         content: "Every tool you need to convert leads into loyal customers.",
@@ -156,7 +156,7 @@ function ResourcesPage() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF5FF] border border-purple-200/80 text-mk-orange text-xs font-bold uppercase tracking-wider mb-6 shadow-[0_4px_20px_-4px_rgba(168,85,247,0.25)]"
             >
               <Sparkles size={14} className="text-mk-orange" />
-              <span>MARKETON RESOURCE HUB</span>
+              <span>MARKETHON RESOURCE HUB</span>
             </motion.div>
 
             {/* Main Heading */}
@@ -276,7 +276,7 @@ function ResourcesPage() {
               Ready to automate your marketing workflow?
             </h2>
             <p className="text-mk-body text-base max-w-lg mb-4">
-              Get started with MARKETON in minutes. Connect your favorite tools and launch AI
+              Get started with MARKETHON in minutes. Connect your favorite tools and launch AI
               orchestration across every channel.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">

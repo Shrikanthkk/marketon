@@ -14,7 +14,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const THEME_STORAGE_KEY = "marketon_theme";
+const THEME_STORAGE_KEY = "markethon_theme";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
@@ -22,7 +22,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(THEME_STORAGE_KEY) || localStorage.getItem("theme");
+      const stored = localStorage.getItem(THEME_STORAGE_KEY) || localStorage.getItem("marketon_theme") || localStorage.getItem("theme");
       if (stored === "brown-gold") {
         setThemeState("brown-gold");
         applyThemeClass("brown-gold");

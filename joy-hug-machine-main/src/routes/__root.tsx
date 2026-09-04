@@ -79,13 +79,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "MARKETON — AI Marketing Automation Platform" },
+      { title: "MARKETHON — AI Marketing Automation Platform" },
       { name: "description", content: "Marketing for all, Automated. Built on intelligent automation. Powered by AI decision engines. Delivering lead-to-customer conversion at scale." },
-      { property: "og:title", content: "MARKETON — AI Marketing Automation Platform" },
+      { property: "og:title", content: "MARKETHON — AI Marketing Automation Platform" },
       { property: "og:description", content: "AI-powered lead scoring, omnichannel automation, voice agents, and analytics — all in one platform." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "MARKETON — AI Marketing Automation Platform" },
+      { name: "twitter:title", content: "MARKETHON — AI Marketing Automation Platform" },
       { name: "twitter:description", content: "Marketing for all, Automated." },
     ],
     links: [
@@ -114,7 +114,7 @@ function RootShell({ children }: { children: ReactNode }) {
             __html: `
               (function() {
                 try {
-                  var saved = localStorage.getItem('marketon_theme') || localStorage.getItem('theme');
+                  var saved = localStorage.getItem('markethon_theme') || localStorage.getItem('marketon_theme') || localStorage.getItem('theme');
                   document.documentElement.classList.remove('dark', 'galaxy', 'brown-gold', 'light');
                   if (saved === 'brown-gold') {
                     document.documentElement.classList.add('dark', 'brown-gold');

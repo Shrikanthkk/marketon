@@ -51,7 +51,7 @@ export default function Footer() {
       <div className="footer-content max-w-6xl mx-auto px-6 py-16">
         <div className="flex flex-col md:flex-row md:justify-between gap-6 mb-12">
           <div>
-            <p className="footer-brand text-2xl font-extrabold">marketon</p>
+            <p className="footer-brand text-2xl font-extrabold">MARKETHON</p>
             <p className="text-sm mt-1">AI Marketing Automation Platform</p>
           </div>
         </div>
@@ -89,7 +89,7 @@ export default function Footer() {
           className="footer-divider h-px border-t mb-6"
         />
         <div className="flex flex-col md:flex-row justify-between gap-3 text-xs">
-          <p>© 2026 MARKETON. All rights reserved.</p>
+          <p>© 2026 MARKETHON. All rights reserved.</p>
           <p>
             <a className="cursor-pointer hover:underline">Privacy Policy</a> ·{" "}
             <a className="cursor-pointer hover:underline">Terms of Service</a>

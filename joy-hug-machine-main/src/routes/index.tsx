@@ -35,14 +35,14 @@ import { useTheme } from "@/lib/theme";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MARKETON — AI Marketing Automation Platform" },
+      { title: "MARKETHON — AI Marketing Automation Platform" },
       { name: "description", content: "Marketing for all, Automated. Built on intelligent automation. Powered by AI decision engines. Delivering lead-to-customer conversion at scale." },
-      { property: "og:title", content: "MARKETON — AI Marketing Automation Platform" },
+      { property: "og:title", content: "MARKETHON — AI Marketing Automation Platform" },
       { property: "og:description", content: "AI-powered lead scoring, omnichannel automation, voice agents, and analytics — all in one platform." },
       { property: "og:type", content: "website" },
     ],
   }),
-  component: MarketonPage,
+  component: MarkethonPage,
 });
 
 const EASE_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -944,7 +944,7 @@ function IntegrationStrip() {
   return (
     <section className="py-20 bg-mk-bg relative z-10">
       <p className="businesses-heading text-center text-[11px] tracking-[0.18em] font-semibold mb-8 uppercase">
-        BUSINESSES THAT RUN ON MARKETON
+        BUSINESSES THAT RUN ON MARKETHON
       </p>
       <div className="flex flex-col gap-6">
         <MarqueeRow items={r1} />
@@ -1875,19 +1875,19 @@ const CHAT_SCENARIOS: Record<keyof typeof THEMES, ChatScenario[]> = {
       draft: "Wanna collab on a reel next week?", reply: "100% let's do it 🚀" },
   ],
   "SMS": [
-    { name: "Marketon", avatar: "✉️", sub: "SMS · Today",
-      preset: [{ side:"in", text:"MARKETON: Your demo is confirmed for tomorrow 11 AM." }, { side:"in", text:"Reply YES to confirm, NO to reschedule." }],
+    { name: "MARKETHON", avatar: "✉️", sub: "SMS · Today",
+      preset: [{ side:"in", text:"MARKETHON: Your demo is confirmed for tomorrow 11 AM." }, { side:"in", text:"Reply YES to confirm, NO to reschedule." }],
       draft: "YES", reply: "✅ Confirmed. Calendar invite sent." },
-    { name: "Marketon OTP", avatar: "🔐", sub: "SMS",
+    { name: "MARKETHON OTP", avatar: "🔐", sub: "SMS",
       preset: [{ side:"in", text:"Your OTP is 482910. Valid for 5 min." }],
-      draft: "Got it, thanks!", reply: "✅ Verified. Welcome to Marketon." },
-    { name: "Marketon", avatar: "🎁", sub: "SMS",
+      draft: "Got it, thanks!", reply: "✅ Verified. Welcome to MARKETHON." },
+    { name: "MARKETHON", avatar: "🎁", sub: "SMS",
       preset: [{ side:"in", text:"Flash sale 🚀 24h only — 20% off all plans." }],
       draft: "Send me the link please", reply: "Here you go: mktn.co/sale" },
   ],
   "Telegram": [
-    { name: "Marketon Bot", avatar: "🤖", sub: "bot",
-      preset: [{ side:"in", text:"/start — Welcome to Marketon 🚀" }, { side:"in", text:"Choose an option:" }],
+    { name: "MARKETHON Bot", avatar: "🤖", sub: "bot",
+      preset: [{ side:"in", text:"/start — Welcome to MARKETHON 🚀" }, { side:"in", text:"Choose an option:" }],
       draft: "📊 View Dashboard", reply: "Loading live dashboard… ⚡" },
     { name: "LeadAlerts", avatar: "🔔", sub: "bot",
       preset: [{ side:"in", text:"🔥 New hot lead: Vikram R. — score 87" }],
@@ -1897,13 +1897,13 @@ const CHAT_SCENARIOS: Record<keyof typeof THEMES, ChatScenario[]> = {
       draft: "/report weekly", reply: "📈 Weekly report incoming…" },
   ],
   "Facebook Messenger": [
-    { name: "Marketon Support", avatar: "💬", sub: "● Active",
+    { name: "MARKETHON Support", avatar: "💬", sub: "● Active",
       preset: [{ side:"in", text:"Hey! Saw you visited our pricing page 👀" }, { side:"out", text:"Yes, comparing plans." }],
       draft: "Want me to match a competitor quote?", reply: "Yes please 💪" },
     { name: "Sneha · Sales", avatar: "👩🏼", sub: "● Active",
       preset: [{ side:"in", text:"Quick question about your team size?" }, { side:"out", text:"We're around 25 people." }],
       draft: "Got it — recommending the Growth plan 🌱", reply: "Sounds perfect, let's go 🚀" },
-    { name: "Marketon", avatar: "🛒", sub: "● Active",
+    { name: "MARKETHON", avatar: "🛒", sub: "● Active",
       preset: [{ side:"in", text:"Left something in your cart? 🛒" }],
       draft: "Here's a 15% nudge: BACK15 🎁", reply: "Just checked out, thanks!" },
   ],
@@ -2095,9 +2095,9 @@ function ChatShell({ theme, scenario }: { theme: ChatTheme; scenario: ChatScenar
 
 function LiveEmail() {
   const scenarios = [
-    { from: "Marketon Team", subject: "Your personalized offer is here 🎁", body: "Hi Rahul,\n\nBased on your interest, we've unlocked a 20% launch discount just for you.", code: "MARKETON20", cta: "Claim Offer" },
-    { from: "Priya · Marketon", subject: "Quick follow-up on your demo 📅", body: "Hi! Just confirming tomorrow's demo at 11 AM. Reply to reschedule.", code: "DEMO11", cta: "Add to Calendar" },
-    { from: "Marketon Insights", subject: "Your weekly leads report is ready 📊", body: "You captured 187 new leads this week — up 24% vs last week.", code: "REPORT", cta: "View Report" },
+    { from: "MARKETHON Team", subject: "Your personalized offer is here 🎁", body: "Hi Rahul,\n\nBased on your interest, we've unlocked a 20% launch discount just for you.", code: "MARKETHON20", cta: "Claim Offer" },
+    { from: "Priya · MARKETHON", subject: "Quick follow-up on your demo 📅", body: "Hi! Just confirming tomorrow's demo at 11 AM. Reply to reschedule.", code: "DEMO11", cta: "Add to Calendar" },
+    { from: "MARKETHON Insights", subject: "Your weekly leads report is ready 📊", body: "You captured 187 new leads this week — up 24% vs last week.", code: "REPORT", cta: "View Report" },
   ];
   const [idx, setIdx] = useState(0);
   useEffect(() => {
@@ -2171,7 +2171,7 @@ function ChannelPreview({ channel }: { channel: ChannelKey }) {
         <div className="flex flex-col h-full bg-gradient-to-b from-mk-navy to-[#0a1530] text-white">
           <div className="pt-8 text-center">
             <p className="text-[10px] uppercase tracking-widest opacity-60">Incoming AI Call</p>
-            <p className="text-base font-semibold mt-1">Marketon Assistant</p>
+            <p className="text-base font-semibold mt-1">MARKETHON Assistant</p>
             <p className="text-[11px] opacity-60">+1 (415) 555-0199</p>
           </div>
           <div className="flex-1 flex flex-col items-center justify-center gap-3">
@@ -2183,7 +2183,7 @@ function ChannelPreview({ channel }: { channel: ChannelKey }) {
                 <motion.span key={i} animate={{ height:[6, 4+Math.random()*30, 6] }} transition={{ duration:0.6+Math.random()*0.6, repeat:Infinity, delay:i*0.05 }} className="w-1 bg-mk-orange rounded-full" />
               ))}
             </div>
-            <p className="text-[11px] opacity-80 px-6 text-center italic">"Hi Rahul, this is Marketon AI. I'd like to confirm your demo for tomorrow at 11 AM…"</p>
+            <p className="text-[11px] opacity-80 px-6 text-center italic">"Hi Rahul, this is MARKETHON AI. I'd like to confirm your demo for tomorrow at 11 AM…"</p>
           </div>
           <div className="flex justify-around py-6">
             <div className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center"><Mail size={16} /></div>
@@ -2210,7 +2210,7 @@ function ChannelPreview({ channel }: { channel: ChannelKey }) {
               <motion.div key={i} initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }} transition={{ delay:i*0.15 }} className="bg-white/20 backdrop-blur-md rounded-xl p-2.5 border border-white/30">
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded bg-white/30 flex items-center justify-center"><Bell size={12} /></div>
-                  <p className="text-[10px] font-semibold flex-1">MARKETON</p>
+                  <p className="text-[10px] font-semibold flex-1">MARKETHON</p>
                   <p className="text-[9px] opacity-70">now</p>
                 </div>
                 <p className="text-[11px] font-semibold mt-1">{n.t}</p>
@@ -2225,7 +2225,7 @@ function ChannelPreview({ channel }: { channel: ChannelKey }) {
         <div className="flex flex-col h-full bg-mk-bg">
           <div className="px-3 py-2 pt-7 bg-white border-b border-mk-border flex items-center gap-2">
             <Sparkles size={14} className="text-mk-orange" />
-            <p className="text-sm font-bold text-mk-navy flex-1">Marketon App</p>
+            <p className="text-sm font-bold text-mk-navy flex-1">MARKETHON App</p>
             <Bell size={14} className="text-mk-navy" />
           </div>
           <div className="p-3 flex-1 flex flex-col gap-2">
@@ -2284,8 +2284,8 @@ const VOICE_AGENTS = [
 ];
 
 const VOICE_CONVERSATIONS: { ai: string; lead: string; close: string; tag: string }[] = [
-  { ai: "Hello, this is {bot} AI calling from Marketon.", lead: "Yes, I wanted to know more about pricing.", close: "Absolutely, I can schedule a quick demo today.", tag: "Pricing inquiry" },
-  { ai: "Hi! {bot} from Marketon — got 30 seconds?", lead: "Sure, what is this about?", close: "Perfect, I'll send the proposal right after this call.", tag: "Cold outreach" },
+  { ai: "Hello, this is {bot} AI calling from MARKETHON.", lead: "Yes, I wanted to know more about pricing.", close: "Absolutely, I can schedule a quick demo today.", tag: "Pricing inquiry" },
+  { ai: "Hi! {bot} from MARKETHON — got 30 seconds?", lead: "Sure, what is this about?", close: "Perfect, I'll send the proposal right after this call.", tag: "Cold outreach" },
   { ai: "Quick reminder from {bot} about tomorrow's appointment.", lead: "Oh yes, 11 AM works great.", close: "Confirmed — you'll get a WhatsApp reminder shortly.", tag: "Appointment" },
   { ai: "Hey, this is {bot} following up on your enquiry.", lead: "I'm still comparing a few options.", close: "Got it — I'll share a side-by-side comparison now.", tag: "Follow-up" },
   { ai: "Hi, {bot} here — your demo link is ready.", lead: "Awesome, can we move it to Friday?", close: "Done. Rescheduling to Friday 4 PM.", tag: "Reschedule" },
@@ -2716,7 +2716,7 @@ function WorkflowTab() {
             <span className="w-2.5 h-2.5 rounded-full bg-rose-400/80" />
             <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
-            <span className="ml-3 text-[10px] font-mono uppercase tracking-[0.22em] text-white/55">marketon ▸ automation.engine</span>
+            <span className="ml-3 text-[10px] font-mono uppercase tracking-[0.22em] text-white/55">MARKETHON ▸ AUTOMATION.ENGINE</span>
           </div>
           <div className="flex items-center gap-2">
             <motion.span
@@ -4283,7 +4283,7 @@ function ScoringRing({ size, accent, value, duration = 2 }: { size: number; acce
 
 /* ---- Voice ---- */
 const VOICE_LINES = [
-  { who: "AI",   text: "Hi Aarav, this is Maya from Marketon. Is this a good time?" },
+  { who: "AI",   text: "Hi Aarav, this is Maya from MARKETHON. Is this a good time?" },
   { who: "User", text: "Yes, please go ahead." },
   { who: "AI",   text: "Great — I noticed you explored our growth plan. Want a quick walkthrough?" },
   { who: "User", text: "Sure, can we schedule for tomorrow at 4pm?" },
@@ -4505,12 +4505,12 @@ function WorkflowDemo({ accent }: { accent: string }) {
 
 /* ---------- SDK chips with code peek ---------- */
 const SDK_SNIPPETS: Record<string, { lang: string; code: string }> = {
-  "REST API":  { lang: "bash",  code: `curl -X POST https://api.marketon.ai/v1/score \\\n  -H "Authorization: Bearer $KEY" \\\n  -d '{"lead_id":"ld_812"}'` },
-  "Python SDK":{ lang: "py",    code: `from marketon import Client\nc = Client(api_key=KEY)\nc.leads.score("ld_812")` },
-  "JS SDK":    { lang: "ts",    code: `import { Marketon } from "marketon";\nconst mk = new Marketon({ key: KEY });\nawait mk.leads.score("ld_812");` },
-  "Go SDK":    { lang: "go",    code: `client := marketon.New(KEY)\nclient.Leads.Score(ctx, "ld_812")` },
-  "Java SDK":  { lang: "java",  code: `Marketon mk = new Marketon(KEY);\nmk.leads().score("ld_812");` },
-  "Playground":{ lang: "info",  code: `// Try every endpoint live\n// → playground.marketon.ai` },
+  "REST API":  { lang: "bash",  code: `curl -X POST https://api.markethon.ai/v1/score \\\n  -H "Authorization: Bearer $KEY" \\\n  -d '{"lead_id":"ld_812"}'` },
+  "Python SDK":{ lang: "py",    code: `from markethon import Client\nc = Client(api_key=KEY)\nc.leads.score("ld_812")` },
+  "JS SDK":    { lang: "ts",    code: `import { Markethon } from "markethon";\nconst mk = new Markethon({ key: KEY });\nawait mk.leads.score("ld_812");` },
+  "Go SDK":    { lang: "go",    code: `client := markethon.New(KEY)\nclient.Leads.Score(ctx, "ld_812")` },
+  "Java SDK":  { lang: "java",  code: `Markethon mk = new Markethon(KEY);\nmk.leads().score("ld_812");` },
+  "Playground":{ lang: "info",  code: `// Try every endpoint live\n// → playground.markethon.ai` },
 };
 
 function SdkChips() {
@@ -4679,7 +4679,7 @@ function CinematicAutomationPlayer() {
           />
           <span>rec</span>
           <span className="text-white/40">·</span>
-          <span>marketon.ai</span>
+          <span>markethon.ai</span>
         </div>
         <span className="text-white/70">cinematic reel</span>
       </div>
@@ -4735,7 +4735,7 @@ function CinematicAutomationPlayer() {
         <div className="mt-3 flex items-center justify-between text-[11px] text-mk-body">
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>Marketon · cinematic ad reel</span>
+            <span>MARKETHON · cinematic ad reel</span>
           </div>
           <span className="font-mono uppercase tracking-wider text-mk-muted">tap to expand</span>
         </div>
@@ -5116,7 +5116,7 @@ function MarketingFuture() {
   const { isGalaxy } = useTheme();
   const points = [
     { t: "Intelligent by design", d: "Build, deploy, and run automated marketing systems with complete control.", hl: ["intelligent systems"] },
-    { t: "AI decision engines",   d: "Marketon decides the best channel, time, message, follow-up, and next action.", hl: ["AI decision engines"] },
+    { t: "AI decision engines",   d: "MARKETHON decides the best channel, time, message, follow-up, and next action.", hl: ["AI decision engines"] },
     { t: "Human at the core",     d: "Sales and marketing teams stay in control while AI handles repetitive execution.", hl: ["human control"] },
   ];
 
@@ -6059,7 +6059,7 @@ function FinalCta() {
           Start automating your<br />marketing today.
         </h2>
         <p className="text-mk-body max-w-md">
-          Join 500+ businesses converting more leads with MARKETON.
+          Join 500+ businesses converting more leads with MARKETHON.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <button className="mk-btn-navy">Sign up <ArrowRight size={16} /></button>
@@ -6072,7 +6072,7 @@ function FinalCta() {
 
 /* ----------------------------- Page ----------------------------- */
 
-function MarketonPage() {
+function MarkethonPage() {
   return (
     <MotionConfig reducedMotion="user">
       <main className="bg-mk-bg text-mk-heading">
