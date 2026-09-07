@@ -26,6 +26,7 @@ import HeroShaderBackground from "@/components/marketon/HeroShaderBackground";
 import AIOperationsRoom from "@/components/marketon/AIOperationsRoom";
 import Navbar from "@/components/marketon/Navbar";
 import Footer from "@/components/marketon/Footer";
+import TimelineRoadmap from "@/components/marketon/TimelineRoadmap";
 import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip,
 } from "recharts";
@@ -5871,11 +5872,69 @@ function InfraGrid() {
 
 function CaseStudies() {
   const { isGalaxy } = useTheme();
+  const [showAll, setShowAll] = useState(false);
+
   const c = [
-    { tag: "Real Estate Agency", h: "3x increase in site visits", d: "Automated WhatsApp follow-ups and AI scheduling tripled qualified site visits within 60 days." },
-    { tag: "Education Institute", h: "6,500+ student leads automated", d: "End-to-end lead capture, nurture, and admission counselling — fully automated across channels." },
-    { tag: "Healthcare Clinic", h: "72% appointment confirmation rate", d: "Voice AI reminders and rebooking flows doubled show-up rates across three clinic locations." },
+    {
+      tag: "Real Estate Agency",
+      h: "3x increase in site visits",
+      d: "Automated WhatsApp follow-ups and AI scheduling tripled qualified site visits within 60 days.",
+    },
+    {
+      tag: "Education Institute",
+      h: "6,500+ student leads automated",
+      d: "End-to-end lead capture, nurture, and admission counselling — fully automated across channels.",
+    },
+    {
+      tag: "Healthcare Hospital",
+      h: "72% appointment confirmation rate",
+      d: "Voice AI reminders and rebooking flows doubled show-up rates across three clinic locations.",
+    },
+    {
+      tag: "Automobiles",
+      h: "45% increase in qualified enquiries",
+      d: "AI-powered lead qualification and automated follow-ups helped dealerships convert more vehicle enquiries into showroom visits.",
+    },
+    {
+      tag: "Logistics",
+      h: "38% faster customer response",
+      d: "Omnichannel automation streamlined shipment enquiries, quotation requests, status updates, and customer communication.",
+    },
+    {
+      tag: "Manufacturing",
+      h: "3x more B2B leads generated",
+      d: "Automated lead nurturing and intelligent segmentation helped manufacturers connect with more qualified distributors and buyers.",
+    },
+    {
+      tag: "Banking",
+      h: "62% faster lead processing",
+      d: "Secure AI automation improved customer enquiry handling, service requests, appointment scheduling, and lead assignment.",
+    },
+    {
+      tag: "Construction",
+      h: "2.5x increase in project enquiries",
+      d: "Automated campaigns and intelligent follow-ups helped construction companies capture and convert more project enquiries.",
+    },
+    {
+      tag: "Food & Consumer",
+      h: "40% growth in repeat customers",
+      d: "Personalized campaigns and automated engagement helped food brands increase customer retention and repeat purchases.",
+    },
+    {
+      tag: "FMCG",
+      subTag: "Fast-Moving Consumer Goods",
+      h: "5x faster campaign execution",
+      d: "AI-powered segmentation and omnichannel automation helped FMCG brands launch targeted campaigns and engage customers at scale.",
+    },
+    {
+      tag: "Energy",
+      h: "35% increase in qualified leads",
+      d: "Automated lead capture and intelligent nurturing helped energy businesses improve customer acquisition and service enquiries.",
+    },
   ];
+
+  const visibleCards = showAll ? c : c.slice(0, 6);
+
   return (
     <section id="case-studies" className="py-24 md:py-32 relative overflow-hidden transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -5889,44 +5948,91 @@ function CaseStudies() {
             </h2>
           </Reveal>
           <Reveal>
-            <button className="mk-btn-outline">View all case studies →</button>
+            <button
+              type="button"
+              onClick={() => setShowAll((prev) => !prev)}
+              className="mk-btn-outline cursor-pointer"
+            >
+              {showAll ? "View less case studies ↑" : "View all case studies →"}
+            </button>
           </Reveal>
         </div>
-        <div className="grid md:grid-cols-3 gap-5">
-          {c.map((x, i) => (
-            <Reveal key={x.h} delay={i * 0.08}>
-              <div
-                className="p-6 rounded-2xl h-full flex flex-col gap-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 backdrop-blur-md"
-                style={{
-                  backgroundColor: "var(--section-card-bg)",
-                  border: "1px solid var(--section-border)",
-                  boxShadow: isGalaxy ? "0 4px 20px rgba(0,0,0,0.4)" : "0 4px 20px rgba(0,0,0,0.04)",
-                }}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <AnimatePresence initial={false}>
+            {visibleCards.map((x, i) => (
+              <motion.div
+                key={x.tag}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 24 }}
+                transition={{ duration: 0.45, delay: i >= 6 ? (i - 6) * 0.08 : i * 0.05, ease: EASE_EXPO }}
+                className="h-full"
               >
-                <span className="text-xs font-bold text-mk-orange uppercase tracking-wider">{x.tag}</span>
-                <h3
-                  className="font-display text-2xl font-bold leading-snug"
-                  style={{ color: "var(--section-heading)" }}
+                <div
+                  className="p-6 rounded-2xl h-full flex flex-col gap-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 backdrop-blur-md group"
+                  style={{
+                    backgroundColor: "var(--section-card-bg)",
+                    border: "1px solid var(--section-border)",
+                    boxShadow: isGalaxy ? "0 4px 20px rgba(0,0,0,0.4)" : "0 4px 20px rgba(0,0,0,0.04)",
+                  }}
                 >
-                  {x.h}
-                </h3>
-                <p
-                  className="text-sm flex-1 leading-relaxed"
-                  style={{ color: "var(--section-text)" }}
-                >
-                  {x.d}
-                </p>
-                <a
-                  href="/#case-studies"
-                  className="font-semibold text-sm hover:text-mk-orange transition-colors flex items-center gap-1.5"
-                  style={{ color: "var(--section-heading)" }}
-                >
-                  <span>Read case study</span>
-                  <span>→</span>
-                </a>
-              </div>
-            </Reveal>
-          ))}
+                  <div className="flex flex-col">
+                    <span className="text-xs font-bold text-mk-orange uppercase tracking-wider">{x.tag}</span>
+                    {x.subTag && (
+                      <span
+                        className="text-[11px] font-medium tracking-normal mt-0.5"
+                        style={{ color: "var(--section-text)", opacity: 0.85 }}
+                      >
+                        {x.subTag}
+                      </span>
+                    )}
+                  </div>
+                  <h3
+                    className="font-display text-2xl font-bold leading-snug"
+                    style={{ color: "var(--section-heading)" }}
+                  >
+                    {x.h}
+                  </h3>
+                  <p
+                    className="text-sm flex-1 leading-relaxed"
+                    style={{ color: "var(--section-text)" }}
+                  >
+                    {x.d}
+                  </p>
+                  <a
+                    href="/#case-studies"
+                    className="font-semibold text-sm hover:text-mk-orange transition-colors flex items-center gap-1.5 mt-auto pt-2"
+                    style={{ color: "var(--section-heading)" }}
+                  >
+                    <span>Read case study</span>
+                    <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* Centered View More / Show Less Button */}
+        <div className="flex justify-center mt-12">
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            type="button"
+            onClick={() => setShowAll((prev) => !prev)}
+            className="mk-btn-outline px-8 py-3 rounded-full text-sm font-semibold flex items-center gap-2 cursor-pointer shadow-sm transition-all duration-300"
+            style={{
+              backgroundColor: "var(--section-card-bg)",
+              borderColor: "var(--section-border)",
+              color: "var(--section-heading)",
+            }}
+          >
+            <span>{showAll ? "Show Less" : "View More Industries"}</span>
+            <span className="text-mk-orange font-bold">
+              {showAll ? "↑" : `(${c.length - 6} more) ↓`}
+            </span>
+          </motion.button>
         </div>
       </div>
     </section>
@@ -6051,64 +6157,7 @@ function Enterprise() {
 /* ----------------------------- Roadmap ----------------------------- */
 
 function Roadmap() {
-  const { isGalaxy } = useTheme();
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 80%", "end 30%"] });
-  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const weeks = [
-    { i: <CheckCircle2 size={24} className="text-mk-orange" />, t: "Week 1 — Foundation", d: "CRM setup, lead source integration, WhatsApp Business API, basic flows." },
-    { i: <Zap size={24} className="text-[#5278FF]" />, t: "Week 2 — AI Activation", d: "Lead scoring, AI decision engine, omnichannel setup, content AI." },
-    { i: <BarChart3 size={24} className="text-emerald-400" />, t: "Week 3 — Optimization", d: "Analytics, retargeting, voice AI, prediction models." },
-    { i: <Rocket size={24} className="text-purple-400" />, t: "Week 4 — Scale", d: "Campaign optimization, team expansion, advanced reporting, ROI tracking." },
-  ];
-  return (
-    <section ref={ref} className="py-24 md:py-32 relative overflow-hidden transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <Reveal>
-          <h2
-            className="font-display text-[32px] md:text-[48px] text-center mb-16 leading-tight"
-            style={{ color: "var(--section-heading)" }}
-          >
-            Go live in 4 weeks
-          </h2>
-        </Reveal>
-        <div className="relative">
-          <div className="hidden md:block absolute left-0 right-0 top-9 h-0.5" style={{ backgroundColor: "var(--section-border)" }} />
-          <motion.div style={{ scaleX: scaleY }} className="hidden md:block absolute left-0 right-0 top-9 h-0.5 bg-mk-orange origin-left" />
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-4">
-            {weeks.map((w) => (
-              <div key={w.t} className="flex md:flex-col gap-4 items-start md:items-center text-center">
-                <div
-                  className="relative z-10 w-[72px] h-[72px] flex-shrink-0 rounded-full flex items-center justify-center border-2 backdrop-blur-md"
-                  style={{
-                    backgroundColor: "var(--section-card-bg)",
-                    borderColor: "var(--section-border)",
-                    boxShadow: isGalaxy ? "0 4px 20px rgba(0,0,0,0.5)" : "0 4px 20px rgba(0,0,0,0.06)",
-                  }}
-                >
-                  {w.i}
-                </div>
-                <div className="md:text-center text-left">
-                  <h4
-                    className="font-bold text-lg leading-snug"
-                    style={{ color: "var(--section-heading)" }}
-                  >
-                    {w.t}
-                  </h4>
-                  <p
-                    className="text-sm mt-2 leading-relaxed"
-                    style={{ color: "var(--section-text)" }}
-                  >
-                    {w.d}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <TimelineRoadmap />;
 }
 
 /* ----------------------------- Final CTA ----------------------------- */
@@ -6128,7 +6177,7 @@ function FinalCta() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <button className="mk-btn-navy">Sign up <ArrowRight size={16} /></button>
-          <button className="mk-btn-outline">Contact Us</button>
+          <button className="mk-btn-outline">Plan an Appointment</button>
         </div>
       </div>
     </section>

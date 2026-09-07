@@ -4,6 +4,9 @@ import { motion, AnimatePresence, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useTheme } from "@/lib/theme";
+import logoNavy from "@/assets/markethon-logo.png";
+import logoWhite from "@/assets/markethon-logo-white.png";
+import logoGold from "@/assets/markethon-logo-gold.png";
 
 const EASE_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -77,6 +80,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const { isGalaxy, theme } = useTheme();
   const isBrownGold = theme === "brown-gold";
+  const logoSrc = isBrownGold ? logoGold : isGalaxy ? logoWhite : logoNavy;
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
@@ -132,9 +136,14 @@ export default function Navbar() {
       >
         <Link
           to="/"
-          className="text-[20px] font-extrabold text-mk-navy tracking-tight hover:opacity-90 transition-opacity uppercase"
+          className="flex items-center hover:opacity-90 transition-opacity py-0.5"
+          aria-label="MARKETHON Home"
         >
-          MARKETHON
+          <img
+            src={logoSrc}
+            alt="MARKETHON"
+            className="h-6 sm:h-7 w-auto object-contain transition-all duration-200"
+          />
         </Link>
         <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
           {links.map((l) => {
@@ -156,7 +165,7 @@ export default function Navbar() {
             type="button"
             className="px-4 py-2 rounded-full bg-white border border-mk-navy text-mk-navy text-[13px] font-semibold hover:bg-mk-navy hover:text-white transition cursor-pointer"
           >
-            Contact Us
+            Plan an Appointment
           </button>
         </div>
         <div className="flex items-center gap-2 md:hidden">
@@ -224,7 +233,7 @@ export default function Navbar() {
               <ThemeToggle showLabel />
             </div>
             <button type="button" className="mk-btn-navy justify-center w-full">Log in</button>
-            <button type="button" className="mk-btn-outline justify-center w-full">Contact Us</button>
+            <button type="button" className="mk-btn-outline justify-center w-full">Plan an Appointment</button>
           </motion.div>
         )}
       </AnimatePresence>

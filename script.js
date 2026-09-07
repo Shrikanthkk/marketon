@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         } catch (error) {
           console.error('Form submission error:', error);
-          alert('Network error. Please try again or contact us directly via WhatsApp.');
+          alert('Network error. Please try again or plan an appointment directly via WhatsApp.');
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
@@ -304,7 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       document.body.appendChild(starLayer);
     }
-  };
 
     // Sync checkboxes
     const checkboxes = document.querySelectorAll('.rocket-switch input[type="checkbox"], .toggle-input, .custom-toggle input[type="checkbox"]');

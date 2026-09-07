@@ -1,8 +1,17 @@
 import { motion } from "framer-motion";
+import { useTheme } from "@/lib/theme";
+import logoNavy from "@/assets/markethon-logo.png";
+import logoWhite from "@/assets/markethon-logo-white.png";
+import logoGold from "@/assets/markethon-logo-gold.png";
 
 const EASE_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Footer() {
+  const { theme } = useTheme();
+  const isBrownGold = theme === "brown-gold";
+  const isGalaxy = theme === "galaxy" || theme === "dark";
+  const logoSrc = isBrownGold ? logoGold : isGalaxy ? logoWhite : logoNavy;
+
   const cols = [
     {
       t: "Platform",
@@ -41,7 +50,7 @@ export default function Footer() {
         { label: "Blog", href: "/resources" },
         { label: "Careers", href: "/#company" },
         { label: "Press", href: "/#company" },
-        { label: "Contact", href: "/#company" },
+        { label: "Plan an Appointment", href: "/#company" },
       ],
     },
   ];
@@ -51,8 +60,12 @@ export default function Footer() {
       <div className="footer-content max-w-6xl mx-auto px-6 py-16">
         <div className="flex flex-col md:flex-row md:justify-between gap-6 mb-12">
           <div>
-            <p className="footer-brand text-2xl font-extrabold">MARKETHON</p>
-            <p className="text-sm mt-1">AI Marketing Automation Platform</p>
+            <img
+              src={logoSrc}
+              alt="MARKETHON"
+              className="h-7 w-auto object-contain mb-2"
+            />
+            <p className="text-sm mt-1 text-mk-muted">AI Marketing Automation Platform</p>
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
