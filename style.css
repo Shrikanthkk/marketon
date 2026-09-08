@@ -361,6 +361,7 @@ p {
   width: auto;
   object-fit: contain;
   display: block;
+  content: url("assets/images/markethon-logo-white.png");
 }
 
 .dark .brand-logo-img,
@@ -425,6 +426,18 @@ p {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.md-hide-desktop {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .md-hide-desktop {
+    display: flex !important;
+    align-items: center;
+    gap: 0.5rem;
+  }
 }
 
 /* Mobile Hamburger Toggle */
@@ -801,9 +814,12 @@ p {
 
 .hub-metric-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 0.75rem;
   font-size: 0.72rem;
   color: var(--text-light);
+  white-space: nowrap;
 }
 
 .hub-metric-row span:last-child {

@@ -1,0 +1,12 @@
+﻿{
+  "name": "markethon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MARKETHON — AI Marketing Automation Platform",
+  "scripts": {
+    "dev": "npm --prefix joy-hug-machine-main run dev",
+    "build": "npm --prefix joy-hug-machine-main run build",
+    "preview": "npm --prefix joy-hug-machine-main run preview",
+    "start": "npm --prefix joy-hug-machine-main run dev"
+  }
+}
